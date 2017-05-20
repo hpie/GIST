@@ -74,13 +74,13 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 /*Test */
-/*
+
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => '',
-	'database' => 'gist',
+	'password' => 'hpie@edu',
+	'database' => 'cdac_gist',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -95,17 +95,18 @@ $db['default'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
-*/
+
 
 /* Prod */
 
+/*
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => '208.91.198.196',
 	'username' => 'gist_db_user',
 	'password' => 'G1stD*p@ss',
 	'database' => 'cdac_gist',
-	'dbdriver' => 'mssql',
+	'dbdriver' => 'sqlsrv',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
@@ -119,6 +120,5 @@ $db['default'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE	
-
-	
+*/	
 );
