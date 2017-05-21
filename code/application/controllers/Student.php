@@ -36,7 +36,7 @@ class Student extends CI_Controller {
 		//$this->load->view('welcome_message');
 		$this->_example_output((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
 /*
-		echo "<style type='text/css'>
+		echo "<style type='text/css'>	
 				body
 				{
 				    font-family: Arial;
@@ -82,7 +82,7 @@ class Student extends CI_Controller {
 
 			//$crud->set_theme('datatables');
 			$crud->set_table('atc_student_enquiry');
-			$crud->set_subject('Student Enquiery');
+			$crud->set_subject('Student Enquiry');
 			
 			//$crud->set_primary_key('ID','atc_student_enquiry');
 			 
@@ -221,6 +221,100 @@ class Student extends CI_Controller {
 		}
 	}
 	
+	function  register(){
+		try{
+			$crud = new grocery_CRUD();
+			
+			//$crud->set_theme('datatables');
+			echo "debug";
+			$crud->set_table('atc_student_registration');
+			$crud->set_subject('Student Registration');
+			
+			$crud->set_primary_key('student_id','atc_student_registration');
+			
+			// Custom Display Names
+			$crud->display_as('student_id','Student ID');
+			$crud->display_as('first_name','First Name');
+			$crud->display_as('last_name','Last Name');
+			$crud->display_as('contact_phone','Contact Number');
+			$crud->display_as('admission_dt','Admission Date');
+			
+			
+			// Fields to be Displayed in Add Form
+			$crud->add_fields('first_name', 'last_name', 'center_code', 'admission_dt', 'gender',
+					'contact_phone', 'email_id', 'date_of_birth', 'student_status', 'current_address_line1',
+					'current_address_line2', 'current_address_city', 'current_address_dist', 'current_address_state',
+					'current_address_pincode', 'permanent_address_line1', 'permanent_address_line2',
+					'permanent_address_city', 'permanent_address_dist',
+					'permanent_address_state', 'permanent_address_pincode');
+			
+			
+			// Fields to be Displayed in Edit Form
+			$crud->edit_fields(
+					'contact_phone', 'student_status', 'current_address_line1',
+					'current_address_line2', 'current_address_city', 'current_address_dist', 'current_address_state',
+					'current_address_pincode', 'permanent_address_line1', 'permanent_address_line2',
+					'permanent_address_city', 'permanent_address_dist',
+					'permanent_address_state', 'permanent_address_pincode');
+			
+			
+			
+			// Limit View Columns
+			$crud->columns('student_id','first_name','last_name','contact_phone','admission_dt');
+			//$crud->columns('enquiry_id','first_name','last_name','intended_course','enquiry_dt');   //center code not required in case of ATC role
+			
+			
+			//$crud->field_type('enquiry_status','dropdown', array('E' => 'Enquired', 'P' => 'Prospectus Purchased', 'C' => 'Cancelled' ));
+			
+			
+			//state base actions
+			$state = $crud->getState();
+			$state_info = $crud->getStateInfo();
+			
+			if ($state == 'add' || $state == 'insert_validation' || $state == 'insert')
+			{
+				$crud->required_fields('student_id','first_name', 'last_name', 'center_code', 'admission_dt', 'gender',
+						'contact_phone', 'email_id', 'date_of_birth', 'student_status', 'current_address_line1',
+						'current_address_city', 'current_address_dist', 'current_address_state',
+						'current_address_pincode', 'permanent_address_line1',
+						'permanent_address_city', 'permanent_address_dist',
+						'permanent_address_state', 'permanent_address_pincode');
+				//$crud->getModel()->set_add_value('created_by', "system");
+				$crud->field_type('created_by', 'hidden', "system");
+				//TODO
+				// Make prospectus_number and mandatory if  enquiry_status == "P"
+			}
+			elseif ($state == 'edit' || $state == 'update_validation' || $state == 'update')
+			{
+				//$primary_key = $state_info->primary_key;
+				$crud->required_fields('contact_phone', 'student_status', 'current_address_line1',
+					    'current_address_city', 'current_address_dist', 'current_address_state',
+						'current_address_pincode', 'permanent_address_line1', 
+						'permanent_address_city', 'permanent_address_dist',
+						'permanent_address_state', 'permanent_address_pincode');
+// 				$crud->field_type('enquiry_id', 'readonly');
+// 				$crud->field_type('center_code', 'readonly');
+// 				$crud->field_type('modified_by', 'hidden', "system");
+		
+			}
+			else
+			{
+				//$this->_example_output($output);
+			}
+			
+			
+			
+			$output = $crud->render();
+			echo "debug";
+			
+			$this->_crud_enquiry_output($output);
+			//$this->_example_output($output);
+			
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+		
+	}
 	// Render View
     function _callback_make_readonly($crud = null)
 	{
@@ -234,7 +328,7 @@ class Student extends CI_Controller {
 	// Render View
     function _crud_enquiry_output($output = null)
 	{
-	        $this->load->view('student/enquiry.php',(array)$output);
+	        $this->load->view('student/student.php',(array)$output);
     }
 	
 }

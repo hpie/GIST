@@ -56,8 +56,9 @@ $route['login'] = 'user/login';
 $route['logout'] = 'user/logout';
 
 // Student Module  //
-//$route['atc'] = 'student';
-//$route['atc/student'] = 'student/enquiry';
+$route['atc'] = 'student';
+$route['atc/student'] = 'student';
+
 //$route['atc/register'] = 'student/register';
 
 //$route['atc/(:any)'] = 'student';
