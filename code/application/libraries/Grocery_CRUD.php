@@ -1821,19 +1821,37 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 
 		return $list;
 	}
-
+	
+	/* SUNIL */
+	//public function getModel() 
+	//{
+	//  if($this->basic_model === null)
+	//   $this->set_default_Model();
+	//  return $this->basic_model;
+	//}
+	
+	/* SUNIL */
+	//protected function get_add_values() 
+	//{
+	//  $values = $this->basic_model->get_add_values();
+	//  return $values;
+	//}	
+	
 	protected function showAddForm()
 	{
 		$this->set_js_lib($this->default_javascript_path.'/'.grocery_CRUD::JQUERY);
 
 		$data 				= $this->get_common_data();
 		$data->types 		= $this->get_field_types();
+		
+		///* SUNIL */ $data->field_values = $this->get_add_values(null);
 
 		$data->list_url 		= $this->getListUrl();
 		$data->insert_url		= $this->getInsertUrl();
 		$data->validation_url	= $this->getValidationInsertUrl();
 		$data->input_fields 	= $this->get_add_input_fields();
-
+		///* SUNIL */ $data->input_fields  = $this->get_add_input_fields($data->field_values);
+		
 		$data->fields 			= $this->get_add_fields();
 		$data->hidden_fields	= $this->get_add_hidden_fields();
 		$data->unset_back_to_list	= $this->unset_back_to_list;

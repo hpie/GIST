@@ -34,6 +34,9 @@ class Grocery_crud_model  extends CI_Model  {
 	protected $relation = array();
 	protected $relation_n_n = array();
 	protected $primary_keys = array();
+	
+	/* SUNIL */
+	//protected $add_values = array();
 
 	function __construct()
     {
@@ -583,5 +586,18 @@ class Grocery_crud_model  extends CI_Model  {
     {
     	return $this->db->escape_str($value);
     }
+	
+	
+	/* SUNIL */
+	//function set_add_value($field_name, $value) 
+	//{
+  	//	$this->add_values[$field_name] = $value;
+	//}
+
+	/* SUNIL */
+	//function get_add_values() 
+	//{
+  	//	return (object) $this->add_values;
+	//}
 
 }
