@@ -25,6 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $config['base_url'] = 'http://localhost/';
 //$config['base_url'] = 'http://gist.solutionathpie.com/';
+//$config['base_url'] = defined('BASE_URL') ? BASE_URL : '';
 
 /*
 |--------------------------------------------------------------------------
@@ -139,7 +140,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FALSE;
+$config['composer_autoload'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------

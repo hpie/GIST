@@ -39,7 +39,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |  $autoload['packages'] = array(APPPATH.'third_party', '/usr/local/shared');
 |
 */
-$autoload['packages'] = array();
+$autoload['packages'] = array(
+	APPPATH.'third_party/ion_auth',
+	APPPATH.'third_party/grocery_crud',
+	APPPATH.'third_party/image_crud',
+	APPPATH.'third_party/rest_server'
+);
 
 /*
 | -------------------------------------------------------------------
@@ -59,7 +64,8 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
 //$autoload['libraries'] = array();
-$autoload['libraries'] = array('database', 'email', 'session');
+//$autoload['libraries'] = array('database', 'email', 'session');
+$autoload['libraries'] = array('database', 'ion_auth', 'form_validation');
 /*
 | -------------------------------------------------------------------
 |  Auto-load Drivers
@@ -90,7 +96,8 @@ $autoload['drivers'] = array();
 |	$autoload['helper'] = array('url', 'file');
 */
 //$autoload['helper'] = array();
-$autoload['helper'] = array('url', 'file');
+//$autoload['helper'] = array('url', 'file');
+$autoload['helper'] = array('array', 'inflector', 'string', 'url');
 /*
 | -------------------------------------------------------------------
 |  Auto-load Config files
@@ -103,7 +110,8 @@ $autoload['helper'] = array('url', 'file');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array();
+//$autoload['config'] = array();
+$autoload['config'] = array('ci_bootstrap');
 
 /*
 | -------------------------------------------------------------------

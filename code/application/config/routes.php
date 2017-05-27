@@ -51,9 +51,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 // User Module //
-$route['register'] = 'user/register';
-$route['login'] = 'user/login';
-$route['logout'] = 'user/logout';
+//$route['register'] = 'user/register';
+//$route['login'] = 'user/login';
+//$route['logout'] = 'user/logout';
 
 // Student Module  //
 $route['atc'] = 'student';
@@ -63,7 +63,51 @@ $route['atc/student'] = 'student';
 
 //$route['atc/(:any)'] = 'student';
 
-$route['default_controller'] = 'user/login';
+//$route['default_controller'] = 'user/login';
 //$route['default_controller'] = 'welcome';
-$route['404_override'] = '';
+$route['default_controller'] = 'home';
+$route['404_override'] = 'errors/page_missing';
 $route['translate_uri_dashes'] = FALSE;
+
+/*
+| -------------------------------------------------------------------------
+| Added by CI Bootstrap 3
+| Multilingual routing (use 2 characters (e.g. en, zh, cn, es) for switching languages)
+| -------------------------------------------------------------------------
+*/
+$route['^(\w{2})/(.*)$'] = '$2';
+$route['^(\w{2})$'] = $route['default_controller'];
+
+/*
+| -------------------------------------------------------------------------
+| Added by CI Bootstrap 3
+| Additional routes on top of codeigniter-restserver
+| -------------------------------------------------------------------------
+| Examples from rule: "api/(:any)/(:num)"
+|	- [GET]		/api/users/1 ==> Users Controller's id_get($id)
+|	- [POST]	/api/users/1 ==> Users Controller's id_post($id)
+|	- [PUT]		/api/users/1 ==> Users Controller's id_put($id)
+|	- [DELETE]	/api/users/1 ==> Users Controller's id_delete($id)
+| 
+| Examples from rule: "api/(:any)/(:num)/(:any)"
+|	- [GET]		/api/users/1/subitem ==> Users Controller's subitem_get($parent_id)
+|	- [POST]	/api/users/1/subitem ==> Users Controller's subitem_post($parent_id)
+|	- [PUT]		/api/users/1/subitem ==> Users Controller's subitem_put($parent_id)
+|	- [DELETE]	/api/users/1/subitem ==> Users Controller's subitem_delete($parent_id)
+*/
+$route['api/(:any)/(:num)']				= 'api/$1/id/$2';
+$route['api/(:any)/(:num)/(:any)']		= 'api/$1/$3/$2';
+
+/*
+| -------------------------------------------------------------------------
+| Added by CI Bootstrap 3
+| Uncomment these if require API versioning (by module name like api_v1)
+| -------------------------------------------------------------------------
+*/
+/*
+$route['api/v1']						= "api_v1";
+$route['api/v1/(:any)']					= "api_v1/$1";
+$route['api/v1/(:any)/(:num)']			= "api_v1/$1/id/$2";
+$route['api/v1/(:any)/(:num)/(:any)']	= "api_v1/$1/$3/$2";
+$route['api/v1/(:any)/(:any)']			= "api_v1/$1/$2";
+*/
