@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/';
+$config['base_url'] = 'http://localhost/code/';
 //$config['base_url'] = 'http://gist.solutionathpie.com/';
 //$config['base_url'] = defined('BASE_URL') ? BASE_URL : '';
 

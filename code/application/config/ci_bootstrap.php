@@ -110,41 +110,12 @@ $config['ci_bootstrap'] = array(
 			'url'		=> '',
 			'icon'		=> 'fa fa-home',
 		),
-		'dashboard' => array(
-			'name'		=> 'Blog',
-			'url'		=> 'blog/',
-			'icon'		=> 'fa fa-home',
-			'children'  => array(
-				'List Blogs'			=> 'blog/blog_posts',
-				'Carousel'			=> 'blog/carousel',
-				'Form Basic'		=> 'blog/form_basic',
-				'Form Bootstrap'		=> 'blog/form_bs3',
-			)
-		),
 		'account' => array(
 			'name'		=> 'Account',
 			'url'		=> 'account/',
 			'icon'		=> 'fa fa-home',
 		),
-		'user' => array(
-			'name'		=> 'User',
-			'url'		=> 'user/',
-			'icon'		=> 'fa fa-home',
-			'children'  => array(
-				'Create User'			=> 'user/create',
-				'Grroup'		=> 'user/group',
-			)
-		),
-		'panel' => array(
-			'name'		=> 'Panel',
-			'url'		=> 'panel/',
-			'icon'		=> 'fa fa-home',
-			'children'  => array(
-				'Admin User'			=> 'panel/admin_user',
-				'Create Admin User'			=> 'panel/admin_user_create',
-				'Admin Grroup'		=> 'panel/admin_user_group',
-			)
-		),
+		
 		'admin' => array(
 			'name'		=> 'Admin',
 			'url'		=> 'admin/',

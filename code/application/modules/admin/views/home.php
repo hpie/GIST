@@ -11,4 +11,16 @@
 		<?php echo modules::run('adminlte/widget/info_box', 'yellow', $count['users'], 'Users', 'fa fa-users', 'user'); ?>
 	</div>
 	
+	<div class="col-md-4">
+		<?php echo modules::run('adminlte/widget/info_box', 'yellow', $count['groups'], 'Groups', 'fa fa-users', 'user/group'); ?>
+	</div>
+	
+	<div class="col-md-4">
+		<?php echo modules::run('adminlte/widget/info_box', 'green', $count['cdac_arcs'], 'ARCs', 'fa fa-users', 'arc'); ?>
+	</div>
+	
+	<div class="col-md-4">
+		<?php echo modules::run('adminlte/widget/info_box', 'green', $count['cdac_centers'], 'ATCs', 'fa fa-users', 'center'); ?>
+	</div>
+	
 </div>

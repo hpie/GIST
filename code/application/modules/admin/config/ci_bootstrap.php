@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $config['ci_bootstrap'] = array(
 
 	// Site name
-	'site_name' => 'Admin Panel',
+	'site_name' => 'CDAC Admin Panel',
 
 	// Default page title prefix
 	'page_title_prefix' => '',
@@ -64,31 +64,6 @@ $config['ci_bootstrap'] = array(
 			'url'		=> '',
 			'icon'		=> 'fa fa-home',
 		),
-		'user' => array(
-			'name'		=> 'Users',
-			'url'		=> 'user',
-			'icon'		=> 'fa fa-users',
-			'children'  => array(
-				'List'			=> 'user',
-				'Create'		=> 'user/create',
-				'User Groups'	=> 'user/group',
-			)
-		),
-		'blog' => array(
-			'name'		=> 'Blog',
-			'url'		=> 'blog',
-			'icon'		=> 'ion ion-edit',	// can use Ionicons instead of FontAwesome
-			'children'  => array(
-				'Blog Posts'		=> 'blog/post',
-				'Blog Categories'	=> 'blog/category',
-				'Blog Tags'			=> 'blog/tag',
-			)
-		),
-		'cover_photo' => array(
-			'name'		=> 'Cover Photos',
-			'url'		=> 'cover_photo',
-			'icon'		=> 'ion ion-image',	// can use Ionicons instead of FontAwesome
-		),
 		'panel' => array(
 			'name'		=> 'Admin Panel',
 			'url'		=> 'panel',
@@ -97,6 +72,98 @@ $config['ci_bootstrap'] = array(
 				'Admin Users'			=> 'panel/admin_user',
 				'Create Admin User'		=> 'panel/admin_user_create',
 				'Admin User Groups'		=> 'panel/admin_user_group',
+			)
+		),
+		'arc' => array(
+			'name'		=> 'Arc',
+			'url'		=> 'arc',
+			'icon'		=> 'ion ion-edit',
+			'children'  => array(
+				'List'			=> 'arc',
+			)
+		),
+		'book' => array(
+			'name'		=> 'Book',
+			'url'		=> 'book',
+			'icon'		=> 'ion ion-edit',
+			'children'  => array(
+				'List'			=> 'book',
+			)
+		),
+		'category' => array(
+			'name'		=> 'Category Codes',
+			'url'		=> 'category',
+			'icon'		=> 'fa fa-cog',
+			'children'  => array(
+				'List'			=> 'category',
+			)
+		),
+		'center' => array(
+			'name'		=> 'Center',
+			'url'		=> 'center',
+			'icon'		=> 'ion ion-edit',
+			'children'  => array(
+				'List'			=> 'center',
+			)
+		),
+		'city' => array(
+			'name'		=> 'City',
+			'url'		=> 'city',
+			'icon'		=> 'ion ion-edit',
+			'children'  => array(
+				'List'			=> 'city',
+			)
+		),
+		'course' => array(
+			'name'		=> 'Course',
+			'url'		=> 'couese',
+			'icon'		=> 'ion ion-edit',
+			'children'  => array(
+				'List'			=> 'course',
+			)
+		),
+		'cover_photo' => array(
+			'name'		=> 'Cover Photos',
+			'url'		=> 'cover_photo',
+			'icon'		=> 'ion ion-image',	// can use Ionicons instead of FontAwesome
+		),
+		'faculty' => array(
+			'name'		=> 'Faculty',
+			'url'		=> 'faculty',
+			'icon'		=> 'ion ion-edit',
+			'children'  => array(
+				'List'			=> 'faculty',
+				'Create'		=> 'faculty/create',
+				'Faculty ATC'	=> 'faculty/center',
+				'Faculty Course'	=> 'faculty/course',
+			)
+		),
+//		'blog' => array(
+//			'name'		=> 'Blog',
+//			'url'		=> 'blog',
+//			'icon'		=> 'ion ion-edit',	// can use Ionicons instead of FontAwesome
+//			'children'  => array(
+//				'Blog Posts'		=> 'blog/post',
+//				'Blog Categories'	=> 'blog/category',
+//				'Blog Tags'			=> 'blog/tag',
+//			)
+//		),
+		'status' => array(
+			'name'		=> 'Status Codes',
+			'url'		=> 'status',
+			'icon'		=> 'fa fa-cog',
+			'children'  => array(
+				'List'			=> 'status',
+			)
+		),
+		'user' => array(
+			'name'		=> 'Users',
+			'url'		=> 'user',
+			'icon'		=> 'fa fa-users',
+			'children'  => array(
+				'List'			=> 'user',
+				'Create'		=> 'user/create',
+				'User Groups'	=> 'user/group',
 			)
 		),
 		'util' => array(
@@ -151,20 +218,20 @@ $config['ci_bootstrap'] = array(
 			'target'	=> '_blank',
 			'color'		=> 'text-aqua'
 		),
-		array(
-			'auth'		=> array('webmaster', 'admin'),
-			'name'		=> 'API Site',
-			'url'		=> 'api',
-			'target'	=> '_blank',
-			'color'		=> 'text-orange'
-		),
-		array(
-			'auth'		=> array('webmaster', 'admin', 'manager', 'staff'),
-			'name'		=> 'Github Repo',
-			'url'		=> CI_BOOTSTRAP_REPO,
-			'target'	=> '_blank',
-			'color'		=> 'text-green'
-		),
+//		array(
+//			'auth'		=> array('webmaster', 'admin'),
+//			'name'		=> 'API Site',
+//			'url'		=> 'api',
+//			'target'	=> '_blank',
+//			'color'		=> 'text-orange'
+//		),
+//		array(
+//			'auth'		=> array('webmaster', 'admin', 'manager', 'staff'),
+//			'name'		=> 'Github Repo',
+//			'url'		=> CI_BOOTSTRAP_REPO,
+//			'target'	=> '_blank',
+//			'color'		=> 'text-green'
+//		),
 	),
 
 	// Debug tools
