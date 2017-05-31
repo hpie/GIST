@@ -115,7 +115,15 @@ $config['ci_bootstrap'] = array(
 			'url'		=> 'account/',
 			'icon'		=> 'fa fa-home',
 		),
-		
+		'student' => array(
+			'name'		=> 'Student',
+			'url'		=> 'student/',
+			'icon'		=> 'fa fa-home',
+			'children'  => array(
+				'Enquiry'		=> 'student/enquiry',
+				'Register'		=> 'student/register',
+			)
+		),
 		'admin' => array(
 			'name'		=> 'Admin',
 			'url'		=> 'admin/',

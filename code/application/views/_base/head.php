@@ -36,5 +36,18 @@
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
+	<!-- SUNIL - Added for form grouping -->
+	<style type="text/css">
+		fieldset { 
+		    display: block;
+		    margin-left: 2px;
+		    margin-right: 2px;
+		    padding-top: 0.35em;
+		    padding-bottom: 0.625em;
+		    padding-left: 0.75em;
+		    padding-right: 0.75em;
+		    border: 2px groove;
+		}
+	</style>
 </head>
 <body class="<?php echo $body_class; ?>">
