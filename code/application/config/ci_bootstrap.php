@@ -51,10 +51,17 @@ $config['ci_bootstrap'] = array(
 	// (position => script array)
 	'scripts' => array(
 		'head'	=> array(
+			//'assets/dist/frontend/lib.min.js',
+			//'assets/dist/frontend/app.min.js',
+			//'assets/dist/frontend/jquery-3.2.1.min.js',
+			'assets/dist/frontend/jquery-2.2.4.min.js',
+			'assets/dist/frontend/bootstrap.min.js',
+			'assets/dist/frontend/moment-with-locales.min.js',
+			'assets/dist/frontend/bootstrap-datetimepicker.min.js'
 		),
 		'foot'	=> array(
-			'assets/dist/frontend/lib.min.js',
-			'assets/dist/frontend/app.min.js'
+			//'assets/dist/frontend/lib.min.js',
+			//'assets/dist/frontend/app.min.js'
 		),
 	),
 
@@ -63,8 +70,11 @@ $config['ci_bootstrap'] = array(
 	'stylesheets' => array(
 		'screen' => array(
 			// for screen display
-			'assets/dist/frontend/lib.min.css',
-			'assets/dist/frontend/app.min.css'
+			//'assets/dist/frontend/lib.min.css',
+			//'assets/dist/frontend/app.min.css',
+			'assets/dist/frontend/bootstrap.min.css',
+			'assets/dist/frontend/bootstrap-datetimepicker.min.css',
+			'assets/dist/frontend/modern-business.css'
 			),
 			'print' => array(
 			// for print media
@@ -105,18 +115,18 @@ $config['ci_bootstrap'] = array(
 	// Menu items
 	// (or directly update view file: /application/modules/admin/views/_partials/sidemenu.php)
 	'menu' => array(
-		'home' => array(
-			'name'		=> 'Home',
-			'url'		=> '',
-			'icon'		=> 'fa fa-home',
-		),
+	//	'home' => array(
+	//		'name'		=> 'Home',
+	//		'url'		=> '',
+	//		'icon'		=> 'fa fa-home',
+	//	),
 		'account' => array(
-			'name'		=> 'Account',
+			'name'		=> 'My Account',
 			'url'		=> 'account/',
 			'icon'		=> 'fa fa-home',
 		),
-		'student' => array(
-			'name'		=> 'Student',
+		'atc' => array(
+			'name'		=> 'ATC Actions',
 			'url'		=> 'student/',
 			'icon'		=> 'fa fa-home',
 			'children'  => array(
@@ -124,13 +134,26 @@ $config['ci_bootstrap'] = array(
 				'Register'		=> 'student/register',
 			)
 		),
-		'admin' => array(
-			'name'		=> 'Admin',
-			'url'		=> 'admin/',
+		'arc' => array(
+			'name'		=> 'ARC Actions',
+			'url'		=> 'student/',
 			'icon'		=> 'fa fa-home',
+			'children'  => array(
+				//'Enquiry'		=> 'student/enquiry',
+				//'Register'		=> 'student/register',
+			)
+		),
+		'student' => array(
+			'name'		=> 'Student Actions',
+			'url'		=> 'student/',
+			'icon'		=> 'fa fa-home',
+			'children'  => array(
+				//'Enquiry'		=> 'student/enquiry',
+				//'Register'		=> 'student/register',
+			)
 		),
 		'auth' => array(
-			'name'		=> 'Auth',
+			'name'		=> 'Login / Logout',
 			'url'		=> 'auth',
 			'icon'		=> 'fa fa-users',
 			'children'  => array(
@@ -138,6 +161,42 @@ $config['ci_bootstrap'] = array(
 				'Sign Up'		=> 'auth/sign_up',
 			)
 		),
+		'admin' => array(
+			'name'		=> 'Admin',
+			'url'		=> 'admin/',
+			'icon'		=> 'fa fa-home',
+		),
+		
+		'dashboard' => array(
+			'name'		=> 'Blog',
+			'url'		=> 'blog/',
+			'icon'		=> 'fa fa-home',
+			'children'  => array(
+				'List Blogs'			=> 'blog/blog_posts',
+				'Carousel'			=> 'blog/carousel',
+				'Form Basic'		=> 'blog/form_basic',
+				'Form Bootstrap'		=> 'blog/form_bs3',
+			)
+		),
+//		'user' => array(
+//			'name'		=> 'User',
+//			'url'		=> 'user/',
+//			'icon'		=> 'fa fa-home',
+//			'children'  => array(
+//				'Create User'			=> 'user/create',
+//				'Grroup'		=> 'user/group',
+//			)
+//		),
+//		'panel' => array(
+//			'name'		=> 'Panel',
+//			'url'		=> 'panel/',
+//			'icon'		=> 'fa fa-home',
+//			'children'  => array(
+//				'Admin User'			=> 'panel/admin_user',
+//				'Create Admin User'			=> 'panel/admin_user_create',
+//				'Admin Grroup'		=> 'panel/admin_user_group',
+//			)
+//		),
 		
 	),
 

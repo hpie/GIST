@@ -5,9 +5,18 @@
 	
 	<?php echo $form->bs3_text('Student ID', 'student_id'); ?>
 	<?php echo $form->bs3_text('First Name', 'first_name'); ?>
+	<?php echo $form->bs3_text('Middle Name', 'middle_name'); ?>
 	<?php echo $form->bs3_text('Last Name', 'last_name'); ?>
-	<?php echo $form->bs3_text('First Name', 'first_name'); ?>
-	<?php echo $form->bs3_text('Last Name', 'last_name'); ?>
+	
+	<?php echo $form->bs3_text('Father First Name', 'father_first_name'); ?>
+	<?php echo $form->bs3_text('Father Middle Name', 'father_middle_name'); ?>
+	<?php echo $form->bs3_text('Father Last Name', 'father_last_name'); ?>
+	
+	
+	<?php echo $form->bs3_text('Mother First Name', 'mother_first_name'); ?>
+	<?php echo $form->bs3_text('Mother Middle Name', 'mother_middle_name'); ?>
+	<?php echo $form->bs3_text('Mother Last Name', 'mother_last_name'); ?>
+	 
 	
 	<?php echo $form->bs3_text('Gender', 'gender'); ?>
 	<?php echo $form->bs3_text('Phone', 'contact_phone'); ?>
@@ -38,7 +47,7 @@
 	<?php echo $form->bs3_text('Center Opted', 'center_code'); ?>
 	<?php echo $form->bs3_text('Course Opted', 'course_code'); ?>
 	<?php echo $form->bs3_text('Admission Date', 'admission_dt'); ?>
-	<?php echo $form->bs3_text('Admission Status', 'enquiry_status'); ?>
+	<?php echo $form->bs3_text('Admission Status', 'student_status'); ?>
 	
 	<?php echo $form->bs3_textarea('Remarks', 'message'); ?>
 	

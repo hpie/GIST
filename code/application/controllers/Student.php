@@ -51,6 +51,15 @@ class Student extends MY_Controller {
 			refresh();
 		}
 
+		//$this->load->model('group_model', 'groups');
+		//$this->mViewData['groups'] = $this->groups->get_all();
+		
+		$this->load->model('cdac_center_model', 'centers');
+		$this->load->model('cdac_course_model', 'courses');
+
+		$this->mViewData['centers'] = $this->centers->order_by('center_name')->get_many_by("status='A'");
+		$this->mViewData['courses'] = $this->courses->order_by('course_name')->get_many_by("course_status='A'");
+		
 		// require reCAPTCHA script at page head
 		$this->mScripts['head'][] = 'https://www.google.com/recaptcha/api.js';
 		

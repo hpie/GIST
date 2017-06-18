@@ -118,6 +118,90 @@ $config = array(
 			'rules'		=> 'required',
 		),
 	),
+	
+	//Student Enquiry Form
+	'student/enquiry' => array(
+		array(
+			'field'		=> 'name',
+			'label'		=> 'Name',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'email',
+			'label'		=> 'Email',
+			'rules'		=> 'required|valid_email',
+		),
+		array(
+			'field'		=> 'subject',
+			'label'		=> 'Subject',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'message',
+			'label'		=> 'Message',
+			'rules'		=> 'required',
+		),
+	),
+	//Student Registration Form
+	'student/register' => array(
+		array(
+			'field'		=> 'first_name',
+			'label'		=> 'First Name',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'father_first_name',
+			'label'		=> 'Father First Nameme',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'gender',
+			'label'		=> 'Gender',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'contact_phone',
+			'label'		=> 'Contact Phone',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'email',
+			'label'		=> 'Email',
+			'rules'		=> 'required|valid_email',
+		),
+		array(
+			'field'		=> 'date_of_birth',
+			'label'		=> 'Date of Birth',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'current_address_line1',
+			'label'		=> 'Current Address',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'permanent_address_line1',
+			'label'		=> 'Permanent Address',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'center_code',
+			'label'		=> 'Center',
+			'rules'		=> 'required',
+		),
+		
+		array(
+			'field'		=> 'admission_dt',
+			'label'		=> 'Admission Date',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'student_status',
+			'label'		=> 'Status',
+			'rules'		=> 'required',
+		),
+	)
+	
 
 );
 
