@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * For Blog purpose only
  */
-class Student extends MY_Controller {
+class Atc extends MY_Controller {
 
 	public function __construct()
 	{
@@ -14,7 +14,7 @@ class Student extends MY_Controller {
 		$this->verify_login();
 		
 		$this->load->library('form_builder');
-		$this->push_breadcrumb('Student');
+		$this->push_breadcrumb('Atc');
 	}
 
 	public function index()
@@ -40,27 +40,30 @@ class Student extends MY_Controller {
 	}
 
 	
-	public function enquiries()
+	public function courses()
 	{
 		$page = $this->input->get('p');
 		$page = empty($page) ? 1 : $page;
 
-		$this->load->model('atc_student_enquiry_model', 'enquiry');
+		$this->load->model('cdac_course_model', 'course');
 		
 		//TODO: get results for login user for ATC / ARC / CDAC
 		//with clause is used to get mapped models 
-		$results = $this->enquiry->with('center')->with('course')->paginate($page);
-		$enquiries = $results['data'];
+		$results = $this->course->paginate($page);
+		$courses = $results['data'];
 		$counts = $results['counts'];
 		
 		// call render() from MY_Pagination
 		$this->load->library('pagination');
 		$pagination = $this->pagination->render($counts['total_num'], $counts['limit']);
 
-		$this->mViewData['enquiries'] = $enquiries;
+		$this->load->model('cdac_module_model', 'modules');
+		$this->mViewData['modules'] = $this->modules->order_by('module_name')->get_many_by("status='A'");;
+		
+		$this->mViewData['courses'] = $courses;
 		$this->mViewData['counts'] = $counts;
 		$this->mViewData['pagination'] = $pagination;
-		$this->render('student/enquirylist');
+		$this->render('cdac/courselist');
 	}
 	public function enquiry()
 	{
@@ -92,7 +95,7 @@ class Student extends MY_Controller {
 				'enquiry_id' => $enquiry_id,
 				'first_name' => $this->input->post('first_name'),
 				'last_name' => $this->input->post('last_name'),
-				'atc_code' => $this->input->post('atc_code'),
+				'center_code' => $this->input->post('center_code'),
 				'student_id' => $this->input->post('student_id'),
 				'intended_course' => $this->input->post('intended_course'),
 				'enquiry_dt' => $this->input->post('enquiry_dt'),
@@ -131,10 +134,10 @@ class Student extends MY_Controller {
 		//$this->load->model('group_model', 'groups');
 		//$this->mViewData['groups'] = $this->groups->get_all();
 		
-		$this->load->model('cdac_atc_model', 'atcs');
+		$this->load->model('cdac_center_model', 'centers');
 		$this->load->model('cdac_course_model', 'courses');
 
-		$this->mViewData['atcs'] = $this->atcs->order_by('atc_name')->get_many_by("status='A'");
+		$this->mViewData['centers'] = $this->centers->order_by('center_name')->get_many_by("status='A'");
 		$this->mViewData['courses'] = $this->courses->order_by('course_name')->get_many_by("course_status='A'");
 		
 		// require reCAPTCHA script at page head
@@ -170,9 +173,7 @@ class Student extends MY_Controller {
 	public function register()
 	{
 		// library from: application/libraries/Form_builder.php
-		$formattributes = array('role'=>'form', 'class'=>'registration-form');
-		
-		$form = $this->form_builder->create_form(NULL, FALSE, $formattributes);
+		$form = $this->form_builder->create_form();
 
 		if ($form->validate())
 		{
@@ -191,7 +192,7 @@ class Student extends MY_Controller {
 			'mother_first_name' => $this->input->post('mother_first_name'),
 				'mother_middle_name' => $this->input->post('mother_middle_name'),
 				'mother_last_name' => $this->input->post('mother_last_name'),
-			'atc_code' => $this->input->post('atc_code'),
+			'center_code' => $this->input->post('center_code'),
 				'admission_dt' => $this->input->post('admission_dt'),
 			'gender' => $this->input->post('gender'),
 				'contact_phone' => $this->input->post('contact_phone'),
@@ -230,10 +231,10 @@ class Student extends MY_Controller {
 			refresh();
 		}
 
-		$this->load->model('cdac_atc_model', 'atcs');
+		$this->load->model('cdac_center_model', 'centers');
 		$this->load->model('cdac_course_model', 'courses');
 
-		$this->mViewData['atcs'] = $this->atcs->order_by('atc_name')->get_many_by("status='A'");
+		$this->mViewData['centers'] = $this->centers->order_by('center_name')->get_many_by("status='A'");
 		$this->mViewData['courses'] = $this->courses->order_by('course_name')->get_many_by("course_status='A'");
 		
 		// require reCAPTCHA script at page head

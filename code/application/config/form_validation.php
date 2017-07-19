@@ -122,23 +122,43 @@ $config = array(
 	//Student Enquiry Form
 	'student/enquiry' => array(
 		array(
-			'field'		=> 'name',
-			'label'		=> 'Name',
+			'field'		=> 'first_name',
+			'label'		=> 'First Name',
 			'rules'		=> 'required',
 		),
 		array(
-			'field'		=> 'email',
+			'field'		=> 'last_name',
+			'label'		=> 'Last Name',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'center_code',
+			'label'		=> 'Center',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'intended_course',
+			'label'		=> 'Course',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'enquiry_dt',
+			'label'		=> 'Enquiry Date',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'enquiry_status',
+			'label'		=> 'Enquiry Status',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'enquiry_email',
 			'label'		=> 'Email',
 			'rules'		=> 'required|valid_email',
 		),
 		array(
-			'field'		=> 'subject',
-			'label'		=> 'Subject',
-			'rules'		=> 'required',
-		),
-		array(
-			'field'		=> 'message',
-			'label'		=> 'Message',
+			'field'		=> 'enquiry_notes',
+			'label'		=> 'Notes',
 			'rules'		=> 'required',
 		),
 	),
@@ -165,7 +185,7 @@ $config = array(
 			'rules'		=> 'required',
 		),
 		array(
-			'field'		=> 'email',
+			'field'		=> 'registered_email',
 			'label'		=> 'Email',
 			'rules'		=> 'required|valid_email',
 		),
@@ -209,7 +229,15 @@ $config = array(
  * Google reCAPTCHA settings
  * https://www.google.com/recaptcha/
  */
+//local
 $config['recaptcha'] = array(
 	'site_key'		=> '6Lc1MAYTAAAAAOdhZ0qvGMUFuBD-J6fJIP3DvX-b',
 	'secret_key'	=> '6Lc1MAYTAAAAAEARt-nT1En9NBonssoo4vWI12Nl',
 );
+
+//hpie
+//$config['recaptcha'] = array(
+	//'site_key'		=> '6LdnvCQUAAAAAGmHBukXVzjs5NupVLlaIHJdpFWo',
+	//'secret_key'	=> '6LdnvCQUAAAAAEyj_EroRm6QgbsZ58iau3sgWMTz',
+//);
+

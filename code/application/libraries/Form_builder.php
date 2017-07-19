@@ -225,6 +225,13 @@ class Form {
 		$extra['class'] = 'form-control';
 		return '<div class="form-group">'.form_label($label, $name).$this->field_textarea($name, $value, $extra).'</div>';
 	}
+	
+// Dropdown field
+	public function bs3_dropdown($label, $name, $options = array(), $selected = array(), $extra = array())
+	{
+		$extra['class'] = 'form-control';
+		return '<div class="form-group">'.form_label($label, $name).$this->field_dropdown($name, $options, $selected, $extra).'</div>';;
+	}
 
 	public function bs3_submit($label = 'Submit', $class = 'btn btn-primary', $extra = array())
 	{

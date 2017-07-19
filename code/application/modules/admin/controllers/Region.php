@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Arc extends Admin_Controller {
+class Region extends Admin_Controller {
 
 	public function __construct()
 	{
@@ -12,31 +12,22 @@ class Arc extends Admin_Controller {
 	// Frontend User CRUD
 	public function index()
 	{
-		$crud = $this->generate_crud('cdac_arcs');
+		$crud = $this->generate_crud('cdac_regions');
 		//$crud->columns('center_code', 'center_name', 'center_address_line1', 'center_address_line2', 'center_address_city', 'center_address_postcode', 'center_contact_number', 'center_type', 'center_code', 'active');
-		$crud->columns('arc_code', 'arc_name', 'cdac_regions', 'arc_address_line1', 'arc_address_line2', 'arc_address_city', 'arc_address_postcode', 'arc_contact_number', 'arc_contact_email', 'status');
+		$crud->columns('region_code', 'region_name', 'region_state_code', 'status');
 		
-		//$crud->set_relation('arc_address_state', 'cdac_states', 'state_name');
-		//$crud->set_relation('arc_address_city', 'cdac_cities', 'city_name');
-		
-	// only webmaster and admin can change member groups
-		//if ($crud->getState()=='list' || $this->ion_auth->in_group(array('webmaster', 'admin')))
-		//{
-			$crud->set_relation_n_n('cdac_regions', 'arc_cdac_regions', 'cdac_regions', 'arc_code', 'region_code', 'region_name');
-		//}
-		
-		$crud->set_relation('arc_address_city','cdac_cities','{state_code}-{city_name}',array('status' => 'A'), 'state_code, city_name ASC');
+		// Relation with States
+		$crud->set_relation('region_state_code',' cdac_states','{state_name} - {state_code}',array('status' => 'A'), 'state_name, state_code ASC');
 		
 		//Relation with Status
-		$crud->set_relation('status','cdac_status','{status_title}-{status_code}',array('status' => 'A'), 'status_code, status_title ASC');
+		$crud->set_relation('status','cdac_status','{status_code}-{status_title}',array('status' => 'A'), 'status_code, status_title ASC');
 		
 		//Show only in ADD
-		$crud->add_fields('arc_code', 'arc_name', 'cdac_regions', 'arc_address_line1', 'arc_address_line2', 'arc_address_city',
-		 'arc_address_postcode', 'arc_contact_number', 'arc_contact_email', 'status');
+		$crud->add_fields('region_code', 'region_name', 'region_state_code', 'status');
 		
 		//Show only for Update
-		$crud->edit_fields('arc_name', 'cdac_regions', 'arc_address_line1', 'arc_address_line2', 'arc_address_city',
-		 'arc_address_postcode', 'arc_contact_number', 'arc_contact_email', 'status');
+		$crud->edit_fields('region_name', 'region_state_code', 'status'
+		);
 		
 		$state = $crud->getState();
     	$state_info = $crud->getStateInfo();
@@ -44,7 +35,7 @@ class Arc extends Admin_Controller {
 		if ($state == 'add' || $state == 'insert_validation' || $state == 'insert')
 		{
 			//Mandatory Feilds
-		$crud->required_fields('arc_code', 'arc_name', 'arc_address_city', 'arc_address_postcode', 'arc_contact_number', 'arc_contact_email', 'status');
+		$crud->required_fields('region_code', 'region_name', 'region_state_code', 'status');
 			//$crud->getModel()->set_add_value('created_by', "system");	
 			$crud->field_type('created_by', 'hidden', "system");
 			//TODO
@@ -53,8 +44,9 @@ class Arc extends Admin_Controller {
 		elseif ($state == 'edit' || $state == 'update_validation' || $state == 'update')
 		{
 			//Mandatory Feilds
-			$crud->required_fields('arc_name', 'arc_address_city', 'arc_address_postcode', 'arc_contact_number', 'arc_contact_email', 'status');
-			$crud->field_type('arc_code', 'readonly');
+			$crud->required_fields('region_code', 'region_name', 'region_state_code', 'status');
+			$crud->field_type('region_code', 'readonly');
+			//$crud->field_type('center_arc_code', 'readonly');
 			$crud->field_type('modified_by', 'hidden', "system");
 			// Modified the framework and added these two functions
 			//$crud->getModel()->set_add_value('modified_dt', date("Y-m-d"));
@@ -103,7 +95,7 @@ class Arc extends Admin_Controller {
 		//$crud->unset_add();
 		$crud->unset_delete();
 
-		$this->mPageTitle = 'ARCs';
+		$this->mPageTitle = 'Regions';
 		$this->render_crud();
 	}
 	

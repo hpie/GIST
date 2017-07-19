@@ -226,7 +226,7 @@
 						
                 </div>
                 <div class="col-md-4">
-                    <a class="btn btn-lg btn-default btn-block" href="#">Find an ATC</a>
+                    <a class="btn btn-lg btn-default btn-block" href="arc/centers">Find an ATC</a>
                 </div>
             </div>
         </div>

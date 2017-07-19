@@ -57,11 +57,14 @@ $config['ci_bootstrap'] = array(
 			'assets/dist/frontend/jquery-2.2.4.min.js',
 			'assets/dist/frontend/bootstrap.min.js',
 			'assets/dist/frontend/moment-with-locales.min.js',
-			'assets/dist/frontend/bootstrap-datetimepicker.min.js'
+			'assets/dist/frontend/bootstrap-datetimepicker.min.js',
+			'assets/dist/frontend/jquery.backstretch.min.js'
+			
 		),
 		'foot'	=> array(
 			//'assets/dist/frontend/lib.min.js',
 			//'assets/dist/frontend/app.min.js'
+			'assets/dist/frontend/form-scripts.js'
 		),
 	),
 
@@ -74,7 +77,9 @@ $config['ci_bootstrap'] = array(
 			//'assets/dist/frontend/app.min.css',
 			'assets/dist/frontend/bootstrap.min.css',
 			'assets/dist/frontend/bootstrap-datetimepicker.min.css',
-			'assets/dist/frontend/modern-business.css'
+			'assets/dist/frontend/modern-business.css',
+			'assets/dist/frontend/form-elements.css',
+			'assets/dist/frontend/form-style.css'
 			),
 			'print' => array(
 			// for print media
@@ -139,8 +144,10 @@ $config['ci_bootstrap'] = array(
 			'url'		=> 'student/',
 			'icon'		=> 'fa fa-home',
 			'children'  => array(
-				//'Enquiry'		=> 'student/enquiry',
-				//'Register'		=> 'student/register',
+				'List Enquiries'		=> 'student/enquiries',
+				'List Registrations'		=> 'student/registrations',
+				'List ATCs'		=> 'arc/centers',
+				'List Courses'		=> 'atc/courses',
 			)
 		),
 		'student' => array(

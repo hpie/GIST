@@ -14,19 +14,25 @@ class Course extends Admin_Controller {
 	{
 		$crud = $this->generate_crud('cdac_courses');
 		//$crud->columns('center_code', 'center_name', 'center_address_line1', 'center_address_line2', 'center_address_city', 'center_address_postcode', 'center_contact_number', 'center_type', 'center_code', 'active');
-		$crud->columns('course_code', 'course_name', 'course_description', 'course_status');
+		$crud->columns('course_code', 'course_name', 'cdac_modules', 'course_description', 'course_status');
 		
 		//$crud->set_relation('arc_address_state', 'cdac_states', 'state_name');
 		//$crud->set_relation('arc_address_city', 'cdac_cities', 'city_name');
+		
+		//only webmaster and admin can change member groups
+		//if ($crud->getState()=='list' || $this->ion_auth->in_group(array('webmaster', 'admin')))
+		//{
+			$crud->set_relation_n_n('cdac_modules', 'cdac_course_modules', 'cdac_modules', 'course_code', 'module_code', 'module_name');
+		//}
 		
 		//Relation with Status
 		$crud->set_relation('course_status','cdac_status','{status_code}-{status_title}',array('status' => 'A'), 'status_code, status_title ASC');
 		
 		//Show only in ADD
-		$crud->add_fields('course_code', 'course_name', 'course_description', 'course_status');
+		$crud->add_fields('course_code', 'course_name', 'cdac_modules', 'course_description', 'course_status');
 		
 		//Show only for Update
-		$crud->edit_fields('course_name', 'course_description', 'course_status');
+		$crud->edit_fields('course_name', 'cdac_modules', 'course_description', 'course_status');
 		
 		$crud->required_fields('course_code', 'course_name', 'course_status');
 	

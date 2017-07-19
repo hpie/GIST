@@ -75,7 +75,7 @@ $config['ci_bootstrap'] = array(
 			)
 		),
 		'arc' => array(
-			'name'		=> 'Arc',
+			'name'		=> 'ARC',
 			'url'		=> 'arc',
 			'icon'		=> 'ion ion-edit',
 			'children'  => array(
@@ -120,6 +120,7 @@ $config['ci_bootstrap'] = array(
 			'icon'		=> 'ion ion-edit',
 			'children'  => array(
 				'List'			=> 'course',
+				'Course Modules'	=> 'module',
 			)
 		),
 		'cover_photo' => array(
@@ -148,6 +149,14 @@ $config['ci_bootstrap'] = array(
 //				'Blog Tags'			=> 'blog/tag',
 //			)
 //		),
+		'region' => array(
+			'name'		=> 'Region Codes',
+			'url'		=> 'region',
+			'icon'		=> 'fa fa-cog',
+			'children'  => array(
+				'List'			=> 'region',
+			)
+		),
 		'status' => array(
 			'name'		=> 'Status Codes',
 			'url'		=> 'status',
