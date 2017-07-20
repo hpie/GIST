@@ -11,7 +11,7 @@
 		</tr>
 		<tr>
 			<th>Center Code: </th>
-			<td><?php echo $enquiry->atc_code; //$enquiry->cdac_center_model->center_name; ?></td>
+			<td><?php echo $enquiry->center_code; //$enquiry->cdac_center_model->center_name; ?></td>
 		</tr>
 		
 		<tr>

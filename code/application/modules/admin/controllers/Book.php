@@ -13,6 +13,13 @@ class Book extends Admin_Controller {
 	public function index()
 	{
 		$crud = $this->generate_crud('cdac_books');
+		
+		$crud->display_as('book_code','Book Code');
+		$crud->display_as('book_name','Book Name');
+		$crud->display_as('cdac_modules','Module');
+		$crud->display_as('book_description','Description');
+		$crud->display_as('book_status','Status');
+		
 		//$crud->columns('center_code', 'center_name', 'center_address_line1', 'center_address_line2', 'center_address_city', 'center_address_postcode', 'center_contact_number', 'center_type', 'center_code', 'active');
 		$crud->columns('book_code', 'book_name', 'cdac_modules', 'book_description', 'book_status');
 		

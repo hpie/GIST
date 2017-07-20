@@ -14,6 +14,18 @@ class Arc extends Admin_Controller {
 	{
 		$crud = $this->generate_crud('cdac_arcs');
 		//$crud->columns('center_code', 'center_name', 'center_address_line1', 'center_address_line2', 'center_address_city', 'center_address_postcode', 'center_contact_number', 'center_type', 'center_code', 'active');
+			
+		$crud->display_as('arc_code','ARC Code');
+		$crud->display_as('arc_name','ARC Name');
+		$crud->display_as('cdac_regions','CDAC Region');
+		$crud->display_as('arc_address_line1','Address Line1');
+		$crud->display_as('arc_address_line2','Address Line2');
+		$crud->display_as('arc_address_city','City');
+		$crud->display_as('arc_address_postcode','PostCode');
+		$crud->display_as('arc_contact_number','Contact Number');
+		$crud->display_as('arc_contact_email','Email');
+		$crud->display_as('status','Status');
+		
 		$crud->columns('arc_code', 'arc_name', 'cdac_regions', 'arc_address_line1', 'arc_address_line2', 'arc_address_city', 'arc_address_postcode', 'arc_contact_number', 'arc_contact_email', 'status');
 		
 		//$crud->set_relation('arc_address_state', 'cdac_states', 'state_name');
@@ -35,7 +47,7 @@ class Arc extends Admin_Controller {
 		 'arc_address_postcode', 'arc_contact_number', 'arc_contact_email', 'status');
 		
 		//Show only for Update
-		$crud->edit_fields('arc_name', 'cdac_regions', 'arc_address_line1', 'arc_address_line2', 'arc_address_city',
+		$crud->edit_fields('arc_code', 'arc_name', 'cdac_regions', 'arc_address_line1', 'arc_address_line2', 'arc_address_city',
 		 'arc_address_postcode', 'arc_contact_number', 'arc_contact_email', 'status');
 		
 		$state = $crud->getState();

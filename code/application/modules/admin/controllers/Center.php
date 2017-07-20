@@ -13,6 +13,20 @@ class Center extends Admin_Controller {
 	public function index()
 	{
 		$crud = $this->generate_crud('cdac_centers');
+		
+		$crud->display_as('center_code','ATC Code');
+		$crud->display_as('center_name','ATC Name');
+		$crud->display_as('center_arc_code','ARC Code');
+		$crud->display_as('center_address_line1','Address Line 1');
+		$crud->display_as('center_address_line2','Address Line 2');
+		$crud->display_as('center_address_city','City');
+		$crud->display_as('center_address_postcode','PostCode');
+		$crud->display_as('center_contact_number','Contact Number');
+		$crud->display_as('center_contact_email','Email ID');
+		$crud->display_as('center_type','ATC Grade');
+		$crud->display_as('center_category','ATC Category');
+		
+		
 		//$crud->columns('center_code', 'center_name', 'center_address_line1', 'center_address_line2', 'center_address_city', 'center_address_postcode', 'center_contact_number', 'center_type', 'center_code', 'active');
 		$crud->columns('center_code', 'center_name', 'center_arc_code', 'center_address_line1', 'center_address_line2', 'center_address_city', 'center_address_postcode', 'center_contact_number', 'center_contact_email', 'center_type', 'center_category');
 		

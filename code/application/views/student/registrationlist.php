@@ -16,7 +16,7 @@
 		<tr>
 			<td><a href="student/enquiry/<?php echo $registration->student_id; ?>"><?php echo $registration->student_id; ?></a></td>
 			<td><?php echo $registration->first_name ." ". $registration->last_name; ?></td>
-			<td><?php echo $registration->atc_code; //$enquiry->cdac_center_model->center_name; ?></td>
+			<td><?php echo $registration->center_code; //$enquiry->cdac_center_model->center_name; ?></td>
 			<td><?php echo $registration->student_status; ?></td>
 			<td><?php echo $registration->registered_email; ?> </td>
 			<td><?php echo $registration->admission_dt; ?></td>

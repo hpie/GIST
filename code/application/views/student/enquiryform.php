@@ -7,12 +7,12 @@
 	<fieldset>
 	<?php echo $form->bs3_text('First Name', 'first_name'); ?>
 	<?php echo $form->bs3_text('Last Name', 'last_name'); ?>
-	<?php // print_r($centers); ?>
+	
 	<?php if ( !empty($centers) ): ?>
 			<div class="form-group">
 				<label for="centers">Center</label>
 				<div>
-				<select>
+				<select name="center_code" id="center_code">
 					<option value="">Choose a Center</option>
 				<?php foreach ($centers as $center): ?>
 					<option value="<?php echo $center->center_code; ?>"> <?php echo $center->center_name; ?> </option>

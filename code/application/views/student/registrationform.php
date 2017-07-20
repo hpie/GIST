@@ -150,10 +150,10 @@
 	    <div class="form-bottom">
 		<?php if ( !empty($centers) ): ?>
 			<div class="form-group">
-				<label for="atcs">Center Opted</label>
+				<label for="centers">Center Opted</label>
 				<div>
 				<select name="center_code" id="center_code">
-					<option value="">Choose an Center</option>
+					<option value="">Choose a Center</option>
 				<?php foreach ($centers as $center): ?>
 					<option value="<?php echo $center->center_code; ?>"> <?php echo $center->center_name; ?> </option>
 				<?php endforeach; ?>
