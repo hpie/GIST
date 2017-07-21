@@ -90,6 +90,14 @@ $config['ci_bootstrap'] = array(
 				'List'			=> 'book',
 			)
 		),
+		'bookrequestlogs' => array(
+			'name'		=> 'Book Request Logs',
+			'url'		=> 'bookrequestlogs',
+			'icon'		=> 'ion ion-edit',
+			'children'  => array(
+				'List'			=> 'bookrequestlogs',
+			)
+		),
 		'category' => array(
 			'name'		=> 'Category Codes',
 			'url'		=> 'category',
@@ -149,6 +157,14 @@ $config['ci_bootstrap'] = array(
 //				'Blog Tags'			=> 'blog/tag',
 //			)
 //		),
+		'order' => array(
+			'name'		=> 'Order',
+			'url'		=> 'order',
+			'icon'		=> 'ion ion-edit',
+			'children'  => array(
+				'List'			=> 'order',
+			)
+		),
 		'region' => array(
 			'name'		=> 'Region Codes',
 			'url'		=> 'region',
