@@ -8,18 +8,17 @@
 	<?php echo $form->bs3_text('First Name', 'first_name'); ?>
 	<?php echo $form->bs3_text('Last Name', 'last_name'); ?>
 	
-	<?php if ( !empty($centers) ): ?>
+	<?php if ( !empty($atcs) ): ?>
 			<div class="form-group">
-				<label for="centers">Center</label>
+				<label for="atcs">ATC</label>
 				<div>
-				<select name="center_code" id="center_code">
-					<option value="">Choose a Center</option>
-				<?php foreach ($centers as $center): ?>
-					<option value="<?php echo $center->center_code; ?>"> <?php echo $center->center_name; ?> </option>
+				<select name="atc_code" id="atc_code">
+					<option value="">Choose an ATC</option>
+				<?php foreach ($atcs as $atc): ?>
+					<option value="<?php echo $atc->atc_code; ?>"> <?php echo $atc->atc_name; ?> </option>
 				<?php endforeach; ?>
 				</select>
 				</div>
-				
 			</div>
 			
 	<?php endif; ?>
@@ -96,3 +95,4 @@
 <p>&nbsp;</p>
 </div>
 <?php echo $form->close(); ?>
+

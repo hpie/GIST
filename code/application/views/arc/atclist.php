@@ -2,8 +2,8 @@
 
 <table class="table table-striped table-bordered">
 		<tr>
-			<th>Center Code </th>
-			<th>Center Name </th>
+			<th>ATC Code </th>
+			<th>ATC Name </th>
 			<!-- <th>Center Code </th>
 			<th>Status </th>
 			<th>Registered Email </th>
@@ -14,8 +14,8 @@
 <?php foreach ($centers as $center): ?>
 	
 		<tr>
-			<td><a href="student/enquiry/<?php echo $center->center_code; ?>"><?php echo $center->center_code; ?></a></td>
-			<td><?php echo $center->center_name; ?></td>
+			<td><a href="student/enquiry/<?php echo $center->atc_code; ?>"><?php echo $center->atc_code; ?></a></td>
+			<td><?php echo $center->atc_name; ?></td>
 			
 		</tr>
 

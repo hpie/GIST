@@ -30,7 +30,7 @@ class Faculty extends Admin_Controller {
 		$crud->display_as('status','Status');
 		
 		//$crud->columns('center_code', 'center_name', 'center_address_line1', 'center_address_line2', 'center_address_city', 'center_address_postcode', 'center_contact_number', 'center_type', 'center_code', 'active');
-		$crud->columns('faculty_code', 'first_name', 'last_name', 'center_code', 'faculty_joining_dt', 'faculty_leaving_dt',
+		$crud->columns('faculty_code', 'first_name', 'last_name', 'atc_code', 'faculty_joining_dt', 'faculty_leaving_dt',
 		'cdac_modules', 'faculty_gender', 'faculty_mobile', 'faculty_email', 'faculty_dob', 'faculty_status',
 		'current_address_line1', 'current_address_line2', 'current_address_city', 'current_address_pincode', 
 		'permanent_address_line1', 'permanent_address_line2', 'permanent_address_city', 'permanent_address_pincode', 'status');
@@ -43,7 +43,7 @@ class Faculty extends Admin_Controller {
 		//}
 		
 		// Relation with ATC
-		$crud->set_relation('center_code',' cdac_centers','{center_code}-{center_name}',array('status' => 'A'), 'center_code, center_name ASC');
+		$crud->set_relation('atc_code',' cdac_atcs','{atc_code}-{atc_name}',array('status' => 'A'), 'atc_code, atc_name ASC');
 		
 		$crud->field_type('faculty_gender','dropdown',
 		array('M' => 'Male', 'F' => 'Female', 'O' => 'Other'));
@@ -60,13 +60,13 @@ class Faculty extends Admin_Controller {
 		
 		
 		//Show only in ADD
-		$crud->add_fields('faculty_code', 'first_name', 'last_name', 'center_code', 'faculty_joining_dt', 
+		$crud->add_fields('faculty_code', 'first_name', 'last_name', 'atc_code', 'faculty_joining_dt', 
 		'cdac_modules', 'faculty_gender', 'faculty_mobile', 'faculty_email', 'faculty_dob', 'faculty_status',
 		'current_address_line1', 'current_address_line2', 'current_address_city', 'current_address_pincode', 
 		'permanent_address_line1', 'permanent_address_line2', 'permanent_address_city', 'permanent_address_pincode', 'status');
 		
 		//Show only for Update
-		$crud->edit_fields('faculty_code', 'first_name', 'last_name', 'center_code', 'faculty_joining_dt', 'faculty_leaving_dt',
+		$crud->edit_fields('faculty_code', 'first_name', 'last_name', 'atc_code', 'faculty_joining_dt', 'faculty_leaving_dt',
 		'cdac_modules', 'faculty_gender', 'faculty_mobile', 'faculty_email', 'faculty_dob', 'faculty_status',
 		'current_address_line1', 'current_address_line2', 'current_address_city', 'current_address_pincode', 
 		'permanent_address_line1', 'permanent_address_line2', 'permanent_address_city', 'permanent_address_pincode', 'status');
@@ -77,7 +77,7 @@ class Faculty extends Admin_Controller {
 		if ($state == 'add' || $state == 'insert_validation' || $state == 'insert')
 		{
 			//Mandatory Feilds
-		$crud->required_fields('faculty_code', 'first_name', 'last_name', 'center_code', 'faculty_joining_dt', 
+		$crud->required_fields('faculty_code', 'first_name', 'last_name', 'atc_code', 'faculty_joining_dt', 
 		'faculty_gender', 'faculty_mobile', 'faculty_email', 'faculty_dob', 'faculty_status',
 		'current_address_line1', 'current_address_line2', 'current_address_city', 'current_address_pincode', 
 		'permanent_address_line1', 'permanent_address_line2', 'permanent_address_city', 'permanent_address_pincode', 'status');
@@ -89,7 +89,7 @@ class Faculty extends Admin_Controller {
 		elseif ($state == 'edit' || $state == 'update_validation' || $state == 'update')
 		{
 			//Mandatory Feilds
-			$crud->required_fields('first_name', 'last_name', 'center_code', 
+			$crud->required_fields('first_name', 'last_name', 'atc_code', 
 		'faculty_gender', 'faculty_mobile', 'faculty_email', 'faculty_dob', 'faculty_status',
 		'current_address_line1', 'current_address_line2', 'current_address_city', 'current_address_pincode', 
 		'permanent_address_line1', 'permanent_address_line2', 'permanent_address_city', 'permanent_address_pincode', 'status');

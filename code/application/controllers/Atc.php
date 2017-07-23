@@ -20,7 +20,7 @@ class Atc extends MY_Controller {
 	public function index()
 	{
 		//redirect('student/item/1');
-		redirect('student/enquiries');
+		redirect('atc/enquiries');
 		
 	}
 
@@ -36,9 +36,8 @@ class Atc extends MY_Controller {
 		// config from: application/config/pagination.php
 		$this->load->library('pagination');
 		$this->mViewData['pagination'] = $this->pagination->render(200, 20);
-		$this->render('blog/pagination');
+		$this->render('common/pagination');
 	}
-
 	
 	public function courses()
 	{
@@ -63,8 +62,34 @@ class Atc extends MY_Controller {
 		$this->mViewData['courses'] = $courses;
 		$this->mViewData['counts'] = $counts;
 		$this->mViewData['pagination'] = $pagination;
-		$this->render('cdac/courselist');
+		$this->render('atc/courselist');
 	}
+
+	// Enquiries with the ATC
+	public function enquiries()
+	{
+		$page = $this->input->get('p');
+		$page = empty($page) ? 1 : $page;
+
+		$this->load->model('atc_student_enquiry_model', 'enquiry');
+		
+		//TODO: get results for login user for ATC / ARC / CDAC
+		//with clause is used to get mapped models 
+		$results = $this->enquiry->with('center')->with('course')->paginate($page);
+		$enquiries = $results['data'];
+		$counts = $results['counts'];
+		
+		// call render() from MY_Pagination
+		$this->load->library('pagination');
+		$pagination = $this->pagination->render($counts['total_num'], $counts['limit']);
+
+		$this->mViewData['enquiries'] = $enquiries;
+		$this->mViewData['counts'] = $counts;
+		$this->mViewData['pagination'] = $pagination;
+		$this->render('atc/enquirylist');
+	}
+	
+	// Enquiry Form for Student
 	public function enquiry()
 	{
 		// library from: application/libraries/Form_builder.php
@@ -95,8 +120,8 @@ class Atc extends MY_Controller {
 				'enquiry_id' => $enquiry_id,
 				'first_name' => $this->input->post('first_name'),
 				'last_name' => $this->input->post('last_name'),
-				'center_code' => $this->input->post('center_code'),
-				'student_id' => $this->input->post('student_id'),
+				'atc_code' => $this->input->post('atc_code'),
+				//'student_id' => $this->input->post('student_id'),
 				'intended_course' => $this->input->post('intended_course'),
 				'enquiry_dt' => $this->input->post('enquiry_dt'),
 				'enquiry_status' => $this->input->post('enquiry_status'),
@@ -134,10 +159,10 @@ class Atc extends MY_Controller {
 		//$this->load->model('group_model', 'groups');
 		//$this->mViewData['groups'] = $this->groups->get_all();
 		
-		$this->load->model('cdac_center_model', 'centers');
+		$this->load->model('cdac_atc_model', 'atcs');
 		$this->load->model('cdac_course_model', 'courses');
 
-		$this->mViewData['centers'] = $this->centers->order_by('center_name')->get_many_by("status='A'");
+		$this->mViewData['atcs'] = $this->atcs->order_by('atc_name')->get_many_by("status='A'");
 		$this->mViewData['courses'] = $this->courses->order_by('course_name')->get_many_by("course_status='A'");
 		
 		// require reCAPTCHA script at page head
@@ -145,9 +170,10 @@ class Atc extends MY_Controller {
 		
 		$this->mTitle = 'Enquiry Form';
 		$this->mViewData['form'] = $form;
-		$this->render('student/enquiryform');
+		$this->render('atc/enquiryform');
 	}
-	
+
+	// Registratoins with the ATC
 	public function registrations()
 	{
 		$page = $this->input->get('p');
@@ -168,12 +194,16 @@ class Atc extends MY_Controller {
 		$this->mViewData['registrations'] = $registrations;
 		$this->mViewData['counts'] = $counts;
 		$this->mViewData['pagination'] = $pagination;
-		$this->render('student/registrationlist');
+		$this->render('atc/registrationlist');
 	}
+	
+	// Registratoin form for Students
 	public function register()
 	{
 		// library from: application/libraries/Form_builder.php
-		$form = $this->form_builder->create_form();
+		$formattributes = array('role'=>'form', 'class'=>'registration-form');
+		
+		$form = $this->form_builder->create_form(NULL, FALSE, $formattributes);
 
 		if ($form->validate())
 		{
@@ -192,7 +222,7 @@ class Atc extends MY_Controller {
 			'mother_first_name' => $this->input->post('mother_first_name'),
 				'mother_middle_name' => $this->input->post('mother_middle_name'),
 				'mother_last_name' => $this->input->post('mother_last_name'),
-			'center_code' => $this->input->post('center_code'),
+			'atc_code' => $this->input->post('atc_code'),
 				'admission_dt' => $this->input->post('admission_dt'),
 			'gender' => $this->input->post('gender'),
 				'contact_phone' => $this->input->post('contact_phone'),
@@ -231,10 +261,10 @@ class Atc extends MY_Controller {
 			refresh();
 		}
 
-		$this->load->model('cdac_center_model', 'centers');
+		$this->load->model('cdac_atc_model', 'atcs');
 		$this->load->model('cdac_course_model', 'courses');
 
-		$this->mViewData['centers'] = $this->centers->order_by('center_name')->get_many_by("status='A'");
+		$this->mViewData['atcs'] = $this->atcs->order_by('atc_name')->get_many_by("status='A'");
 		$this->mViewData['courses'] = $this->courses->order_by('course_name')->get_many_by("course_status='A'");
 		
 		// require reCAPTCHA script at page head
@@ -244,4 +274,5 @@ class Atc extends MY_Controller {
 		$this->mViewData['form'] = $form;
 		$this->render('student/registrationform');
 	}
+	
 }

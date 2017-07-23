@@ -135,22 +135,40 @@ $config['ci_bootstrap'] = array(
 		),
 		'atc' => array(
 			'name'		=> 'ATC Actions',
-			'url'		=> 'student/',
+			'url'		=> 'atc/',
 			'icon'		=> 'fa fa-home',
 			'children'  => array(
-				'Enquiry'		=> 'student/enquiry',
-				'Register'		=> 'student/register',
+				'Enquiry'				=> 'atc/enquiry',
+				'Register'				=> 'atc/register',
+				'Enroll'				=> 'atc/enroll',
+				'List Courses'			=> 'atc/courses',
+				'List Enquiries'		=> 'atc/enquiries',
+				'List Registrations'	=> 'atc/registrations'
+		
 			)
 		),
 		'arc' => array(
 			'name'		=> 'ARC Actions',
-			'url'		=> 'student/',
+			'url'		=> 'arc/',
 			'icon'		=> 'fa fa-home',
 			'children'  => array(
-				'List Enquiries'		=> 'student/enquiries',
-				'List Registrations'		=> 'student/registrations',
-				'List ATCs'		=> 'arc/centers',
-				'List Courses'		=> 'atc/courses',
+				'List Enquiries'		=> 'arc/enquiries',
+				'List Registrations'	=> 'arc/registrations',
+				'List Enrollments'		=> 'arc/enrollments',
+				'List ATCs'				=> 'arc/centers',
+				'List Courses'			=> 'atc/courses'
+			)
+		),
+		'cdac' => array(
+			'name'		=> 'CDAC Actions',
+			'url'		=> 'cdac/',
+			'icon'		=> 'fa fa-home',
+			'children'  => array(
+				'List Enquiries'		=> 'cdac/enquiries',
+				'List Registrations'	=> 'cdac/registrations',
+				'List Enrollments'		=> 'cdac/enrollments',
+				'List ATCs'				=> 'cdac/centers',
+				'List Courses'			=> 'cdac/courses'
 			)
 		),
 		'student' => array(
@@ -158,8 +176,9 @@ $config['ci_bootstrap'] = array(
 			'url'		=> 'student/',
 			'icon'		=> 'fa fa-home',
 			'children'  => array(
-				//'Enquiry'		=> 'student/enquiry',
-				//'Register'		=> 'student/register',
+				'Enquiries'		=> 'student/enquiries',
+				'Registeration'		=> 'student/registrations',
+				'Enrollments'		=> 'student/enrollments'
 			)
 		),
 		'auth' => array(

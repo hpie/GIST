@@ -40,7 +40,7 @@ class Arc extends Admin_Controller {
 		$crud->set_relation('arc_address_city','cdac_cities','{state_code}-{city_name}',array('status' => 'A'), 'state_code, city_name ASC');
 		
 		//Relation with Status
-		$crud->set_relation('status','cdac_status','{status_title}-{status_code}',array('status' => 'A'), 'status_code, status_title ASC');
+		$crud->set_relation('status','cdac_status','{status_title}-{status_code}',array('status_group' => 'GEN', 'status_mode' => 'A', 'status' => 'A'), 'status_code, status_title ASC');
 		
 		//Show only in ADD
 		$crud->add_fields('arc_code', 'arc_name', 'cdac_regions', 'arc_address_line1', 'arc_address_line2', 'arc_address_city',

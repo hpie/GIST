@@ -20,7 +20,7 @@
 	</div>
 	
 	<div class="col-md-4">
-		<?php echo modules::run('adminlte/widget/info_box', 'green', $count['cdac_centers'], 'ATCs', 'fa fa-users', 'center'); ?>
+		<?php echo modules::run('adminlte/widget/info_box', 'green', $count['cdac_atcs'], 'ATCs', 'fa fa-users', 'atc'); ?>
 	</div>
 	
 </div>

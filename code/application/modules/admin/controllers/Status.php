@@ -25,7 +25,7 @@ class Status extends Admin_Controller {
 		$crud->required_fields('status_code', 'status_title');
 	
 		$crud->field_type('status_group','dropdown',
-			array('FAC-STS' => 'Faculty Status', 'GEN' => 'General','ORD-STS' => 'Order Status' , 'ORD-RES' => 'Order Reasons', 'ORD-WRK' => 'Order Workflow', 'STU-STS' => 'Student Status'));
+			array('ATC-STS' => 'ATC Status', 'FAC-STS' => 'Faculty Status', 'GEN' => 'General','ORD-STS' => 'Order Status' , 'ORD-RES' => 'Order Reasons', 'ORD-WRK' => 'Order Workflow', 'STU-STS' => 'Student Status'));
 		
 		$crud->field_type('status_mode','dropdown',
 			array('A' => 'All', 'C' => 'Show in Create','E' => 'Show in Edit'));

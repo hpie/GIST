@@ -82,6 +82,14 @@ $config['ci_bootstrap'] = array(
 				'List'			=> 'arc',
 			)
 		),
+		'atc' => array(
+			'name'		=> 'ATC',
+			'url'		=> 'atc',
+			'icon'		=> 'ion ion-edit',
+			'children'  => array(
+				'List'			=> 'atc',
+			)
+		),
 		'book' => array(
 			'name'		=> 'Book',
 			'url'		=> 'book',
@@ -104,14 +112,6 @@ $config['ci_bootstrap'] = array(
 			'icon'		=> 'fa fa-cog',
 			'children'  => array(
 				'List'			=> 'category',
-			)
-		),
-		'center' => array(
-			'name'		=> 'Center',
-			'url'		=> 'center',
-			'icon'		=> 'ion ion-edit',
-			'children'  => array(
-				'List'			=> 'center',
 			)
 		),
 		'city' => array(
