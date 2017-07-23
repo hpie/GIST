@@ -32,15 +32,26 @@ class Order extends Admin_Controller {
 		//Relation with Book
 		$crud->set_relation('book_code','cdac_books','{book_code}-{book_name}',array('book_status' => 'A'), 'book_code, book_name ASC');
 		
+		//Relation with Status : for request_status
+		$crud->set_relation('request_status','cdac_status','{status_code}-{status_title}',array('status_group' => 'ORD-STS', 'status' => 'A'), 'status_code, status_title ASC');
 		
+		//Relation with Status : for reason_for_loss
+		$crud->set_relation('reason_for_loss','cdac_status','{status_code}-{status_title}',array('status_group' => 'ORD-RES', 'status' => 'A'), 'status_code, status_title ASC');
+		
+		$crud->unset_fields('request_status');
+		$crud->unset_fields('reason_for_loss');
 		//Edit criteria
 		$state = $crud->getState();
     	$state_info = $crud->getStateInfo();
 		$pk = $state_info->primary_key;
-		$crud->field_type('request_status','dropdown',
-		array('O' => 'Ordered', 'R' => 'Received'));
+		//$crud->field_type('request_status','dropdown',
+		//array('O' => 'Ordered', 'R' => 'Received'));
 		
-		$crud->callback_column('request_status',array($this,'callback_check_request_status'));
+		//$crud->callback_add_field('reason_for_loss',array($this,'add_reason_for_loss_callback'));
+		//$crud->callback_edit_field('reason_for_loss',array($this,'edit_reason_for_loss_callback'));
+		
+		
+		//$crud->callback_column('request_status',array($this,'callback_check_request_status'));
 		
 		
 		if ($state == 'add' || $state == 'insert_validation' || $state == 'insert')
@@ -48,9 +59,14 @@ class Order extends Admin_Controller {
 			//Show only in ADD
 			$crud->add_fields('order_code','book_code', 'requested_count','expected_delivery_dt',
 			'request_status');
+			
+			//Relation with Status : for request_status
+			$crud->set_relation('request_status','cdac_status','{status_code}-{status_title}',array('status_group' => 'ORD-STS', 'status_mode' => 'C', 'status' => 'A'), 'status_code, status_title ASC');
+		
+			
+									
 			//Mandatory Feilds
-			$crud->required_fields('order_code','book_code', 'requested_count',
-		'	request_status');
+			$crud->required_fields('order_code','book_code', 'requested_count', 'request_status');
 			// get the user id	from ion_auth
 			//$this->ion_auth->in_group(array('webmaster', 'admin')
 			//$crud->getModel()->set_add_value('created_by', "system");
@@ -59,9 +75,17 @@ class Order extends Admin_Controller {
 		elseif ($state == 'edit' || $state == 'update_validation' || $state == 'update')
 		{
 			//Mandatory Feilds
+
 			//Show only for Update
 			$crud->edit_fields('order_code','book_code', 'requested_count','expected_delivery_dt',
 			'request_status', 'received_count',  'actual_delivery_dt', 'reason_for_loss', 'comments');
+			
+			//Relation with Status : for request_status
+			$crud->set_relation('request_status','cdac_status','{status_code}-{status_title}',array('status_group' => 'ORD-STS', 'status_mode' => 'E', 'status' => 'A'), 'status_code, status_title ASC');
+			
+			//Relation with Status : for reason_for_loss
+			$crud->set_relation('reason_for_loss','cdac_status','{status_code}-{status_title}',array('status_group' => 'ORD-RES', 'status_mode' => 'E', 'status' => 'A'), 'status_code, status_title ASC');
+			
 			// get status value
 			//validate if status completed
 				
@@ -104,6 +128,19 @@ class Order extends Admin_Controller {
 		$this->render_crud();
 	}
 	
+	function add_reason_for_loss_callback($value, $row)
+	{
+		//Relation with Status : for reason_for_loss
+			$crud->set_relation('reason_for_loss','cdac_status','{status_code}-{status_title}',array('status_group' => 'ORD-RES', 'status_mode' => 'C', 'status' => 'A'), 'status_code, status_title ASC');
+	}
+	
+	
+	function edit_reason_for_loss_callback($value, $row)
+	{
+		//Relation with Status : for reason_for_loss
+			$crud->set_relation('reason_for_loss','cdac_status','{status_code}-{status_title}',array('status_group' => 'ORD-RES', 'status_mode' => 'E', 'status' => 'A'), 'status_code, status_title ASC');	
+	}
+	
 	function callback_check_request_status($value, $row)
 	{
 		if($value == 'R')
@@ -112,19 +149,20 @@ class Order extends Admin_Controller {
 		}	
 	}
 	
+	
 	function update_log_after_update($post_array, $primary_key)
 	{
 		print_r($post_array);
 			if($post_array['request_status'] == 'R')
 			{
 				$data = array(
-				'order_code' => $post_array['order_code'],
-				'book_code' => $post_array['book_code'],
-				'book_count' => $post_array['received_count'],
-				'request_type' => 'printed',
-				'requested_entity_type' => 'cdac',
-				'requested_entity_code' => '1',
-				'processed_dt' => $post_array['actual_delivery_dt']
+					'order_code' => $post_array['order_code'],
+					'book_code' => $post_array['book_code'],
+					'book_received_count' => $post_array['received_count'],
+					'book_transaction_type' => 'IN',
+					'requested_entity_type' => 'CDAC',
+					'requested_entity_code' => 'CDAC',
+					'processed_dt' => $post_array['actual_delivery_dt']
 				);
 				
 				$this->db->insert('cdac_book_request_logs',$data);

@@ -57,9 +57,9 @@ $config['ci_bootstrap'] = array(
 			'assets/dist/frontend/jquery-2.2.4.min.js',
 			'assets/dist/frontend/bootstrap.min.js',
 			'assets/dist/frontend/moment-with-locales.min.js',
-			'assets/dist/frontend/bootstrap-datetimepicker.min.js',
-			'assets/dist/frontend/jquery.backstretch.min.js'
-			
+			//'assets/dist/frontend/bootstrap-datetimepicker.min.js',
+			'assets/dist/frontend/jquery.backstretch.min.js',
+			'assets/dist/frontend/jquery_plugins/ui/jquery-ui.min.js'
 		),
 		'foot'	=> array(
 			//'assets/dist/frontend/lib.min.js',
@@ -76,10 +76,13 @@ $config['ci_bootstrap'] = array(
 			//'assets/dist/frontend/lib.min.css',
 			//'assets/dist/frontend/app.min.css',
 			'assets/dist/frontend/bootstrap.min.css',
-			'assets/dist/frontend/bootstrap-datetimepicker.min.css',
+			//'assets/dist/frontend/bootstrap-datetimepicker.min.css',
 			'assets/dist/frontend/modern-business.css',
 			'assets/dist/frontend/form-elements.css',
-			'assets/dist/frontend/form-style.css'
+			'assets/dist/frontend/form-style.css',
+			'assets/dist/frontend/jquery_plugins/ui/jquery-ui.min.css',
+			'assets/dist/frontend/jquery_plugins/ui/jquery-ui.theme.min.css',
+			'assets/dist/frontend/jquery_plugins/ui/jquery-ui.structure.min.css'
 			),
 			'print' => array(
 			// for print media

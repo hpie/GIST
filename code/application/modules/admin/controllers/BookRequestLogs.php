@@ -16,17 +16,18 @@ class BookRequestLogs extends Admin_Controller {
 		
 		$crud->display_as('order_code','Order Code');
 		$crud->display_as('book_code','Book Code');
-		$crud->display_as('request_type','Request type');
+		$crud->display_as('book_transaction_type','Transaction Type');
 		$crud->display_as('requested_entity_type','Requester');
-		$crud->display_as('processed_dt','Processed date');
+		$crud->display_as('requested_entity_code','Requester Code');
+		$crud->display_as('processed_dt','Processed Date');
 		
-		$crud->columns('order_code','book_code', 'request_type','requested_entity_type',
+		$crud->columns('order_code','book_code', 'book_transaction_type','requested_entity_type', 'requested_entity_code',
 		'processed_dt');
 		$crud->unset_delete();
 		$crud->unset_add();
 		$crud->unset_edit();
 
-		$this->mPageTitle = 'Book Request Logs';
+		$this->mPageTitle = 'Book Transaction Logs';
 		$this->render_crud();
 	}
 	

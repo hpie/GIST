@@ -42,18 +42,17 @@
 			
 				<div class="form-group">
 					<label for="date_of_birth">Date of Birth</label>
-						<div class='input-group date' id='dob_datetimepicker'>
+						
 					    	<input type='text' class="form-control" name="date_of_birth" id="date_of_birth"/>
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-calendar"></span>
-								</span>
-						</div>
+						
 						<script type="text/javascript">
-							$(function () {
-								$('#dob_datetimepicker').datetimepicker( {
-									format: 'YYYY-MM-DD'                     	       
-								});
-							});
+						$( function() {
+						    $( "#date_of_birth" ).datepicker({
+						      changeMonth: true,
+						      changeYear: true,
+						      dateFormat: 'yy-mm-dd'
+						    });
+						  } );
 						</script>
 				</div>
 				
@@ -178,20 +177,22 @@
 	<?php endif; ?>
 	
 	
-			<div class="form-group">
+		<div class="form-group">
 			<label for="admission_dt">Admission Date</label>
-				<div class='input-group date' id='admission_datetimepicker'>
+				 <!-- <div class='input-group date' id='admission_datetimepicker'>  -->
 			    	<input type='text' class="form-control" name="admission_dt" id="admission_dt"/>
-						<span class="input-group-addon">
+						<!-- <span class="input-group-addon">
 							<span class="glyphicon glyphicon-calendar"></span>
-						</span>
-				</div>
+						</span>  -->
+				<!-- </div>  -->
 				<script type="text/javascript">
-					$(function () {
-						$('#admission_datetimepicker').datetimepicker( {
-							format: 'YYYY-MM-DD'                     	       
-						});
-					});
+				$( function() {
+				    $( "#admission_dt" ).datepicker({
+				      changeMonth: true,
+				      changeYear: true,
+				      dateFormat: 'yy-mm-dd'
+				      });
+				  } );
 				</script>
 		</div>	
 	
