@@ -1,0 +1,124 @@
+--
+-- Drop table `cdac_status`
+--
+DROP TABLE cdac_status
+
+--
+-- Table structure for table `cdac_status`
+--
+CREATE TABLE IF NOT EXISTS `cdac_status` (
+  `status_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `status_title` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status_description` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `status_group` varchar(10) COLLATE utf8_unicode_ci DEFAULT 'GEN' COMMENT 'Category Groups for Status if they nee to be selectively displayed.',
+  `status_mode` varchar(1) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'A' COMMENT 'A = All, C = Create, E = Edit',
+  `status` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'A',
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT '2016-12-31 13:00:00',
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `cdac_status`
+--
+
+INSERT INTO `cdac_status` (`status_code`, `status_title`, `status_description`, `status_group`, `status_mode`, `status`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
+('A', 'Active', 'Active Entity', 'GEN', 'A', 'A', '', '2016-12-31 13:00:00', NULL, '2017-07-23 15:27:49'),
+('ACT', 'Active ATC', 'ATC is Active', 'ATC-STS', 'A', 'A', '', '2016-12-31 13:00:00', NULL, '2017-07-23 16:18:35'),
+('CAN', 'Cancelled Order', 'Order cancelled', 'ORD-STS', 'E', 'A', '', '2016-12-31 13:00:00', NULL, '2017-07-23 15:26:09'),
+('D', 'Deleted', 'Deleted Entity', 'GEN', 'A', 'A', '', '2016-12-31 13:00:00', NULL, '2017-07-23 15:27:58'),
+('DMG', 'Damaged Item', 'Order Damaged in transit', 'ORD-RES', 'E', 'A', '', '2016-12-31 13:00:00', NULL, '2017-07-23 15:26:09'),
+('LST', 'Lost in Transit', 'Order Lost in transit', 'ORD-RES', 'E', 'A', '', '2016-12-31 13:00:00', NULL, '2017-07-22 20:06:00'),
+('ORD', 'Order Placed', 'Request sent to print house', 'ORD-STS', 'C', 'A', '', '2016-12-31 13:00:00', NULL, '2017-07-23 15:26:09'),
+('P', 'Pending', 'Action Pending on Entity', 'GEN', 'A', 'A', '', '2016-12-31 13:00:00', NULL, '2017-07-23 15:28:46'),
+('PEN', 'Order Pending', 'Pending to be ordered', 'ORD-STS', 'C', 'A', '', '2016-12-31 13:00:00', NULL, '2017-07-23 15:26:09'),
+('REC', 'Order Received', 'Order received from print house', 'ORD-STS', 'E', 'A', '', '2016-12-31 13:00:00', NULL, '2017-07-23 15:26:09'),
+('S', 'Suspended', 'Suspended Entity', 'GEN', 'A', 'A', '', '2016-12-31 13:00:00', NULL, '2017-07-23 15:28:14');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `cdac_status`
+--
+ALTER TABLE `cdac_status`
+  ADD PRIMARY KEY (`status_code`),
+  ADD UNIQUE KEY `status_title` (`status_title`);
+
+
+--
+-- Table structure for table `cdac`
+--
+CREATE TABLE IF NOT EXISTS `cdac` (
+  `cdac_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `cdac_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `cdac_address_line1` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `cdac_address_line2` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cdac_address_city` bigint(20) DEFAULT NULL,
+  `cdac_address_postcode` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `cdac_contact_number` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `cdac_contact_email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `status` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'A',
+  `created_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `cdac`
+--
+INSERT INTO `cdac` (`cdac_code`, `cdac_name`, `cdac_address_line1`, `cdac_address_line2`, `cdac_address_city`, `cdac_address_postcode`, `cdac_contact_number`, `cdac_contact_email`, `status`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
+('CDAC', 'CDAC Pune', 'Line1 Add', 'Line2 Add', 395, '171001', '11111111', 'cdac=gist-pace@cdac.in', 'A', 'system', '2016-12-31 07:30:00', NULL, '2017-05-30 05:03:23');
+
+-- --------------------------------------------------------
+--
+-- Indexes for table `cdac`
+--
+ALTER TABLE `cdac`
+  ADD PRIMARY KEY (`cdac_code`),
+  ADD UNIQUE KEY `cdac_contact_email` (`cdac_contact_email`);
+  
+  
+
+--
+-- Drop table `cdac_category`
+--
+DROP TABLE cdac_category
+--
+-- Table structure for table `cdac_category`
+--
+
+CREATE TABLE IF NOT EXISTS `cdac_category` (
+  `category_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `category_title` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `category_description` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `category_type` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Category Type for Category if they need to be grouped.',
+  `category_status` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'A',
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `cdac_category`
+--
+
+INSERT INTO `cdac_category` (`category_code`, `category_title`, `category_description`, `category_type`, `category_status`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
+('A', 'A GRADE', 'Grade A Center', 'GRD', 'A', 'system', '2016-12-31 07:30:00', NULL, '2017-07-23 16:41:12'),
+('B', 'B GRADE', 'Grade B Center', 'GRD', 'A', '', '2016-12-31 07:30:00', NULL, '2017-07-23 16:41:12');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `cdac_category`
+--
+ALTER TABLE `cdac_category`
+  ADD PRIMARY KEY (`category_code`),
+  ADD UNIQUE KEY `category_title` (`category_title`);  
+  
