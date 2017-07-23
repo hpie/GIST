@@ -272,7 +272,7 @@ class Atc extends MY_Controller {
 		
 		$this->mTitle = 'Registration Form';
 		$this->mViewData['form'] = $form;
-		$this->render('student/registrationform');
+		$this->render('atc/registrationform');
 	}
 	
 }

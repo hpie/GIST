@@ -132,8 +132,8 @@ $config = array(
 			'rules'		=> 'required',
 		),
 		array(
-			'field'		=> 'center_code',
-			'label'		=> 'Center',
+			'field'		=> 'atc_code',
+			'label'		=> 'ATC',
 			'rules'		=> 'required',
 		),
 		array(
@@ -205,8 +205,8 @@ $config = array(
 			'rules'		=> 'required',
 		),
 		array(
-			'field'		=> 'center_code',
-			'label'		=> 'Center',
+			'field'		=> 'atc_code',
+			'label'		=> 'ATC',
 			'rules'		=> 'required',
 		),
 		

@@ -39,18 +39,19 @@
 
 		<div class="form-group">
 			<label for="enquiry_dt">Enquiry Date</label>
-				<div class='input-group date' id='datetimepicker1'>
+				<!-- <div class='input-group date' id='datetimepicker1'>  -->
 			    	<input type='text' class="form-control" name="enquiry_dt" id="enquiry_dt"/>
-						<span class="input-group-addon">
+						<!-- <span class="input-group-addon">
 							<span class="glyphicon glyphicon-calendar"></span>
-						</span>
-				</div>
+						</span>  -->
+				<!-- </div>  -->
 				<script type="text/javascript">
-					$(function () {
-						$('#datetimepicker1').datetimepicker( {
-							format: 'YYYY-MM-DD'                     	       
-						});
-					});
+				$( function() {
+				    $( "#enquiry_dt" ).datepicker({
+				      changeMonth: true,
+				      dateFormat: 'yy-mm-dd'
+				    });
+				  } );
 				</script>
 		</div>	
 	
@@ -64,25 +65,10 @@
 					</select>
 				</div>
 		</div>
-		
-		<div class="form-group">
-			<label for="centers">Prospectus Purchased</label>
-				<div>
-					<label class="checkbox-inline">
-						Yes <input type="radio" name="prospectus_payment" value="Yes">
-					</label>
-					<label class="checkbox-inline">
-						No <input type="radio" name="prospectus_payment" value="No">
-					</label>
-				</div>
-		</div>
 			
 	<?php echo $form->bs3_text('Prospectus Number', 'prospectus_number'); ?>
 	
 	<?php echo $form->bs3_Email('Email', 'enquiry_email'); ?>
-	
-	<?php echo $form->bs3_text('Student ID', 'student_id'); ?>
-		
 	
 	<?php echo $form->bs3_textarea('Notes', 'enquiry_notes'); ?>
 	
