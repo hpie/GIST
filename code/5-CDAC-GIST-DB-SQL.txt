@@ -1,0 +1,134 @@
+-- phpMyAdmin SQL Dump
+-- version 4.4.14
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jul 31, 2017 at 09:24 PM
+-- Server version: 5.6.26
+-- PHP Version: 5.6.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `cdac_gist`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `courier_carriers`
+--
+
+CREATE TABLE IF NOT EXISTS `courier_carriers` (
+  `carrier_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `carrier_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `carrier_status` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `URL` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(20) COLLATE utf8_unicode_ci DEFAULT 'SYSTEM',
+  `updated_dt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_by` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `courier_carriers`
+--
+ALTER TABLE `courier_carriers`
+  ADD PRIMARY KEY (`carrier_code`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+-- phpMyAdmin SQL Dump
+-- version 4.4.14
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jul 31, 2017 at 09:24 PM
+-- Server version: 5.6.26
+-- PHP Version: 5.6.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `cdac_gist`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `courier_management`
+--
+
+CREATE TABLE IF NOT EXISTS `courier_management` (
+  `row_id` bigint(20) NOT NULL,
+  `requesting_entity_type` varchar(20) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Allowed Values: CDAC, ARC, ATC',
+  `requesting_entity_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `requested_entity_type` varchar(20) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Allowed Values: CDAC, ARC, ATC',
+  `requested_entity_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `docket_code` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `carrier_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `courier_status` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `package_sent_dt` date NOT NULL,
+  `package_received_dt` date DEFAULT NULL,
+  `package_content_details` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `note` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(20) COLLATE utf8_unicode_ci DEFAULT 'SYSTEM',
+  `updated_dt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_by` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `courier_management`
+--
+ALTER TABLE `courier_management`
+  ADD PRIMARY KEY (`row_id`),
+  ADD KEY `carrier_code` (`carrier_code`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `courier_management`
+--
+ALTER TABLE `courier_management`
+  MODIFY `row_id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `courier_management`
+--
+ALTER TABLE `courier_management`
+  ADD CONSTRAINT `courier_management_ibfk_1` FOREIGN KEY (`carrier_code`) REFERENCES `courier_carriers` (`carrier_code`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
