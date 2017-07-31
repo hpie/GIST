@@ -1,7 +1,7 @@
 --
 -- Drop table `cdac_status`
 --
-DROP TABLE cdac_status
+DROP TABLE cdac_status;
 
 --
 -- Table structure for table `cdac_status`
@@ -84,14 +84,14 @@ ALTER TABLE `cdac`
   
 
 --
--- Drop table `cdac_category`
+-- Drop table `cdac_categories`
 --
-DROP TABLE cdac_category
+DROP TABLE cdac_category;
 --
--- Table structure for table `cdac_category`
+-- Table structure for table `cdac_categories`
 --
 
-CREATE TABLE IF NOT EXISTS `cdac_category` (
+CREATE TABLE IF NOT EXISTS `cdac_categories` (
   `category_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `category_title` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `category_description` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -104,10 +104,12 @@ CREATE TABLE IF NOT EXISTS `cdac_category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `cdac_category`
+-- Dumping data for table `cdac_categories`
 --
 
-INSERT INTO `cdac_category` (`category_code`, `category_title`, `category_description`, `category_type`, `category_status`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
+INSERT INTO `cdac_categories` (`category_code`, `category_title`, `category_description`, `category_type`, `category_status`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
+('10', 'Secondary Education', 'Secondary Education', 'EDU', 'A', 'system', '2017-07-23 18:40:08', NULL, '2017-07-23 18:40:08'),
+('12', 'Senior Secondary Education', 'Senior Secondary Education', 'EDU', 'A', 'system', '2017-07-23 18:40:08', NULL, '2017-07-23 18:40:08'),
 ('A', 'A GRADE', 'Grade A Center', 'GRD', 'A', 'system', '2016-12-31 07:30:00', NULL, '2017-07-23 16:41:12'),
 ('B', 'B GRADE', 'Grade B Center', 'GRD', 'A', '', '2016-12-31 07:30:00', NULL, '2017-07-23 16:41:12');
 
@@ -116,9 +118,8 @@ INSERT INTO `cdac_category` (`category_code`, `category_title`, `category_descri
 --
 
 --
--- Indexes for table `cdac_category`
+-- Indexes for table `cdac_categories`
 --
-ALTER TABLE `cdac_category`
+ALTER TABLE `cdac_categories`
   ADD PRIMARY KEY (`category_code`),
-  ADD UNIQUE KEY `category_title` (`category_title`);  
-  
+  ADD UNIQUE KEY `category_title` (`category_title`);

@@ -275,4 +275,115 @@ class Atc extends MY_Controller {
 		$this->render('atc/registrationform');
 	}
 	
+	
+	// Qualification Form for Student
+	public function qualification()
+	{
+		// library from: application/libraries/Form_builder.php
+		$form = $this->form_builder->create_form();
+
+		if ($form->validate())
+		{
+			//$this->load->model('atc_student_qualification_model', 'qualification');
+			//$row_count = $this->qualification->count_all();
+			//$enquiry_id = "ENQ-".($row_count+1);
+			
+			$data = array(
+				'student_id' => $this->input->post('student_id'),
+				'highest_qualification' => $this->input->post('highest_qualification'),
+				'10_max_marks' => $this->input->post('maximum_marks'),
+				'10_obtained_marks' => $this->input->post('obtained_marks'),
+				'10_passing_year' => $this->input->post('passing_year'),
+				'10_institute_name' => $this->input->post('institute_name'),
+				'10_board_name' => $this->input->post('board_name'),
+				'created_by' => $this->mUser->username
+			);
+			
+			$data = array(
+				'student_id' => $this->input->post('student_id'),
+				'highest_qualification' => $this->input->post('highest_qualification'),
+				'12_max_marks' => $this->input->post('maximum_marks'),
+				'12_obtained_marks' => $this->input->post('obtained_marks'),
+				'12_passing_year' => $this->input->post('passing_year'),
+				'12_institute_name' => $this->input->post('institute_name'),
+				'12_board_name' => $this->input->post('board_name'),
+				'created_by' => $this->mUser->username
+			);
+			
+			$data = array(
+				'student_id' => $this->input->post('student_id'),
+				'highest_qualification' => $this->input->post('highest_qualification'),
+				'diploma_max_marks' => $this->input->post('maximum_marks'),
+				'diploma_obtained_marks' => $this->input->post('obtained_marks'),
+				'diploma_passing_year' => $this->input->post('passing_year'),
+				'diploma_institute_name' => $this->input->post('institute_name'),
+				'diploma_board_name' => $this->input->post('board_name'),
+				'created_by' => $this->mUser->username
+			);
+			
+			
+			$data = array(
+				'student_id' => $this->input->post('student_id'),
+				'highest_qualification' => $this->input->post('highest_qualification'),
+				'graduate_max_marks' => $this->input->post('maximum_marks'),
+				'graduate_obtained_marks' => $this->input->post('obtained_marks'),
+				'graduate_passing_year' => $this->input->post('passing_year'),
+				'graduate_institute_name' => $this->input->post('institute_name'),
+				'graduate_board_name' => $this->input->post('board_name'),
+				'created_by' => $this->mUser->username
+			);
+			
+			
+			$data = array(
+				'student_id' => $this->input->post('student_id'),
+				'highest_qualification' => $this->input->post('highest_qualification'),
+				'post_graduate_max_marks' => $this->input->post('maximum_marks'),
+				'post_graduate_obtained_marks' => $this->input->post('obtained_marks'),
+				'post_graduate_passing_year' => $this->input->post('passing_year'),
+				'post_graduate_institute_name' => $this->input->post('institute_name'),
+				'post_graduate_board_name' => $this->input->post('board_name'),
+				'created_by' => $this->mUser->username
+			);
+			
+			$this->load->model('atc_student_qualification_model', 'qualification');
+			$qualification_id = $this->qualification->insert($data);
+			
+			//$data = array(
+				//'Student_Name' => $this->input->post('dname'),
+				//'Student_Email' => $this->input->post('demail'),
+				//'Student_Mobile' => $this->input->post('dmobile'),
+				//'Student_Address' => $this->input->post('daddress')
+			//);
+			//	Transfering data to Model
+			//$this->insert_model->form_insert($data);
+			if($student_id)
+			{	
+				$this->system_message->set_success('Education Record Saved Successfully!');
+				//$this->system_message->set_success('Enquiry Record Saved Successfully! </br> The Enquiry ID is <b>'.$student_id.'</b>');
+			}
+			else 
+			{
+				$this->system_message->set_error('Error Saving Education Record');	
+			}
+			
+			refresh();
+		}
+
+		//$this->load->model('group_model', 'groups');
+		//$this->mViewData['groups'] = $this->groups->get_all();
+		
+		$this->load->model('atc_student_registration_model', 'registrations');
+		$this->load->model('cdac_category_model', 'qualifications');
+
+		$this->mViewData['registrations'] = $this->registrations->order_by('student_id')->get_many_by("student_status='A'"); // by atc_code
+		$this->mViewData['qualifications'] = $this->qualifications->order_by('category_code')->get_many_by("category_type='EDU'and category_status='A'");
+		
+		// require reCAPTCHA script at page head
+		$this->mScripts['head'][] = 'https://www.google.com/recaptcha/api.js';
+		
+		$this->mTitle = 'Education Qualificatoin Form';
+		$this->mViewData['form'] = $form;
+		$this->render('atc/qualificatoinform');
+	}
+	
 }
