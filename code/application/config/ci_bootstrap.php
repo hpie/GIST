@@ -139,8 +139,11 @@ $config['ci_bootstrap'] = array(
 			'icon'		=> 'fa fa-home',
 			'children'  => array(
 				'Enquiry'				=> 'atc/enquiry',
+				
 				'Register'				=> 'atc/register',
+				'Qualification'				=> 'atc/qualification',
 				'Enroll'				=> 'atc/enroll',
+				
 				'List Courses'			=> 'atc/courses',
 				'List Enquiries'		=> 'atc/enquiries',
 				'List Registrations'	=> 'atc/registrations'
@@ -237,7 +240,27 @@ $config['ci_bootstrap'] = array(
 	'page_auth' => array(
 		// Example: Frontend Website pages for registered users
 		'dashboard'					=> array('members'),
-		'account'					=> array('members'),
+		'account'					=> array('members','arcusers','atcusers','atcteachers','atcstudents'),
+		'cdac/enquiries'			=> array('members'),
+		'cdac/registrations'			=> array('members'),
+		'cdac/enrollments'			=> array('members'),
+		'cdac/centers'				=> array('members'),
+		'cdac/courses'				=> array('members'),
+		'cdac/arcs'				=> array('members'),
+		'arc/enquiries'				=> array('arcusers'),
+		'arc/registrations'			=> array('arcusers'),
+		'arc/enrollments'			=> array('arcusers'),
+		'arc/centers'				=> array('arcusers'),
+		'atc/enquiry'				=> array('atcusers','atcteachers'),
+		'atc/register'				=> array('atcusers','atcteachers'),
+		'atc/enroll'				=> array('atcusers','atcteachers'),
+		'atc/qualification'			=> array('atcusers','atcteachers'),
+		'atc/courses'				=> array('atcusers','atcteachers'),
+		'atc/enquiries'				=> array('atcusers','atcteachers'),
+		'atc/registrations'			=> array('atcusers','atcteachers'),
+		'student/enquiries'			=> array('atcstudents'),
+		'student/registrations'		=> array('atcstudents'),
+		'studentenrollments'		=> array('atcstudents'),
 
 		// Example: Admin Panel pages for admin users
 		'user/create'				=> array('webmaster', 'admin', 'manager'),

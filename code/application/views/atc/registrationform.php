@@ -6,8 +6,8 @@
 	<fieldset>	
 		<div class="form-top">
 		    <div class="form-top-left">
-		    <h3>Step 1 / 5</h3>
-		    	<p>Tell us about you:</p>
+		    <h3>Tell us about you:</h3>
+		    	<!-- <p>Tell us about you:</p>  -->
 		    </div>
 		    <div class="form-top-right">
 		    	<i class="fa fa-user">1</i>
@@ -16,7 +16,7 @@
 	    
 	    <div class="form-bottom">
 			<?php echo $form->messages(); ?>	
-			<?php echo $form->bs3_text('Student ID', 'student_id'); ?>
+			<?php// echo $form->bs3_text('Student ID', 'student_id'); ?>
 			<?php echo $form->bs3_text('First Name', 'first_name'); ?>
 			<?php echo $form->bs3_text('Middle Name', 'middle_name'); ?>
 			<?php echo $form->bs3_text('Last Name', 'last_name'); ?>
@@ -63,8 +63,8 @@
 	<fieldset>
 		<div class="form-top">
 		    <div class="form-top-left">
-		    <h3>Step 2 / 5</h3>
-		    	<p>Abuot your family:</p>
+		    <h3>Abuot your family:</h3>
+		    	<!-- <p>Abuot your family:</p> -->
 		    </div>
 		    <div class="form-top-right">
 		    	<i class="fa fa-user">2</i>
@@ -88,8 +88,8 @@
 	<fieldset>
 		<div class="form-top">
 		    <div class="form-top-left">
-		    <h3>Step 3 / 5</h3>
-		    	<p>Where you live:</p>
+		    <h3>Where you live:</h3>
+		    	<!--  <p>Where you live:</p>  -->
 		    </div>
 		    <div class="form-top-right">
 		    	<i class="fa fa-user">3</i>
@@ -113,8 +113,8 @@
 	<fieldset>
 		<div class="form-top">
 		    <div class="form-top-left">
-		    <h3>Step 4 / 5</h3>
-		    	<p>Where you are from:</p>
+		    <h3>Where you are from:</h3>
+		    	<!-- <p>Where you are from:</p>  -->
 		    </div>
 		    <div class="form-top-right">
 		    	<i class="fa fa-user">4</i>
@@ -138,8 +138,8 @@
 	<fieldset>
 		<div class="form-top">
 		    <div class="form-top-left">
-		    <h3>Step 5 / 5</h3>
-		    	<p>Your assciation with us:</p>
+		    <h3>Your assciation with us:</h3>
+		    	<!-- <p>Your assciation with us:</p>  -->
 		    </div>
 		    <div class="form-top-right">
 		    	<i class="fa fa-user">5</i>
@@ -162,23 +162,8 @@
 			
 	<?php endif; ?>
 	
-	<?php if ( !empty($courses) ): ?>
 		<div class="form-group">
-			<label for="courses">Course Opted</label>
-			<div>
-			<select name="intended_course" id="intended_course">
-			<option value="">Choose a Course</option>
-			<?php foreach ($courses as $course): ?>
-				<option value="<?php echo $course->course_code; ?>"> <?php echo $course->course_name; ?> </option>
-			<?php endforeach; ?>
-			</select>
-			</div>
-		</div>
-	<?php endif; ?>
-	
-	
-		<div class="form-group">
-			<label for="admission_dt">Admission Date</label>
+			<label for="admission_dt">Registration Date</label>
 				 <!-- <div class='input-group date' id='admission_datetimepicker'>  -->
 			    	<input type='text' class="form-control" name="admission_dt" id="admission_dt"/>
 						<!-- <span class="input-group-addon">
@@ -197,7 +182,7 @@
 		</div>	
 	
 		<div class="form-group">
-			<label for="centers">Admission Status</label>
+			<label for="centers">Registration Status</label>
 				<div>
 					<select name="student_status" id="student_status">
 						<option value="">-- Choose a Value --</option>
