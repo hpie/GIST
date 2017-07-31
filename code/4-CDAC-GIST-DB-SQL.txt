@@ -1,0 +1,57 @@
+-- phpMyAdmin SQL Dump
+-- version 4.4.14
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jul 24, 2017 at 07:39 PM
+-- Server version: 5.6.26
+-- PHP Version: 5.6.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `cdac_gist`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_course_result`
+--
+
+CREATE TABLE IF NOT EXISTS `student_course_result` (
+  `id` bigint(20) NOT NULL,
+  `student_id` varchar(20) NOT NULL,
+  `student_course_id` bigint(20) DEFAULT NULL COMMENT 'Foreign key to student_to_course table',
+  `subject_id` bigint(20) DEFAULT NULL COMMENT 'subject name from Subject tables for respective course id',
+  `subject_type` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'Allowed values from Subject table: Practical, Written',
+  `subject_max_marks` int(11) DEFAULT NULL COMMENT 'max marks from subjects table',
+  `attained_marks` int(11) NOT NULL COMMENT 'actual marks attained by student',
+  `created_by` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'System' COMMENT 'defaulted to system',
+  `created_dt` date NOT NULL,
+  `modified_by` varchar(40) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'System',
+  `modified_dt` date NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `student_course_result`
+--
+ALTER TABLE `student_course_result`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `student_course_id` (`student_course_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `student_course_result`
+--
+ALTER TABLE `student_course_result`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
