@@ -146,6 +146,7 @@ $config['ci_bootstrap'] = array(
 				
 				'List Courses'			=> 'atc/courses',
 				'List Enquiries'		=> 'atc/enquiries',
+				'List Enrollments'		=> 'atc/enrollments',
 				'List Registrations'	=> 'atc/registrations'
 		
 			)

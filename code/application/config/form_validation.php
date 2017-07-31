@@ -162,6 +162,7 @@ $config = array(
 			'rules'		=> 'required',
 		),
 	),
+	
 	//Student Registration Form
 	'student/register' => array(
 		array(
@@ -218,6 +219,35 @@ $config = array(
 		array(
 			'field'		=> 'student_status',
 			'label'		=> 'Status',
+			'rules'		=> 'required',
+		),
+	),
+	
+	//Student Enquiry Form
+	'atc/enroll' => array(
+		array(
+			'field'		=> 'student_id',
+			'label'		=> 'Student ID',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'course_code',
+			'label'		=> 'Course',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'start_dt',
+			'label'		=> 'Course Start Date',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'end_dt',
+			'label'		=> 'Course End Date',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'enrollment_type',
+			'label'		=> 'Enrollment type',
 			'rules'		=> 'required',
 		),
 	)
