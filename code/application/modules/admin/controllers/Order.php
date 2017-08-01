@@ -11,24 +11,42 @@ class Order extends Admin_Controller {
 
 
 	// Frontend User CRUD
-	public function index()
+	public function generate_my_crud($table_name)
 	{
-		$crud = $this->generate_crud('cdac_book_orders');
+		$crud = $this->generate_crud($table_name);
 		
 		$crud->display_as('order_code','Order Code');
 		$crud->display_as('book_code','Book Code');
-		$crud->display_as('requested_count','Requested count');
-		$crud->display_as('received_count','Received count');
-		$crud->display_as('reason_for_loss','Reason for loss');
+		$crud->display_as('requested_count','Requested Count');
+		$crud->display_as('received_count','Received Count');
+		$crud->display_as('reason_for_loss','Reason for Loss');
 		$crud->display_as('comments','Comments');
 		$crud->display_as('request_status','Request Status');
 		$crud->display_as('expected_delivery_dt','Expected Delivery Date');
 		$crud->display_as('actual_delivery_dt','Delivered On');
+		$crud->display_as('requested_dt','Requested Date');
+		$crud->display_as('expected_dt','Expected Delivery Date');
+		$crud->display_as('dispatched_count','Dispatched Count');
+		$crud->display_as('dispatched_dt','Dispatched Date');
+		$crud->display_as('delivery_mode','Delivery Mode');
+		$crud->display_as('delivery_reference','Delivery Reference');
+		$crud->display_as('received_dt','Received Date');
 		
-		$crud->columns('order_code','book_code', 'requested_count','expected_delivery_dt',
-		'request_status', 'received_count',  'actual_delivery_dt', 'reason_for_loss', 'comments');
 		
-
+		
+		
+		if($table_name == 'cdac_book_orders')
+		{
+			$crud->columns('order_code', 'book_code', 'requested_count','expected_delivery_dt',
+					'request_status', 'received_count',  'actual_delivery_dt', 'reason_for_loss', 'comments');
+		}
+		else
+		{
+			$crud->columns('book_code', 'requested_count','requested_dt','expected_dt',
+				'request_status', 'dispatched_count',  'dispatched_dt','delivery_mode','delivery_reference',
+				'received_dt','received_count', 'reason_for_loss', 'comments');
+		}
+		
 		//Relation with Book
 		$crud->set_relation('book_code','cdac_books','{book_code}-{book_name}',array('book_status' => 'A'), 'book_code, book_name ASC');
 		
@@ -42,7 +60,7 @@ class Order extends Admin_Controller {
 		$crud->unset_fields('reason_for_loss');
 		//Edit criteria
 		$state = $crud->getState();
-    	$state_info = $crud->getStateInfo();
+		$state_info = $crud->getStateInfo();
 		$pk = $state_info->primary_key;
 		//$crud->field_type('request_status','dropdown',
 		//array('O' => 'Ordered', 'R' => 'Received'));
@@ -57,46 +75,90 @@ class Order extends Admin_Controller {
 		if ($state == 'add' || $state == 'insert_validation' || $state == 'insert')
 		{
 			//Show only in ADD
-			$crud->add_fields('order_code','book_code', 'requested_count','expected_delivery_dt',
-			'request_status');
+			if($table_name == 'cdac_book_orders')
+			{	
+				$crud->add_fields('order_code','book_code', 'requested_count','expected_delivery_dt',
+					'request_status');
+			}
 			
+			elseif($table_name == 'arc_book_requests') 
+			{
+				$crud->add_fields('arc_code','book_code', 'requested_count','requested_dt','expected_dt',
+						'request_status');
+				
+				$crud->set_relation('arc_code','cdac_arcs','{arc_code}-{arc_name}',array('status' => 'A'), 'arc_code, arc_name ASC');
+				
+			}
+			
+			elseif($table_name == 'atc_book_requests')
+			{
+				$crud->add_fields('atc_code','book_code', 'requested_count','requested_dt','expected_dt',
+						'request_status');
+				
+				$crud->set_relation('atc_code','cdac_atcs','{atc_code}-{atc_name}',array('status' => 'A'), 'atc_code, atc_name ASC');
+				
+			}
 			//Relation with Status : for request_status
 			$crud->set_relation('request_status','cdac_status','{status_code}-{status_title}',array('status_group' => 'ORD-STS', 'status_mode' => 'C', 'status' => 'A'), 'status_code, status_title ASC');
-		
 			
-									
+			
+			
 			//Mandatory Feilds
-			$crud->required_fields('order_code','book_code', 'requested_count', 'request_status');
-			// get the user id	from ion_auth
-			//$this->ion_auth->in_group(array('webmaster', 'admin')
-			//$crud->getModel()->set_add_value('created_by', "system");
+			if($table_name == 'cdac_book_orders')
+			{	
+				$crud->required_fields('order_code','book_code', 'requested_count', 'request_status');
+			}
+			else 
+			{
+				$crud->required_fields('book_code', 'requested_count', 'request_status');
+			}
+			
 			$crud->field_type('created_by', 'hidden', "system");
+		
 		}
+		
 		elseif ($state == 'edit' || $state == 'update_validation' || $state == 'update')
 		{
 			//Mandatory Feilds
-
-			//Show only for Update
-			$crud->edit_fields('order_code','book_code', 'requested_count','expected_delivery_dt',
-			'request_status', 'received_count',  'actual_delivery_dt', 'reason_for_loss', 'comments');
 			
+			//Show only for Update
+			if($table_name == 'cdac_book_orders')
+			{
+				
+				$crud->edit_fields('order_code','book_code', 'requested_count','expected_delivery_dt',
+									'request_status', 'received_count',  'actual_delivery_dt',
+									'reason_for_loss', 'comments');
+			
+			}
+			
+			else 
+			{
+				$crud->edit_fields('book_code', 'requested_count','expected_dt',
+									'dispatched_count','dispatched_dt','delivery_mode','delivery_reference',
+									'received_dt', 'received_count', 'reason_for_loss','comments','request_status');
+				
+			}
 			//Relation with Status : for request_status
-			$crud->set_relation('request_status','cdac_status','{status_code}-{status_title}',array('status_group' => 'ORD-STS', 'status_mode' => 'E', 'status' => 'A'), 'status_code, status_title ASC');
+			$crud->set_relation('request_status','cdac_status','{status_code}-{status_title}',
+					array('status_group' => 'ORD-STS', 'status_mode' => 'E', 'status' => 'A'),
+					'status_code, status_title ASC');
 			
 			//Relation with Status : for reason_for_loss
-			$crud->set_relation('reason_for_loss','cdac_status','{status_code}-{status_title}',array('status_group' => 'ORD-RES', 'status_mode' => 'E', 'status' => 'A'), 'status_code, status_title ASC');
+			$crud->set_relation('reason_for_loss','cdac_status','{status_code}-{status_title}',
+					array('status_group' => 'ORD-RES', 'status_mode' => 'E', 'status' => 'A'), 
+					'status_code, status_title ASC');
 			
 			// get status value
 			//validate if status completed
-				
-				// if status received make received count etc mandatory
+			
+			// if status received make received count etc mandatory
 			
 			// Make these readonly and also accessible for callback update_log_after_update
 			$crud->field_type('order_code', 'hidden');
 			$crud->field_type('book_code', 'hidden');
 			
 			//$crud->field_type('order_code_fk', 'invisible');
-			//$crud->field_type('book_code_fk', 'invisible');	
+			//$crud->field_type('book_code_fk', 'invisible');
 			
 			$crud->field_type('modified_by', 'hidden', "system");
 			
@@ -105,7 +167,7 @@ class Order extends Admin_Controller {
 			
 			print_r($row);
 			
-			if($row->request_status == 'R')
+			if($row->request_status == 'REC')
 			{
 				$crud->field_type('order_code', 'readonly');
 				$crud->field_type('book_code', 'readonly');
@@ -120,13 +182,30 @@ class Order extends Admin_Controller {
 			
 		}
 		
-		$crud->callback_after_update(array($this, 'update_log_after_update')); 
+		$crud->field_type('table_name', 'hidden', $table_name);
+		$crud->callback_after_update(array($this, 'update_log_after_update'));
 		
 		$crud->unset_delete();
-
+		
 		$this->mPageTitle = 'Book Orders';
 		$this->render_crud();
 	}
+	
+	public function cdac()
+	{
+		$this->generate_my_crud('cdac_book_orders');
+	}
+	
+	public function arc()
+	{
+		$this->generate_my_crud('arc_book_requests');
+			}
+	
+	public function atc()
+	{
+		 $this->generate_my_crud('atc_book_requests');
+	}
+	
 	
 	function add_reason_for_loss_callback($value, $row)
 	{
@@ -153,7 +232,7 @@ class Order extends Admin_Controller {
 	function update_log_after_update($post_array, $primary_key)
 	{
 		print_r($post_array);
-			if($post_array['request_status'] == 'R')
+			if($post_array['request_status'] == 'REC')
 			{
 				$data = array(
 					'order_code' => $post_array['order_code'],

@@ -1,7 +1,21 @@
 --
 -- Drop table `cdac_status`
 --
-DROP TABLE cdac_status;
+DROP TABLE IF EXISTS cdac_status;
+
+-- Drop table `cdac`
+
+DROP TABLE IF EXISTS cdac;
+
+--
+-- Drop table `cdac_category`
+--
+DROP TABLE IF EXISTS cdac_category;
+
+-- Drop table `cdac_categories`
+--
+DROP TABLE IF EXISTS cdac_categories;
+
 
 --
 -- Table structure for table `cdac_status`
@@ -83,10 +97,6 @@ ALTER TABLE `cdac`
   
   
 
---
--- Drop table `cdac_categories`
---
-DROP TABLE cdac_category;
 --
 -- Table structure for table `cdac_categories`
 --

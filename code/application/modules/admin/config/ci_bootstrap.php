@@ -103,7 +103,10 @@ $config['ci_bootstrap'] = array(
 			'url'		=> 'bookrequestlogs',
 			'icon'		=> 'ion ion-edit',
 			'children'  => array(
-				'List'			=> 'bookrequestlogs',
+				'CDAC'			=> 'bookrequestlogs/cdac',
+				'ARC'			=> 'bookrequestlogs/arc',
+				'ATC'			=> 'bookrequestlogs/atc',
+				'Students'		=> 'bookrequestlogs/students',
 			)
 		),
 		'category' => array(
@@ -162,7 +165,9 @@ $config['ci_bootstrap'] = array(
 			'url'		=> 'order',
 			'icon'		=> 'ion ion-edit',
 			'children'  => array(
-				'List'			=> 'order',
+				'CDAC'			=> 'order/cdac',
+				'ARC'			=> 'order/arc',
+				'ATC'			=> 'order/atc',
 			)
 		),
 		'region' => array(
