@@ -29,7 +29,7 @@ class Book extends Admin_Controller {
 		//only webmaster and admin can change member groups
 		if ($crud->getState()=='list' || $this->ion_auth->in_group(array('webmaster', 'admin')))
 		{
-			$crud->set_relation_n_n('cdac_modules', 'cdac_book_module', 'cdac_modules', 'book_code', 'module_code', 'module_name');
+			$crud->set_relation_n_n('cdac_modules', 'cdac_module_books', 'cdac_modules', 'book_code', 'module_code', 'module_name');
 		}
 		
 		//Relation with Status

@@ -30,7 +30,7 @@ class Atc extends Admin_Controller {
 		//$crud->set_relation('status','cdac_status','{status_title}-{status_code}',array('status_group' => 'GEN', 'status_mode' => 'A', 'status' => 'A'), 'status_code, status_title ASC');
 		
 		//Relation with ATC Category : A B C D etc
-		$crud->set_relation('atc_category','cdac_category','{category_code}-{category_title}',array('category_type' => 'ATC-STS', 'category_status' => 'A'), 'category_code, category_title ASC');
+		$crud->set_relation('atc_category','cdac_categories','{category_code}-{category_title}',array('category_type' => 'ATC-STS', 'category_status' => 'A'), 'category_code, category_title ASC');
 		
 		
 		//Show only in ADD

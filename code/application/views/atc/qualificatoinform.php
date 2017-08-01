@@ -16,7 +16,21 @@
 	    
 	    <div class="form-bottom">
 			<?php echo $form->messages(); ?>	
-			<?php echo $form->bs3_text('Student ID', 'student_id'); ?>  // from searchable drop down
+			<?php // echo $form->bs3_text('Student ID', 'student_id'); ?>
+	
+	<?php if ( !empty($registrations) ): ?>
+		<div class="form-group">
+			<label for="Students">Student</label>
+			<div>
+			<select name="student_id" id="student_id">
+			<option value="">Select a Student</option>
+			<?php foreach ($registrations as $student): ?>
+				<option value="<?php echo $student->student_id; ?>"> <?php echo $student->student_id; ?> - <?php echo $student->first_name; ?> </option>
+			<?php endforeach; ?>
+			</select>
+			</div>
+		</div>
+	<?php endif; ?>
 
 			<?php if ( !empty($qualifications) ): ?>
 				<div class="form-group">
@@ -44,7 +58,7 @@
 						    $( "#passing_year" ).datepicker({
 						      changeMonth: true,
 						      changeYear: true,
-						      dateFormat: 'yy-mm'
+						      dateFormat: 'yy-mm-dd'
 						    });
 						  } );
 						</script>

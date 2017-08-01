@@ -250,6 +250,45 @@ $config = array(
 			'label'		=> 'Enrollment type',
 			'rules'		=> 'required',
 		),
+	),
+	
+	//Student Qualificatoin Form
+	'atc/qualification' => array(
+		array(
+			'field'		=> 'student_id',
+			'label'		=> 'Student ID',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'highest_qualification',
+			'label'		=> 'Qualification',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'maximum_marks',
+			'label'		=> 'Max Marks',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'obtained_marks',
+			'label'		=> 'Marks Obtained',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'passing_year',
+			'label'		=> 'Year of Passing',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'institute_name',
+			'label'		=> 'Institute Name ',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'board_name',
+			'label'		=> 'Board or University',
+			'rules'		=> 'required',
+		),
 	)
 	
 
