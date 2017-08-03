@@ -1,0 +1,1402 @@
+-- phpMyAdmin SQL Dump
+-- version 4.4.14
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Aug 03, 2017 at 09:59 PM
+-- Server version: 5.6.26
+-- PHP Version: 5.6.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `cdac_gist`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_groups`
+--
+
+DROP TABLE IF EXISTS `admin_groups`;
+CREATE TABLE IF NOT EXISTS `admin_groups` (
+  `id` mediumint(8) unsigned NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `description` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_login_attempts`
+--
+
+DROP TABLE IF EXISTS `admin_login_attempts`;
+CREATE TABLE IF NOT EXISTS `admin_login_attempts` (
+  `id` int(11) unsigned NOT NULL,
+  `ip_address` varchar(15) NOT NULL,
+  `login` varchar(100) NOT NULL,
+  `time` int(11) unsigned DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_users`
+--
+
+DROP TABLE IF EXISTS `admin_users`;
+CREATE TABLE IF NOT EXISTS `admin_users` (
+  `id` int(11) unsigned NOT NULL,
+  `ip_address` varchar(15) NOT NULL,
+  `username` varchar(100) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `salt` varchar(255) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `activation_code` varchar(40) DEFAULT NULL,
+  `forgotten_password_code` varchar(40) DEFAULT NULL,
+  `forgotten_password_time` int(11) unsigned DEFAULT NULL,
+  `remember_code` varchar(40) DEFAULT NULL,
+  `created_on` int(11) unsigned NOT NULL,
+  `last_login` int(11) unsigned DEFAULT NULL,
+  `active` tinyint(1) unsigned DEFAULT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_users_groups`
+--
+
+DROP TABLE IF EXISTS `admin_users_groups`;
+CREATE TABLE IF NOT EXISTS `admin_users_groups` (
+  `id` int(11) unsigned NOT NULL,
+  `user_id` int(11) unsigned NOT NULL,
+  `group_id` mediumint(8) unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `api_access`
+--
+
+DROP TABLE IF EXISTS `api_access`;
+CREATE TABLE IF NOT EXISTS `api_access` (
+  `id` int(11) unsigned NOT NULL,
+  `key` varchar(40) NOT NULL DEFAULT '',
+  `controller` varchar(50) NOT NULL DEFAULT '',
+  `date_created` datetime DEFAULT NULL,
+  `date_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `api_keys`
+--
+
+DROP TABLE IF EXISTS `api_keys`;
+CREATE TABLE IF NOT EXISTS `api_keys` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `key` varchar(40) NOT NULL,
+  `level` int(2) NOT NULL,
+  `ignore_limits` tinyint(1) NOT NULL DEFAULT '0',
+  `is_private_key` tinyint(1) NOT NULL DEFAULT '0',
+  `ip_addresses` text,
+  `date_created` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `api_limits`
+--
+
+DROP TABLE IF EXISTS `api_limits`;
+CREATE TABLE IF NOT EXISTS `api_limits` (
+  `id` int(11) NOT NULL,
+  `uri` varchar(255) NOT NULL,
+  `count` int(10) NOT NULL,
+  `hour_started` int(11) NOT NULL,
+  `api_key` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `api_logs`
+--
+
+DROP TABLE IF EXISTS `api_logs`;
+CREATE TABLE IF NOT EXISTS `api_logs` (
+  `id` int(11) NOT NULL,
+  `uri` varchar(255) NOT NULL,
+  `method` varchar(6) NOT NULL,
+  `params` text,
+  `api_key` varchar(40) NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `time` int(11) NOT NULL,
+  `rtime` float DEFAULT NULL,
+  `authorized` varchar(1) NOT NULL,
+  `response_code` smallint(3) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `arc_cdac_region`
+--
+
+DROP TABLE IF EXISTS `arc_cdac_region`;
+CREATE TABLE IF NOT EXISTS `arc_cdac_region` (
+  `row_id` bigint(20) NOT NULL,
+  `arc_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `region_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `arc_cdac_regions`
+--
+
+DROP TABLE IF EXISTS `arc_cdac_regions`;
+CREATE TABLE IF NOT EXISTS `arc_cdac_regions` (
+  `row_id` bigint(20) NOT NULL,
+  `arc_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `region_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `atc_faculties`
+--
+
+DROP TABLE IF EXISTS `atc_faculties`;
+CREATE TABLE IF NOT EXISTS `atc_faculties` (
+  `faculty_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `first_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `atc_code` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `faculty_joining_dt` date NOT NULL,
+  `faculty_leaving_dt` date DEFAULT NULL,
+  `faculty_gender` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `faculty_mobile` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `faculty_email` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `faculty_dob` date NOT NULL,
+  `faculty_status` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `current_address_line1` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `current_address_line2` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_address_city` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `current_address_pincode` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `permanent_address_line1` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_address_line2` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `permanent_address_city` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `permanent_address_pincode` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `status` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'A',
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `atc_faculty`
+--
+
+DROP TABLE IF EXISTS `atc_faculty`;
+CREATE TABLE IF NOT EXISTS `atc_faculty` (
+  `faculty_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `first_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `center_code` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `joining_dt` date NOT NULL,
+  `gender` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `contact_phone` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `email_id` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `date_of_birth` date NOT NULL,
+  `faculty_status` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `current_address_line1` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `current_address_line2` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_address_city` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `current_address_dist` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `current_address_state` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `current_address_pincode` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `permanent_address_line1` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_address_line2` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `permanent_address_city` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `permanent_address_dist` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `permanent_address_state` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `permanent_address_pincode` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT '2016-12-31 18:30:00',
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Triggers `atc_faculty`
+--
+DROP TRIGGER IF EXISTS `faculty_sequence`;
+DELIMITER $$
+CREATE TRIGGER `faculty_sequence` BEFORE INSERT ON `atc_faculty`
+ FOR EACH ROW BEGIN
+  INSERT INTO sequence_register VALUES (NULL);
+  SET NEW.faculty_id = CONCAT('TEACHER-', LPAD(LAST_INSERT_ID(), 8, 
+
+'0'));
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `atc_faculty_module`
+--
+
+DROP TABLE IF EXISTS `atc_faculty_module`;
+CREATE TABLE IF NOT EXISTS `atc_faculty_module` (
+  `row_id` bigint(20) NOT NULL,
+  `faculty_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `module_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `atc_faculty_modules`
+--
+
+DROP TABLE IF EXISTS `atc_faculty_modules`;
+CREATE TABLE IF NOT EXISTS `atc_faculty_modules` (
+  `row_id` bigint(20) NOT NULL,
+  `faculty_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `module_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `atc_student_book_issue_logs`
+--
+
+DROP TABLE IF EXISTS `atc_student_book_issue_logs`;
+CREATE TABLE IF NOT EXISTS `atc_student_book_issue_logs` (
+  `row_id` bigint(20) NOT NULL,
+  `student_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `course_code` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `module_code` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `book_code` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `issue_status` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `book_issue_dt` date NOT NULL,
+  `created_by` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `modified_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `atc_student_courses`
+--
+
+DROP TABLE IF EXISTS `atc_student_courses`;
+CREATE TABLE IF NOT EXISTS `atc_student_courses` (
+  `row_id` bigint(20) NOT NULL COMMENT 'This is the admission id of the registered student',
+  `student_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `course_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `start_dt` date NOT NULL,
+  `end_dt` date DEFAULT NULL,
+  `enrollment_type` varchar(20) COLLATE utf8_unicode_ci NOT NULL COMMENT 'New Admission, Upgrade, Returning Student',
+  `status` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ONG' COMMENT 'Ongoing, Completed, Upgraded, Dropped',
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `atc_student_enquiries`
+--
+
+DROP TABLE IF EXISTS `atc_student_enquiries`;
+CREATE TABLE IF NOT EXISTS `atc_student_enquiries` (
+  `id` bigint(20) NOT NULL,
+  `enquiry_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `first_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `atc_code` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `student_id` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `intended_course` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `enquiry_dt` date NOT NULL,
+  `enquiry_status` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `prospectus_number` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `prospectus_payment` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `enquiry_email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `enquiry_notes` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `atc_student_qualifications`
+--
+
+DROP TABLE IF EXISTS `atc_student_qualifications`;
+CREATE TABLE IF NOT EXISTS `atc_student_qualifications` (
+  `qualification_id` bigint(20) NOT NULL,
+  `student_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `highest_qualification` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'allowed values: 10th, 12th, Diploma, Graduate, Post Graduate',
+  `10_max_marks` int(4) DEFAULT NULL,
+  `10_obtained_marks` int(4) DEFAULT NULL,
+  `10_passing_year` date DEFAULT NULL,
+  `10_institute_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `10_board_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `12_max_marks` int(4) DEFAULT NULL,
+  `12_obtained_marks` int(4) DEFAULT NULL,
+  `12_passing_year` date DEFAULT NULL,
+  `12_institute_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `12_board_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `diploma_max_marks` int(4) DEFAULT NULL,
+  `diploma_obtained_marks` int(4) DEFAULT NULL,
+  `diploma_passing_year` date DEFAULT NULL,
+  `diploma_institute_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `diploma_board_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `graduate_max_marks` int(4) DEFAULT NULL,
+  `graduate_obtained_marks` int(4) DEFAULT NULL,
+  `graduate_passing_year` date DEFAULT NULL,
+  `graduate_institute_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `graduate_board_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `post_graduate_max_marks` int(4) DEFAULT NULL,
+  `post_graduate_obtained_marks` int(4) DEFAULT NULL,
+  `post_graduate_passing_year` date DEFAULT NULL,
+  `post_graduate_institute_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `post_graduate_board_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `atc_student_registration`
+--
+
+DROP TABLE IF EXISTS `atc_student_registration`;
+CREATE TABLE IF NOT EXISTS `atc_student_registration` (
+  `student_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `first_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `middle_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `father_first_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `father_middle_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `father_last_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mother_first_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mother_middle_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mother_last_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `center_code` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `admission_dt` date NOT NULL,
+  `gender` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `contact_phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email_id` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `date_of_birth` date DEFAULT NULL,
+  `student_status` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_address_line1` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_address_line2` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_address_city` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_address_dist` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_address_state` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_address_pincode` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_address_line1` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_address_line2` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_address_city` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_address_dist` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_address_state` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_address_pincode` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `atc_student_registrations`
+--
+
+DROP TABLE IF EXISTS `atc_student_registrations`;
+CREATE TABLE IF NOT EXISTS `atc_student_registrations` (
+  `student_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `first_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `middle_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `father_first_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `father_middle_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `father_last_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mother_first_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mother_middle_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mother_last_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `atc_code` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `admission_dt` date NOT NULL,
+  `gender` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `contact_phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `registered_email` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `date_of_birth` date DEFAULT NULL,
+  `student_status` varchar(20) COLLATE utf8_unicode_ci DEFAULT 'A',
+  `current_address_line1` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_address_line2` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_address_city` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_address_dist` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_address_state` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_address_pincode` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_address_line1` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_address_line2` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_address_city` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_address_dist` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_address_state` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_address_pincode` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blog_categories`
+--
+
+DROP TABLE IF EXISTS `blog_categories`;
+CREATE TABLE IF NOT EXISTS `blog_categories` (
+  `id` int(11) NOT NULL,
+  `pos` int(11) NOT NULL DEFAULT '0',
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blog_posts`
+--
+
+DROP TABLE IF EXISTS `blog_posts`;
+CREATE TABLE IF NOT EXISTS `blog_posts` (
+  `id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL DEFAULT '1',
+  `author_id` int(11) NOT NULL,
+  `title` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `image_url` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `content_brief` text COLLATE utf8_unicode_ci NOT NULL,
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  `publish_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` enum('draft','active','hidden') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'draft'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blog_posts_tags`
+--
+
+DROP TABLE IF EXISTS `blog_posts_tags`;
+CREATE TABLE IF NOT EXISTS `blog_posts_tags` (
+  `id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blog_tags`
+--
+
+DROP TABLE IF EXISTS `blog_tags`;
+CREATE TABLE IF NOT EXISTS `blog_tags` (
+  `id` int(11) NOT NULL,
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cdac`
+--
+
+DROP TABLE IF EXISTS `cdac`;
+CREATE TABLE IF NOT EXISTS `cdac` (
+  `cdac_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `cdac_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `cdac_address_line1` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `cdac_address_line2` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cdac_address_city` bigint(20) DEFAULT NULL,
+  `cdac_address_postcode` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `cdac_contact_number` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `cdac_contact_email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `status` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'A',
+  `created_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cdac_arcs`
+--
+
+DROP TABLE IF EXISTS `cdac_arcs`;
+CREATE TABLE IF NOT EXISTS `cdac_arcs` (
+  `arc_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `arc_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `arc_address_line1` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `arc_address_line2` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `arc_address_city` bigint(20) DEFAULT NULL,
+  `arc_address_postcode` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `arc_contact_number` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `arc_contact_email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `status` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'A',
+  `created_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_dt` timestamp NULL DEFAULT '2016-12-31 07:30:00',
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cdac_atcs`
+--
+
+DROP TABLE IF EXISTS `cdac_atcs`;
+CREATE TABLE IF NOT EXISTS `cdac_atcs` (
+  `atc_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `atc_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `atc_address_line1` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `atc_address_line2` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `atc_address_city` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `atc_address_postcode` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `atc_arc_code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `atc_contact_number` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `atc_contact_email` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `atc_type` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `atc_category` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'A',
+  `created_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_dt` timestamp NULL DEFAULT '2016-12-31 18:30:00',
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cdac_books`
+--
+
+DROP TABLE IF EXISTS `cdac_books`;
+CREATE TABLE IF NOT EXISTS `cdac_books` (
+  `book_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `book_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `book_description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `book_status` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` date NOT NULL,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `modified_dt` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cdac_book_orders`
+--
+
+DROP TABLE IF EXISTS `cdac_book_orders`;
+CREATE TABLE IF NOT EXISTS `cdac_book_orders` (
+  `order_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `book_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `requested_count` int(11) NOT NULL,
+  `unit_rate` int(11) NOT NULL DEFAULT '0' COMMENT 'Current rate as per print house',
+  `order_cost` int(11) NOT NULL DEFAULT '0' COMMENT 'Total cost of printing',
+  `received_count` int(11) DEFAULT NULL,
+  `reason_for_loss` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `comments` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `request_status` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `expected_delivery_dt` date DEFAULT NULL,
+  `actual_delivery_dt` date DEFAULT NULL,
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` date NOT NULL,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `modified_dt` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cdac_book_request_logs`
+--
+
+DROP TABLE IF EXISTS `cdac_book_request_logs`;
+CREATE TABLE IF NOT EXISTS `cdac_book_request_logs` (
+  `id` bigint(20) NOT NULL,
+  `order_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `book_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `book_received_count` int(11) NOT NULL DEFAULT '0' COMMENT 'Received from print house',
+  `book_dispatched_count` int(11) NOT NULL DEFAULT '0' COMMENT 'Dispatched to the requested entity',
+  `book_transaction_type` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT 'IN or OUT for reporting',
+  `requested_entity_type` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Valid values: CDAC, ARC, ATC',
+  `requested_entity_code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `processed_dt` date DEFAULT NULL,
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` date NOT NULL,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cdac_categories`
+--
+
+DROP TABLE IF EXISTS `cdac_categories`;
+CREATE TABLE IF NOT EXISTS `cdac_categories` (
+  `category_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `category_title` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `category_description` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `category_type` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Category Type for Category if they need to be grouped.',
+  `category_status` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'A',
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cdac_cities`
+--
+
+DROP TABLE IF EXISTS `cdac_cities`;
+CREATE TABLE IF NOT EXISTS `cdac_cities` (
+  `city_id` bigint(20) NOT NULL,
+  `city_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `latitude` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `longitude` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `state_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `status` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'A',
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT '2016-12-31 18:30:00',
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cdac_courses`
+--
+
+DROP TABLE IF EXISTS `cdac_courses`;
+CREATE TABLE IF NOT EXISTS `cdac_courses` (
+  `course_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `course_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `course_description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `course_status` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `course_category` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` date NOT NULL,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `modified_dt` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cdac_courses_category`
+--
+
+DROP TABLE IF EXISTS `cdac_courses_category`;
+CREATE TABLE IF NOT EXISTS `cdac_courses_category` (
+  `course_category` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `course_category_description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `course_category_status` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` date NOT NULL,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `modified_dt` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cdac_course_modules`
+--
+
+DROP TABLE IF EXISTS `cdac_course_modules`;
+CREATE TABLE IF NOT EXISTS `cdac_course_modules` (
+  `row_id` bigint(20) NOT NULL,
+  `module_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `course_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cdac_modules`
+--
+
+DROP TABLE IF EXISTS `cdac_modules`;
+CREATE TABLE IF NOT EXISTS `cdac_modules` (
+  `module_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `module_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `module_description` varchar(500) NOT NULL,
+  `module_status` varchar(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'A'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cdac_module_books`
+--
+
+DROP TABLE IF EXISTS `cdac_module_books`;
+CREATE TABLE IF NOT EXISTS `cdac_module_books` (
+  `row_id` bigint(20) NOT NULL,
+  `module_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `book_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cdac_regions`
+--
+
+DROP TABLE IF EXISTS `cdac_regions`;
+CREATE TABLE IF NOT EXISTS `cdac_regions` (
+  `region_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `region_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `region_state_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `status` varchar(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'A'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cdac_states`
+--
+
+DROP TABLE IF EXISTS `cdac_states`;
+CREATE TABLE IF NOT EXISTS `cdac_states` (
+  `state_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `state_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `country_id` bigint(20) NOT NULL,
+  `status` varchar(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'A'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cdac_status`
+--
+
+DROP TABLE IF EXISTS `cdac_status`;
+CREATE TABLE IF NOT EXISTS `cdac_status` (
+  `status_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `status_title` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status_description` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `status_group` varchar(10) COLLATE utf8_unicode_ci DEFAULT 'GEN' COMMENT 'Category Groups for Status if they nee to be selectively displayed.',
+  `status_mode` varchar(1) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'A' COMMENT 'A = All, C = Create, E = Edit',
+  `status` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'A',
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT '2016-12-31 13:00:00',
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cover_photos`
+--
+
+DROP TABLE IF EXISTS `cover_photos`;
+CREATE TABLE IF NOT EXISTS `cover_photos` (
+  `id` int(11) NOT NULL,
+  `pos` int(11) NOT NULL DEFAULT '0',
+  `image_url` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `status` enum('active','hidden') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'active'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `groups`
+--
+
+DROP TABLE IF EXISTS `groups`;
+CREATE TABLE IF NOT EXISTS `groups` (
+  `id` mediumint(8) unsigned NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `description` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login_attempts`
+--
+
+DROP TABLE IF EXISTS `login_attempts`;
+CREATE TABLE IF NOT EXISTS `login_attempts` (
+  `id` int(11) unsigned NOT NULL,
+  `ip_address` varchar(15) NOT NULL,
+  `login` varchar(100) NOT NULL,
+  `time` int(11) unsigned DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sequence_facutly`
+--
+
+DROP TABLE IF EXISTS `sequence_facutly`;
+CREATE TABLE IF NOT EXISTS `sequence_facutly` (
+  `id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) unsigned NOT NULL,
+  `ip_address` varchar(15) NOT NULL,
+  `username` varchar(100) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `salt` varchar(255) DEFAULT NULL,
+  `email` varchar(100) NOT NULL,
+  `activation_code` varchar(40) DEFAULT NULL,
+  `forgotten_password_code` varchar(40) DEFAULT NULL,
+  `forgotten_password_time` int(11) unsigned DEFAULT NULL,
+  `remember_code` varchar(40) DEFAULT NULL,
+  `created_on` int(11) unsigned NOT NULL,
+  `last_login` int(11) unsigned DEFAULT NULL,
+  `active` tinyint(1) unsigned DEFAULT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `company` varchar(100) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `about` text,
+  `acsess_to` varchar(5) NOT NULL DEFAULT 'CDAC' COMMENT 'CDAC , ARC or ATC only',
+  `access_entity` varchar(20) NOT NULL COMMENT 'ARC Code or ATC Code'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_groups`
+--
+
+DROP TABLE IF EXISTS `users_groups`;
+CREATE TABLE IF NOT EXISTS `users_groups` (
+  `id` int(11) unsigned NOT NULL,
+  `user_id` int(11) unsigned NOT NULL,
+  `group_id` mediumint(8) unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_role`
+--
+
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE IF NOT EXISTS `user_role` (
+  `user_role_name` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `user_role_description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` date NOT NULL,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `admin_groups`
+--
+ALTER TABLE `admin_groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `admin_login_attempts`
+--
+ALTER TABLE `admin_login_attempts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `admin_users`
+--
+ALTER TABLE `admin_users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `admin_users_groups`
+--
+ALTER TABLE `admin_users_groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `api_access`
+--
+ALTER TABLE `api_access`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `api_keys`
+--
+ALTER TABLE `api_keys`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `api_limits`
+--
+ALTER TABLE `api_limits`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `api_logs`
+--
+ALTER TABLE `api_logs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `arc_cdac_regions`
+--
+ALTER TABLE `arc_cdac_regions`
+  ADD PRIMARY KEY (`row_id`);
+
+--
+-- Indexes for table `atc_faculties`
+--
+ALTER TABLE `atc_faculties`
+  ADD PRIMARY KEY (`faculty_code`),
+  ADD UNIQUE KEY `faculty_email` (`faculty_email`),
+  ADD UNIQUE KEY `contact_phone` (`faculty_mobile`);
+
+--
+-- Indexes for table `atc_faculty`
+--
+ALTER TABLE `atc_faculty`
+  ADD PRIMARY KEY (`faculty_id`);
+
+--
+-- Indexes for table `atc_faculty_module`
+--
+ALTER TABLE `atc_faculty_module`
+  ADD PRIMARY KEY (`row_id`);
+
+--
+-- Indexes for table `atc_faculty_modules`
+--
+ALTER TABLE `atc_faculty_modules`
+  ADD PRIMARY KEY (`row_id`);
+
+--
+-- Indexes for table `atc_student_book_issue_logs`
+--
+ALTER TABLE `atc_student_book_issue_logs`
+  ADD PRIMARY KEY (`row_id`),
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `course_code` (`course_code`),
+  ADD KEY `module_code` (`module_code`),
+  ADD KEY `book_code` (`book_code`);
+
+--
+-- Indexes for table `atc_student_courses`
+--
+ALTER TABLE `atc_student_courses`
+  ADD PRIMARY KEY (`row_id`);
+
+--
+-- Indexes for table `atc_student_enquiries`
+--
+ALTER TABLE `atc_student_enquiries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `atc_student_qualifications`
+--
+ALTER TABLE `atc_student_qualifications`
+  ADD PRIMARY KEY (`qualification_id`),
+  ADD UNIQUE KEY `student_id` (`student_id`);
+
+--
+-- Indexes for table `atc_student_registrations`
+--
+ALTER TABLE `atc_student_registrations`
+  ADD PRIMARY KEY (`student_id`);
+
+--
+-- Indexes for table `blog_categories`
+--
+ALTER TABLE `blog_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `blog_posts`
+--
+ALTER TABLE `blog_posts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `blog_posts_tags`
+--
+ALTER TABLE `blog_posts_tags`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `blog_tags`
+--
+ALTER TABLE `blog_tags`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cdac`
+--
+ALTER TABLE `cdac`
+  ADD PRIMARY KEY (`cdac_code`),
+  ADD UNIQUE KEY `cdac_contact_email` (`cdac_contact_email`);
+
+--
+-- Indexes for table `cdac_arcs`
+--
+ALTER TABLE `cdac_arcs`
+  ADD PRIMARY KEY (`arc_code`),
+  ADD UNIQUE KEY `arc_contact_email` (`arc_contact_email`);
+
+--
+-- Indexes for table `cdac_atcs`
+--
+ALTER TABLE `cdac_atcs`
+  ADD PRIMARY KEY (`atc_code`),
+  ADD UNIQUE KEY `atc_contact_number` (`atc_contact_number`);
+
+--
+-- Indexes for table `cdac_books`
+--
+ALTER TABLE `cdac_books`
+  ADD PRIMARY KEY (`book_code`),
+  ADD UNIQUE KEY `book_name` (`book_name`);
+
+--
+-- Indexes for table `cdac_book_orders`
+--
+ALTER TABLE `cdac_book_orders`
+  ADD PRIMARY KEY (`order_code`),
+  ADD UNIQUE KEY `unique_index` (`order_code`,`book_code`),
+  ADD KEY `book_code` (`book_code`);
+
+--
+-- Indexes for table `cdac_book_request_logs`
+--
+ALTER TABLE `cdac_book_request_logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `book_code` (`book_code`),
+  ADD KEY `order_code` (`order_code`);
+
+--
+-- Indexes for table `cdac_categories`
+--
+ALTER TABLE `cdac_categories`
+  ADD PRIMARY KEY (`category_code`),
+  ADD UNIQUE KEY `category_title` (`category_title`);
+
+--
+-- Indexes for table `cdac_cities`
+--
+ALTER TABLE `cdac_cities`
+  ADD PRIMARY KEY (`city_id`);
+
+--
+-- Indexes for table `cdac_courses`
+--
+ALTER TABLE `cdac_courses`
+  ADD PRIMARY KEY (`course_code`),
+  ADD UNIQUE KEY `course_name` (`course_name`);
+
+--
+-- Indexes for table `cdac_course_modules`
+--
+ALTER TABLE `cdac_course_modules`
+  ADD PRIMARY KEY (`row_id`);
+
+--
+-- Indexes for table `cdac_modules`
+--
+ALTER TABLE `cdac_modules`
+  ADD PRIMARY KEY (`module_code`);
+
+--
+-- Indexes for table `cdac_module_books`
+--
+ALTER TABLE `cdac_module_books`
+  ADD PRIMARY KEY (`row_id`);
+
+--
+-- Indexes for table `cdac_regions`
+--
+ALTER TABLE `cdac_regions`
+  ADD PRIMARY KEY (`region_code`);
+
+--
+-- Indexes for table `cdac_states`
+--
+ALTER TABLE `cdac_states`
+  ADD PRIMARY KEY (`state_code`),
+  ADD UNIQUE KEY `state_name` (`state_name`);
+
+--
+-- Indexes for table `cdac_status`
+--
+ALTER TABLE `cdac_status`
+  ADD PRIMARY KEY (`status_code`),
+  ADD UNIQUE KEY `status_title` (`status_title`);
+
+--
+-- Indexes for table `cover_photos`
+--
+ALTER TABLE `cover_photos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `groups`
+--
+ALTER TABLE `groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `login_attempts`
+--
+ALTER TABLE `login_attempts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sequence_facutly`
+--
+ALTER TABLE `sequence_facutly`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users_groups`
+--
+ALTER TABLE `users_groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `admin_groups`
+--
+ALTER TABLE `admin_groups`
+  MODIFY `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `admin_login_attempts`
+--
+ALTER TABLE `admin_login_attempts`
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `admin_users`
+--
+ALTER TABLE `admin_users`
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `admin_users_groups`
+--
+ALTER TABLE `admin_users_groups`
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `api_access`
+--
+ALTER TABLE `api_access`
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `api_keys`
+--
+ALTER TABLE `api_keys`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `api_limits`
+--
+ALTER TABLE `api_limits`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `api_logs`
+--
+ALTER TABLE `api_logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `arc_cdac_regions`
+--
+ALTER TABLE `arc_cdac_regions`
+  MODIFY `row_id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `atc_faculty_modules`
+--
+ALTER TABLE `atc_faculty_modules`
+  MODIFY `row_id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `atc_student_book_issue_logs`
+--
+ALTER TABLE `atc_student_book_issue_logs`
+  MODIFY `row_id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `atc_student_courses`
+--
+ALTER TABLE `atc_student_courses`
+  MODIFY `row_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'This is the admission id of the registered student';
+--
+-- AUTO_INCREMENT for table `atc_student_enquiries`
+--
+ALTER TABLE `atc_student_enquiries`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `atc_student_qualifications`
+--
+ALTER TABLE `atc_student_qualifications`
+  MODIFY `qualification_id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `blog_categories`
+--
+ALTER TABLE `blog_categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `blog_posts`
+--
+ALTER TABLE `blog_posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `blog_posts_tags`
+--
+ALTER TABLE `blog_posts_tags`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `blog_tags`
+--
+ALTER TABLE `blog_tags`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `cdac_book_request_logs`
+--
+ALTER TABLE `cdac_book_request_logs`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `cdac_cities`
+--
+ALTER TABLE `cdac_cities`
+  MODIFY `city_id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `cdac_course_modules`
+--
+ALTER TABLE `cdac_course_modules`
+  MODIFY `row_id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `cdac_module_books`
+--
+ALTER TABLE `cdac_module_books`
+  MODIFY `row_id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `cover_photos`
+--
+ALTER TABLE `cover_photos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `groups`
+--
+ALTER TABLE `groups`
+  MODIFY `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `login_attempts`
+--
+ALTER TABLE `login_attempts`
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sequence_facutly`
+--
+ALTER TABLE `sequence_facutly`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `users_groups`
+--
+ALTER TABLE `users_groups`
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `atc_student_book_issue_logs`
+--
+ALTER TABLE `atc_student_book_issue_logs`
+  ADD CONSTRAINT `atc_student_book_issue_logs_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `atc_student_registrations` (`student_id`),
+  ADD CONSTRAINT `atc_student_book_issue_logs_ibfk_2` FOREIGN KEY (`course_code`) REFERENCES `cdac_courses` (`course_code`),
+  ADD CONSTRAINT `atc_student_book_issue_logs_ibfk_3` FOREIGN KEY (`module_code`) REFERENCES `cdac_modules` (`module_code`),
+  ADD CONSTRAINT `atc_student_book_issue_logs_ibfk_4` FOREIGN KEY (`book_code`) REFERENCES `cdac_books` (`book_code`);
+
+--
+-- Constraints for table `cdac_book_orders`
+--
+ALTER TABLE `cdac_book_orders`
+  ADD CONSTRAINT `cdac_book_orders_ibfk_1` FOREIGN KEY (`book_code`) REFERENCES `cdac_books` (`book_code`);
+
+--
+-- Constraints for table `cdac_book_request_logs`
+--
+ALTER TABLE `cdac_book_request_logs`
+  ADD CONSTRAINT `cdac_book_request_logs_ibfk_1` FOREIGN KEY (`book_code`) REFERENCES `cdac_books` (`book_code`),
+  ADD CONSTRAINT `cdac_book_request_logs_ibfk_2` FOREIGN KEY (`order_code`) REFERENCES `cdac_book_orders` (`order_code`);
