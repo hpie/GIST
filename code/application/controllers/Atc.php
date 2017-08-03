@@ -116,6 +116,8 @@ class Atc extends MY_Controller {
 			$row_count = $this->enquiry->count_all();
 			$enquiry_id = "ENQ-".($row_count+1);
 			
+			$enqphone = $this->input->post('enquiry_phone');
+			
 			$data = array(
 				'enquiry_id' => $enquiry_id,
 				'first_name' => $this->input->post('first_name'),
@@ -145,6 +147,32 @@ class Atc extends MY_Controller {
 			//$this->insert_model->form_insert($data);
 			if($student_id)
 			{	
+				try
+				{
+					$smsATC="";
+					$smsENQ="";
+		            if($this->input->post('prospectus_number')!="")
+		            {
+		            	$smsATC=$this->input->post('first_name'). " $enqphone have enguired for ".$this->input->post('intended_course')." with prospectus ". $this->input->post('prospectus_number');	
+		            }else 
+		            {
+						$smsATC=$this->input->post('first_name'). " $enqphone have enguired for ".$this->input->post('intended_course');
+		            }
+		            $smsENQ =$this->input->post('first_name'). " Thank you for enquiring with us. W \e would like to hear back from you soon"; 
+		            $smsEnqURL="http://www.commnestsms.com/api/push.json?apikey=581c18a7bdf6d&route=transpromo&sender=HPIEHP&mobileno=$enqphone&text=$smsENQ";
+		            $smsAtcURL="http://www.commnestsms.com/api/push.json?apikey=581c18a7bdf6d&route=transpromo&sender=HPIEHP&mobileno=9900514014&text=$smsATC";
+		            $responseATC = file_get_contents($smsEnqURL);
+		            $responseENQ = file_get_contents($smsAtcURL);
+		            $responseSMS = $responseATC."\n \n" .$responseENQ;
+		            //$email_message .= "SMS status: ".$responseSMS."\n";
+		        }catch(Exception $e) {
+		            //echo 'Message: ' .$e->getMessage();
+		            //$email_message .= "SMS status: ".$responseSMS."\n";
+		            $response = $response.$responseSMS.$e->getMessage(). "\r\n";
+		        }
+        		// send email
+		        //$this->input->post('enquiry_email')
+		         
 				$this->system_message->set_success('Enquiry Record Saved Successfully!');
 				//$this->system_message->set_success('Enquiry Record Saved Successfully! </br> The Enquiry ID is <b>'.$student_id.'</b>');
 			}
@@ -152,6 +180,8 @@ class Atc extends MY_Controller {
 			{
 				$this->system_message->set_error('Error Saving Enquiry Record');	
 			}
+			
+		 
 			
 			refresh();
 		}
@@ -258,6 +288,33 @@ class Atc extends MY_Controller {
 				//$this->system_message->set_error('Error Saving Student Record');	
 			//}
 			
+			/*	
+			try
+				{
+					$smsATC="";
+					$smsENQ="";
+		            if($this->input->post('prospectus_number')!="")
+		            {
+		            	$smsATC=$this->input->post('first_name'). " $enqphone have enguired for ".$this->input->post('intended_course')." with prospectus ". $this->input->post('prospectus_number');	
+		            }else 
+		            {
+						$smsATC=$this->input->post('first_name'). " $enqphone have enguired for ".$this->input->post('intended_course');
+		            }
+		            $smsENQ =$this->input->post('first_name'). " Thank you for enquiring with us. W \e would like to hear back from you soon"; 
+		            $smsEnqURL="http://www.commnestsms.com/api/push.json?apikey=581c18a7bdf6d&route=transpromo&sender=HPIEHP&mobileno=$enqphone&text=$smsENQ";
+		            $smsAtcURL="http://www.commnestsms.com/api/push.json?apikey=581c18a7bdf6d&route=transpromo&sender=HPIEHP&mobileno=9900514014&text=$smsATC";
+		            $responseATC = file_get_contents($smsEnqURL);
+		            $responseENQ = file_get_contents($smsAtcURL);
+		            $responseSMS = $responseATC."\n \n" .$responseENQ;
+		            //$email_message .= "SMS status: ".$responseSMS."\n";
+		        }catch(Exception $e) {
+		            //echo 'Message: ' .$e->getMessage();
+		            //$email_message .= "SMS status: ".$responseSMS."\n";
+		            $response = $response.$responseSMS.$e->getMessage(). "\r\n";
+		        }
+        		// send email
+		        //$this->input->post('enquiry_email')
+        	*/
 			refresh();
 		}
 
@@ -435,6 +492,22 @@ class Atc extends MY_Controller {
 				
 			}
 			
+			try{
+	            //$smsURL="http://sms.himit.in/api/push.json?apikey=58ce67b2a431e&route=transactional&sender=HIMITS&mobileno9900062922 &text=this is test SMS";
+	            //$smsURL="http://sms.himit.in/api/push.json?apikey=59075efb3d25b&route=transactional&sender=VIDSML&mobileno=9900062922&text= $sname with contact detais $pmobile , $cmobile $email registered Please check.";
+	            
+	            //$smsURLMD="http://sms.himit.in/api/push.json?apikey=59075efb3d25b&route=transactional&sender=DORICM&mobileno=8679030006&text= $sname with contact detais $pmobile , $cmobile $email registered at your Vidyamandir website Please check.";
+	            //$smsURLREG="http://sms.himit.in/api/push.json?apikey=59075efb3d25b&route=transactional&sender=DORICM&mobileno=$pmobile&text= Greetings from Vidyamandir. Thank you for your interest. Your request no is $lastId. We will getback to you soon.";
+	            
+	            //$responseMD = \Httpful\Request::put($smsURLMD)->send();
+	            //$responseREG = \Httpful\Request::put($smsURLREG)->send();
+	            //$responseSMS = $responseMD."\n \n" .$responseREG;
+	            //$email_message .= "SMS status: ".$responseSMS."\n";
+	        }catch(Exception $e) {
+	            //echo 'Message: ' .$e->getMessage();
+	            //$email_message .= "SMS status: ".$responseSMS."\n";
+	            $response = $response.$responseSMS.$e->getMessage(). "\r\n";
+	        }
 			
 			if($enrollment_id)
 			{	

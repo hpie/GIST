@@ -32,11 +32,36 @@
 			<?php foreach ($courses as $course): ?>
 				<option value="<?php echo $course->course_code; ?>"> <?php echo $course->course_name; ?> </option>
 			<?php endforeach; ?>
+				<option value="other"> Other </option>
 			</select>
 			</div>
+			
+			<script type="text/javascript">
+				$("#intended_course").change(function() {
+					var selVal = this.value;
+					  if(selVal=="other")
+					  {
+						  $("#intended_course_other_div").show(500);
+						  //alert(selVal);
+					  }else
+					  {
+						  $("#intended_course_other_div").hide( 1000 );
+						  //alert(selVal);  
+					  }
+				});
+				</script>
+				
 		</div>
 	<?php endif; ?>
 
+		<div id="intended_course_other_div" class="form-group" style="display: none">
+			<label for="centers">Other Course</label>
+				<div>
+					<input type="text" name="intended_course_other" value="" id="intended_course_other" class="form-control">
+				</div>
+				
+		</div>
+		
 		<div class="form-group">
 			<label for="enquiry_dt">Enquiry Date</label>
 				<!-- <div class='input-group date' id='datetimepicker1'>  -->
@@ -58,17 +83,42 @@
 		<div class="form-group">
 			<label for="centers">Enquiry Status</label>
 				<div>
-					<select name="enquiry_status" id="enquiry_status">
-						<option value="">-- Choose a Value --</option>
-						<option value="E">Enquired</option>
-						<option value="P">Prospectus Purchased</option>
-					</select>
+					<label class="checkbox-inline">
+						Enquired <input type="radio" name="enquiry_status" value="E">
+					</label>
+					<label class="checkbox-inline">
+						Prospectus Purchased <input type="radio" name="enquiry_status" value="P">
+					</label>
 				</div>
+				
+				<script type="text/javascript">
+				$("input[type='radio']").click(function() {
+					var selVal = $("input[name='enquiry_status']:checked").val();
+					alert(selVal);
+					  if(selVal=="P")
+					  {
+						  $("#prospectus_number_div").show(500);
+						  //alert(selVal);
+					  }else
+					  {
+						  $("#prospectus_number_div").hide( 1000 );
+						  //alert(selVal);  
+					  }
+				});
+				</script>
 		</div>
 			
-	<?php echo $form->bs3_text('Prospectus Number', 'prospectus_number'); ?>
+	<div id="prospectus_number_div" class="form-group" style="display: none">
+			<label for="centers">Prospectus Number</label>
+				<div>
+					<input type="text" name="prospectus_number" value="" id="prospectus_number" class="form-control">
+				</div>
+				
+	</div>
 	
 	<?php echo $form->bs3_Email('Email', 'enquiry_email'); ?>
+	
+	<?php echo $form->bs3_text('Phone', 'enquiry_phone'); ?>
 	
 	<?php echo $form->bs3_textarea('Notes', 'enquiry_notes'); ?>
 	
