@@ -120,7 +120,7 @@ $config = array(
 	),
 	
 	//Student Enquiry Form
-	'student/enquiry' => array(
+	'atc/enquiry' => array(
 		array(
 			'field'		=> 'first_name',
 			'label'		=> 'First Name',
@@ -164,7 +164,7 @@ $config = array(
 	),
 	
 	//Student Registration Form
-	'student/register' => array(
+	'atc/register' => array(
 		array(
 			'field'		=> 'first_name',
 			'label'		=> 'First Name',
