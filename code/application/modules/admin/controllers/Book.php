@@ -41,7 +41,7 @@ class Book extends Admin_Controller {
 		//Show only for Update
 		$crud->edit_fields('book_name', 'cdac_modules', 'book_description', 'book_status');
 		
-		$crud->required_fields('book_code', 'book_name', 'cdac_modules', 'book_status');
+		$crud->required_fields('book_code', 'book_name',  'book_status');
 	
 		// disable direct create / delete Frontend User
 		//$crud->unset_add();

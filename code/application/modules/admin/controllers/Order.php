@@ -33,6 +33,7 @@ class Order extends Admin_Controller {
 		$crud->display_as('received_dt','Received Date');
 		
 		
+		//$this->input->post('table_name') = $table_name;
 		
 		
 		if($table_name == 'cdac_book_orders')
@@ -47,6 +48,8 @@ class Order extends Admin_Controller {
 				'received_dt','received_count', 'reason_for_loss', 'comments');
 		}
 		
+		//$crud->add_fields('table_name');
+		
 		//Relation with Book
 		$crud->set_relation('book_code','cdac_books','{book_code}-{book_name}',array('book_status' => 'A'), 'book_code, book_name ASC');
 		
@@ -58,10 +61,13 @@ class Order extends Admin_Controller {
 		
 		$crud->unset_fields('request_status');
 		$crud->unset_fields('reason_for_loss');
+		
 		//Edit criteria
 		$state = $crud->getState();
 		$state_info = $crud->getStateInfo();
 		$pk = $state_info->primary_key;
+		
+		
 		//$crud->field_type('request_status','dropdown',
 		//array('O' => 'Ordered', 'R' => 'Received'));
 		
@@ -79,6 +85,8 @@ class Order extends Admin_Controller {
 			{	
 				$crud->add_fields('order_code','book_code', 'requested_count','expected_delivery_dt',
 					'request_status');
+				
+				
 			}
 			
 			elseif($table_name == 'arc_book_requests') 
@@ -127,17 +135,28 @@ class Order extends Admin_Controller {
 				
 				$crud->edit_fields('order_code','book_code', 'requested_count','expected_delivery_dt',
 									'request_status', 'received_count',  'actual_delivery_dt',
-									'reason_for_loss', 'comments');
-			
-			}
-			
-			else 
-			{
-				$crud->edit_fields('book_code', 'requested_count','expected_dt',
-									'dispatched_count','dispatched_dt','delivery_mode','delivery_reference',
-									'received_dt', 'received_count', 'reason_for_loss','comments','request_status');
+									'reason_for_loss', 'comments','table_name');
 				
 			}
+			
+			else if($table_name == 'arc_book_requests')
+			{
+				$crud->edit_fields('arc_code', 'book_code', 'requested_count','expected_dt',
+									'dispatched_count','dispatched_dt','delivery_mode','delivery_reference',
+						'received_dt', 'received_count', 'reason_for_loss','comments','request_status','table_name');
+				
+				$crud->field_type('arc_code','hidden');
+			}
+			
+			else if($table_name == 'atc_book_requests')
+			{
+				$crud->edit_fields('atc_code', 'book_code', 'requested_count','expected_dt',
+						'dispatched_count','dispatched_dt','delivery_mode','delivery_reference',
+						'received_dt', 'received_count', 'reason_for_loss','comments','request_status','table_name');
+				
+				$crud->field_type('atc_code','hidden');
+			}
+			
 			//Relation with Status : for request_status
 			$crud->set_relation('request_status','cdac_status','{status_code}-{status_title}',
 					array('status_group' => 'ORD-STS', 'status_mode' => 'E', 'status' => 'A'),
@@ -153,7 +172,10 @@ class Order extends Admin_Controller {
 			
 			// if status received make received count etc mandatory
 			
+			$crud->field_type('table_name','invisible',$table_name);
+					
 			// Make these readonly and also accessible for callback update_log_after_update
+			
 			$crud->field_type('order_code', 'hidden');
 			$crud->field_type('book_code', 'hidden');
 			
@@ -162,28 +184,50 @@ class Order extends Admin_Controller {
 			
 			$crud->field_type('modified_by', 'hidden', "system");
 			
-			$this->load->model('Cdac_book_order_model', 'bookOrder');
-			$row = $this->bookOrder->get_by('order_code', $pk);
+			if($table_name == 'cdac_book_orders'){
+				$this->load->model('Cdac_book_order_model', 'bookOrder');
+				$this->row = $this->bookOrder->get_by('order_code', $pk);
+			}
+			elseif($table_name == 'arc_book_requests'){
+				$this->load->model('Arc_book_request_model', 'bookRequest');
+				$this->row = $this->bookRequest->get_by('id', $pk);
+			}
+			elseif($table_name == 'atc_book_requests'){
+				$this->load->model('Atc_book_request_model', 'bookRequest');
+				$this->row = $this->bookRequest->get_by('id', $pk);
+			}
 			
-			print_r($row);
 			
-			if($row->request_status == 'REC')
+			print_r($this->row);
+			
+			if($this->row->request_status == 'REC')
 			{
 				$crud->field_type('order_code', 'readonly');
+				$crud->field_type('arc_code', 'readonly');
+				$crud->field_type('atc_code', 'readonly');
 				$crud->field_type('book_code', 'readonly');
 				$crud->field_type('requested_count', 'readonly');
 				$crud->field_type('expected_delivery_dt', 'readonly');
+				$crud->field_type('expected_dt', 'readonly');
 				$crud->field_type('request_status', 'readonly');
 				$crud->field_type('actual_delivery_dt', 'readonly');
 				$crud->field_type('reason_for_loss', 'readonly');
 				$crud->field_type('comments', 'readonly');
+				$crud->field_type('dispatched_count', 'readonly');
 				$crud->field_type('received_count', 'readonly');
+				$crud->field_type('received_dt', 'readonly');
+				$crud->field_type('dispatched_dt', 'readonly');
+				$crud->field_type('delivery_mode', 'readonly');
+				$crud->field_type('delivery_reference', 'readonly');
+				
 			}
 			
 		}
 		
 		$crud->field_type('table_name', 'hidden', $table_name);
 		$crud->callback_after_update(array($this, 'update_log_after_update'));
+		
+		//print_r($table_name);
 		
 		$crud->unset_delete();
 		
@@ -231,21 +275,52 @@ class Order extends Admin_Controller {
 	
 	function update_log_after_update($post_array, $primary_key)
 	{
-		print_r($post_array);
+		//print_r($post_array);
+		
 			if($post_array['request_status'] == 'REC')
 			{
-				$data = array(
-					'order_code' => $post_array['order_code'],
-					'book_code' => $post_array['book_code'],
-					'book_received_count' => $post_array['received_count'],
-					'book_transaction_type' => 'IN',
-					'requested_entity_type' => 'CDAC',
-					'requested_entity_code' => 'CDAC',
-					'processed_dt' => $post_array['actual_delivery_dt']
-				);
-				
-				$this->db->insert('cdac_book_request_logs',$data);
-				
+				if($post_array['table_name'] == 'cdac_book_orders')
+				{
+					$data = array(
+						'order_code' => $post_array['order_code'],
+						'book_code' => $post_array['book_code'],
+						'book_received_count' => $post_array['received_count'],
+						'book_transaction_type' => 'IN',
+						'requested_entity_type' => 'CDAC',
+						'requested_entity_code' => 'CDAC',
+						'processed_dt' => $post_array['actual_delivery_dt']
+					);
+					
+					$this->db->insert('cdac_book_request_logs',$data);
+				}
+				elseif($post_array['table_name'] == 'arc_book_requests')
+				{
+					$data = array(
+							'arc_code' => $post_array['arc_code'],
+							'book_code' => $post_array['book_code'],
+							'book_received_count' =>  $post_array['received_count'],
+							'book_dispatched_count' =>  $post_array['dispatched_count'],
+							'book_transaction_type' => 'IN',
+							'requested_entity_code' => 'ARC',
+							'processed_dt' => $post_array['received_dt']
+					);
+					
+					$this->db->insert('arc_book_request_logs',$data);
+				}
+				elseif($post_array['table_name'] == 'atc_book_requests')
+				{
+					$data = array(
+							'atc_code' => $post_array['atc_code'],
+							'book_code' => $post_array['book_code'],
+							'book_received_count' => $post_array['received_count'],
+							'book_dispatched_count' => $post_array['dispatched_count'],
+							'book_transaction_type' => 'IN',
+							'requested_entity_code' => 'ATC',
+							'processed_dt' => $post_array['received_dt']
+					);
+					
+					$this->db->insert('atc_book_request_logs',$data);
+				}
 			}
 	}
 	

@@ -125,6 +125,17 @@ $config['ci_bootstrap'] = array(
 				'List'			=> 'city',
 			)
 		),
+		'courier' => array(
+				'name'		=> 'Courier Management',
+				'url'		=> 'courier',
+				'icon'		=> 'ion ion-edit',
+				'children'  => array(
+						'CDAC'			=> 'courier/cdac',
+						'ARC'			=> 'courier/arc',
+						'ATC'			=> 'courier/atc',
+				)
+				
+		),
 		'course' => array(
 			'name'		=> 'Course',
 			'url'		=> 'couese',
@@ -169,7 +180,9 @@ $config['ci_bootstrap'] = array(
 				'ARC'			=> 'order/arc',
 				'ATC'			=> 'order/atc',
 			)
+				
 		),
+		
 		'region' => array(
 			'name'		=> 'Region Codes',
 			'url'		=> 'region',
