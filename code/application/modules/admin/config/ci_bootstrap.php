@@ -130,9 +130,7 @@ $config['ci_bootstrap'] = array(
 				'url'		=> 'courier',
 				'icon'		=> 'ion ion-edit',
 				'children'  => array(
-						'CDAC'			=> 'courier/cdac',
-						'ARC'			=> 'courier/arc',
-						'ATC'			=> 'courier/atc',
+						'List'			=> 'courier',
 				)
 				
 		),
