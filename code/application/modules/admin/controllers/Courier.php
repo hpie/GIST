@@ -51,6 +51,14 @@ class Courier extends Admin_Controller {
 				'requesting_entity_code', 'requested_entity_type','requested_entity_code',
 				'package_sent_dt', 'package_content_details', 'comments', 'package_received_dt');
 		
+		//select entity code relation based on entity type
+		$crud->set_relation('requesting_entity_code','cdac_arcs','{arc_code}-{arc_name}',array('status' => 'A'), 'arc_code, arc_name ASC');
+		$crud->set_relation('requested_entity_code','cdac_atcs','{atc_code}-{atc_name}',array('status' => 'A'), 'atc_code, atc_name ASC');
+		
+		//how to add others? and create a new record if others
+		$crud->set_relation('carrier_code','courier_carriers','{carrier_code}-{carrier_name}',array('carrier_status' => 'A'), 'carrier_code, carrier_name ASC');
+		
+		
 		$state = $crud->getState();
 		$state_info = $crud->getStateInfo();
 		
@@ -61,7 +69,6 @@ class Courier extends Admin_Controller {
 					'requesting_entity_code', 'requested_entity_type','requested_entity_code',
 					'package_sent_dt', 'package_content_details');
 			
-			
 			$crud->field_type('created_by', 'hidden', "system");
 		
 		}
@@ -70,6 +77,11 @@ class Courier extends Admin_Controller {
 			//Mandatory Feilds
 			$crud->required_fields('package_received_dt');
 			
+			//check user login = requested arc/ cdac then make it visible to edit
+			if ( $this->ion_auth->in_group() )
+			{
+				
+			}
 			$crud->field_type('docket_code', 'readonly');
 			$crud->field_type('carrier_code', 'readonly');
 			$crud->field_type('requesting_entity_type', 'readonly');
