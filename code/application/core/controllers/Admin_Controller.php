@@ -158,4 +158,37 @@ class Admin_Controller extends MY_Controller {
 		$this->mViewData['crud_output'] = $crud_data->output;
 		$this->render('crud');
 	}
+	
+	// Render Dependent CRUD
+	protected function render_dependent_crud($settings)
+	{
+		// logic specific for Grocery CRUD only
+		$crud_obj_name = strtolower(get_class($this->mCrud));
+		if ($crud_obj_name==='grocery_crud')
+		{
+			$this->mCrud->unset_fields($this->mCrudUnsetFields);	
+		}
+
+		// render CRUD
+		$crud_data = $this->mCrud->render();
+
+		if ( empty($settings) )
+		{
+			// append scripts
+			$this->add_stylesheet($crud_data->css_files, FALSE);
+			$this->add_script($crud_data->js_files, TRUE, 'head');
+			$output = $crud_data->output;
+		}else
+		{
+			// append scripts
+			$this->add_stylesheet($crud_data->css_files, FALSE);
+			$this->add_script($crud_data->js_files, TRUE, 'head');
+			
+			$output = $crud_data->output.$settings;
+		}
+		
+		// display view
+		$this->mViewData['crud_output'] = $output;
+		$this->render('crud');
+	}
 }
