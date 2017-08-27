@@ -12,12 +12,17 @@ class Courier extends Admin_Controller {
 	public function index()
 	{
 		//change table name to Couriers
+		
 		$crud = $this->generate_crud('couriers');
+		
+		//$crud->set_table('couriers');
+		$crud->where('requesting_entity_code =', $this->mUser->entity_code);
+		
 		
 		$crud->display_as('docket_code','Docket Code');
 		$crud->display_as('carrier_code','Carrier Code');
 		
-		//these should be populated automatically based on the user
+		
 		$crud->display_as('requesting_entity_type','Requester Type');
 		$crud->display_as('requesting_entity_code','Requester Code');
 		
@@ -35,7 +40,6 @@ class Courier extends Admin_Controller {
 				'requested_entity_type','requested_entity_code','package_sent_dt',
 				'package_content_details', 'package_received_dt','comments');
 		
-		//$crud->set_relation('atc_category','cdac_categories','{category_code}-{category_title}',array('category_type' => 'ATC-STS', 'category_status' => 'A'), 'category_code, category_title ASC');
 		
 		
 		//Show only in ADD
@@ -43,8 +47,7 @@ class Courier extends Admin_Controller {
 				'requesting_entity_code', 'requested_entity_type','requested_entity_code',
 				'package_sent_dt', 'package_content_details', 'comments');
 		
-		$crud->field_type('requesting_entity_type','dropdown', array('ARC','ATC'));
-		$crud->field_type('requested_entity_type','dropdown', array('CDAC','ARC','ATC'));
+		
 		
 		//Show only for Update
 		$crud->edit_fields('docket_code', 'carrier_code', 'requesting_entity_type',
@@ -62,12 +65,24 @@ class Courier extends Admin_Controller {
 		$state = $crud->getState();
 		$state_info = $crud->getStateInfo();
 		
+		//print_r( $this->ion_auth->_cache_user_in_group);
+		
+		print_r( $this->mUser->entity_type);
+		
+		
 		if ($state == 'add' || $state == 'insert_validation' || $state == 'insert')
 		{
 			//Mandatory Feilds
 			$crud->required_fields('docket_code', 'carrier_code', 'requesting_entity_type',
 					'requesting_entity_code', 'requested_entity_type','requested_entity_code',
 					'package_sent_dt', 'package_content_details');
+			
+			
+			$entity_type = $this->mUser->entity_type;
+			$entity_code = $this->mUser->entity_code;
+			
+			$crud->field_type('requested_entity_type','hidden',$entity_type);
+			$crud->field_type('requested_entity_code', 'hidden',$entity_code);
 			
 			$crud->field_type('created_by', 'hidden', "system");
 		
@@ -77,8 +92,10 @@ class Courier extends Admin_Controller {
 			//Mandatory Feilds
 			$crud->required_fields('package_received_dt');
 			
+			print_r($crud->columns());
+			
 			//check user login = requested arc/ cdac then make it visible to edit
-			if ( $this->ion_auth->in_group() )
+			if ( $this->mUser->entity_code)
 			{
 				
 			}
