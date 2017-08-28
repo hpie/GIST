@@ -17,7 +17,9 @@ class Courier extends Admin_Controller {
 		
 		print_r($this->mUser->entity_code);
 		//$crud->set_table('couriers');
-		$crud->where('requested_entity_code =',$this->mUser->entity_code);
+		$crud->where('requested_entity_code =\''.$this->mUser->entity_code."' OR requesting_entity_code='".$this->mUser->entity_code."'");
+		//requesting_entity_code
+		//requested_entity_code
 		
 		
 		$crud->display_as('docket_code','Docket Code');

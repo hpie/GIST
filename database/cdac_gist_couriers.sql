@@ -3,18 +3,12 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 28, 2017 at 01:40 PM
+-- Generation Time: Aug 28, 2017 at 11:17 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `cdac_gist`
@@ -43,14 +37,17 @@ CREATE TABLE IF NOT EXISTS `couriers` (
   `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `modified_by` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `modified_dt` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `couriers`
 --
 
 INSERT INTO `couriers` (`row_id`, `docket_code`, `carrier_code`, `requesting_entity_type`, `requesting_entity_code`, `requested_entity_type`, `requested_entity_code`, `courier_status`, `package_sent_dt`, `package_content_details`, `comments`, `package_received_dt`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
-(8, 'ABC100', '1', 'ATC', '   HPO01', 'ARC', 'ARC-1', '', '2017-08-28', '100 books', '', '0000-00-00', '', '2017-08-28 10:14:38', '', '0000-00-00 00:00:00');
+(8, 'ABC100', '1', 'ATC', 'HPO01', 'ARC', 'ARC-1', '', '2017-08-28', '100 books', '', '0000-00-00', '', '2017-08-28 21:11:23', '', '0000-00-00 00:00:00'),
+(9, 'DTDC-01', '1', '1', 'ARC-1', '2', 'Him-01', '', '2017-08-30', 'Test Package', 'book 1 book 2', '0000-00-00', '', '2017-08-28 20:15:55', '', '0000-00-00 00:00:00'),
+(10, 'FEDEX-01', '2', 'ATC', 'HPU01', 'ARC', 'GUJ-1', '', '2017-08-30', 'Marks Sheets', 'Marks Sheets', '0000-00-00', '', '2017-08-28 21:10:53', '', '0000-00-00 00:00:00'),
+(11, 'DTDC-01', '3', 'ATC', 'HPC01', 'ARC', 'GUJ-1', '', '2017-08-30', 'Certificates', 'Certificates', '0000-00-00', '', '2017-08-28 20:49:02', '', '0000-00-00 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -70,7 +67,4 @@ ALTER TABLE `couriers`
 -- AUTO_INCREMENT for table `couriers`
 --
 ALTER TABLE `couriers`
-  MODIFY `row_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  MODIFY `row_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
