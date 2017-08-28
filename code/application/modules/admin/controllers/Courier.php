@@ -15,20 +15,21 @@ class Courier extends Admin_Controller {
 		
 		$crud = $this->generate_crud('couriers');
 		
+		print_r($this->mUser->entity_code);
 		//$crud->set_table('couriers');
-		$crud->where('requesting_entity_code =', $this->mUser->entity_code);
+		$crud->where('requested_entity_code =',$this->mUser->entity_code);
 		
 		
 		$crud->display_as('docket_code','Docket Code');
 		$crud->display_as('carrier_code','Carrier Code');
 		
 		
-		$crud->display_as('requesting_entity_type','Requester Type');
-		$crud->display_as('requesting_entity_code','Requester Code');
+		$crud->display_as('requesting_entity_type','Sent To');
+		$crud->display_as('requesting_entity_code','Sent To Code');
 		
 		//drop down
-		$crud->display_as('requested_entity_type','Requested Entity Type');
-		$crud->display_as('requested_entity_code','Requested Entity Code');
+		$crud->display_as('requested_entity_type','Sender Entity Type');
+		$crud->display_as('requested_entity_code','Sender Entity Code');
 		
 		$crud->display_as('package_sent_dt','Package Sent Date');
 		$crud->display_as('package_content_details','Package Content Details');
@@ -55,8 +56,8 @@ class Courier extends Admin_Controller {
 				'package_sent_dt', 'package_content_details', 'comments', 'package_received_dt');
 		
 		//select entity code relation based on entity type
-		$crud->set_relation('requesting_entity_code','cdac_arcs','{arc_code}-{arc_name}',array('status' => 'A'), 'arc_code, arc_name ASC');
-		$crud->set_relation('requested_entity_code','cdac_atcs','{atc_code}-{atc_name}',array('status' => 'A'), 'atc_code, atc_name ASC');
+	//	$crud->set_relation('requested_entity_code','cdac_arcs','{arc_code}-{arc_name}',array('status' => 'A'), 'arc_code, arc_name ASC');
+		$crud->set_relation('requesting_entity_code','cdac_atcs','{atc_code}-{atc_name}',array('status' => 'A'), 'atc_code, atc_name ASC');
 		
 		//how to add others? and create a new record if others
 		$crud->set_relation('carrier_code','courier_carriers','{carrier_code}-{carrier_name}',array('carrier_status' => 'A'), 'carrier_code, carrier_name ASC');
@@ -81,8 +82,12 @@ class Courier extends Admin_Controller {
 			$entity_type = $this->mUser->entity_type;
 			$entity_code = $this->mUser->entity_code;
 			
+			$crud->field_type('requesting_entity_type','dropdown',array('CDAC'=>'CDAC','ARC'=>'ARC','ATC'=>'ATC'));
+			$crud->set_relation('requesting_entity_code','cdac_atcs','{atc_code}-{atc_name}',array('status' => 'A'), 'atc_code, atc_name ASC');
+			
+			
 			$crud->field_type('requested_entity_type','hidden',$entity_type);
-			$crud->field_type('requested_entity_code', 'hidden',$entity_code);
+			$crud->field_type('requested_entity_code','hidden',$entity_code);
 			
 			$crud->field_type('created_by', 'hidden', "system");
 		
