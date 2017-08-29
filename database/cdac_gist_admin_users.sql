@@ -16,6 +16,9 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+-- Drop if exists
+
+DROP TABLE IF EXISTS `admin_users`;
 --
 -- Table structure for table `admin_users`
 --

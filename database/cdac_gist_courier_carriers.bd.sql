@@ -16,6 +16,10 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+-- Drop tables if exists
+
+DROP TABLE IF EXISTS `courier_carriers`;
+
 --
 -- Table structure for table `courier_carriers`
 --
