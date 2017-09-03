@@ -275,8 +275,6 @@ class Order extends Admin_Controller {
 	
 	function update_log_after_update($post_array, $primary_key)
 	{
-		//print_r($post_array);
-		
 			if($post_array['request_status'] == 'REC')
 			{
 				if($post_array['table_name'] == 'cdac_book_orders')
