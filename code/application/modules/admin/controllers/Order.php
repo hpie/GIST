@@ -13,6 +13,9 @@ class Order extends Admin_Controller {
 	// Frontend User CRUD
 	public function generate_my_crud($table_name)
 	{
+		
+		$loggedinUser = $this->mUser->entity_code;
+		print_r($loggedinUser);
 		$crud = $this->generate_crud($table_name);
 		
 		$crud->display_as('order_code','Order Code');
@@ -32,9 +35,7 @@ class Order extends Admin_Controller {
 		$crud->display_as('delivery_reference','Delivery Reference');
 		$crud->display_as('received_dt','Received Date');
 		
-		
 		//$this->input->post('table_name') = $table_name;
-		
 		
 		if($table_name == 'cdac_book_orders')
 		{
@@ -48,8 +49,15 @@ class Order extends Admin_Controller {
 				'received_dt','received_count', 'reason_for_loss', 'comments');
 		}
 		
-		//$crud->add_fields('table_name');
+		//######################testing
 		
+	//	$crud->unset_edit();
+	//	$crud->add_action('Edit', '',array($this,'just_a_test'));
+	//	$crud->add_action('Edit','','ui-icon-pencil',array($this,'just_a_test'));
+	
+		
+		
+		//###############testing
 		//Relation with Book
 		$crud->set_relation('book_code','cdac_books','{book_code}-{book_name}',array('book_status' => 'A'), 'book_code, book_name ASC');
 		
@@ -85,25 +93,24 @@ class Order extends Admin_Controller {
 			{	
 				$crud->add_fields('order_code','book_code', 'requested_count','expected_delivery_dt',
 					'request_status');
-				
-				
 			}
 			
 			elseif($table_name == 'arc_book_requests') 
 			{
-				$crud->add_fields('arc_code','book_code', 'requested_count','requested_dt','expected_dt',
+				$crud->add_fields('book_code', 'requested_count','requested_dt','expected_dt',
 						'request_status');
-				
-				$crud->set_relation('arc_code','cdac_arcs','{arc_code}-{arc_name}',array('status' => 'A'), 'arc_code, arc_name ASC');
+				$crud->field_type('arc_code', 'hidden',$loggedinUser);
+				//$crud->set_relation('arc_code','cdac_arcs','{arc_code}-{arc_name}',array('status' => 'A'), 'arc_code, arc_name ASC');
 				
 			}
 			
 			elseif($table_name == 'atc_book_requests')
 			{
-				$crud->add_fields('atc_code','book_code', 'requested_count','requested_dt','expected_dt',
+				$crud->add_fields('book_code', 'requested_count','requested_dt','expected_dt',
 						'request_status');
+				$crud->field_type('atc_code', 'hidden',$loggedinUser);
 				
-				$crud->set_relation('atc_code','cdac_atcs','{atc_code}-{atc_name}',array('status' => 'A'), 'atc_code, atc_name ASC');
+				//$crud->set_relation('atc_code','cdac_atcs','{atc_code}-{atc_name}',array('status' => 'A'), 'atc_code, atc_name ASC');
 				
 			}
 			//Relation with Status : for request_status
@@ -136,21 +143,20 @@ class Order extends Admin_Controller {
 				$crud->edit_fields('order_code','book_code', 'requested_count','expected_delivery_dt',
 									'request_status', 'received_count',  'actual_delivery_dt',
 									'reason_for_loss', 'comments','table_name');
-				
 			}
 			
 			else if($table_name == 'arc_book_requests')
 			{
-				$crud->edit_fields('arc_code', 'book_code', 'requested_count','expected_dt',
+				$crud->edit_fields('book_code', 'requested_count','expected_dt',
 									'dispatched_count','dispatched_dt','delivery_mode','delivery_reference',
 						'received_dt', 'received_count', 'reason_for_loss','comments','request_status','table_name');
-				
+				//$crud->field_type('atc_code', 'hidden',$loggedinUser);
 				$crud->field_type('arc_code','hidden');
 			}
 			
 			else if($table_name == 'atc_book_requests')
 			{
-				$crud->edit_fields('atc_code', 'book_code', 'requested_count','expected_dt',
+				$crud->edit_fields('book_code', 'requested_count','expected_dt',
 						'dispatched_count','dispatched_dt','delivery_mode','delivery_reference',
 						'received_dt', 'received_count', 'reason_for_loss','comments','request_status','table_name');
 				
@@ -198,7 +204,7 @@ class Order extends Admin_Controller {
 			}
 			
 			
-			print_r($this->row);
+			//print_r($this->row);
 			
 			if($this->row->request_status == 'REC')
 			{
@@ -230,6 +236,7 @@ class Order extends Admin_Controller {
 		//print_r($table_name);
 		
 		$crud->unset_delete();
+		
 		
 		$this->mPageTitle = 'Book Orders';
 		$this->render_crud();
@@ -320,6 +327,16 @@ class Order extends Admin_Controller {
 					$this->db->insert('atc_book_request_logs',$data);
 				}
 			}
+	}
+	
+	function just_a_test($primary_key , $row)
+	{
+		if($row->order_code == 1){
+			print_r("just_a_test");
+			print_r($row);
+		}
+		return "";
+		//return site_url("base_url().'assets/grocery_crud/themes/flexigrid/css/images/edit.png");
 	}
 	
 }

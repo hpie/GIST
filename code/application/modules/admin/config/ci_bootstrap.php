@@ -238,6 +238,13 @@ $config['ci_bootstrap'] = array(
 		'util/backup_db'			=> array('webmaster'),
 		'util/restore_db'			=> array('webmaster'),
 		'util/remove_db'			=> array('webmaster'),
+		'bookrequestlogs/cdac'		=> array('webmaster','admin'),
+		'bookrequestlogs/arc'		=> array('webmaster','admin','manager'),
+		'bookrequestlogs/atc'		=> array('webmaster','admin','manager','staff'),
+		'order/cdac'				=> array('webmaster','admin'),
+		'order/arc'					=> array('webmaster','manager'),
+		'order/atc'					=> array('webmaster','staff'),
+			
 	),
 
 	// AdminLTE settings
