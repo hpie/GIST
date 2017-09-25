@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $config['ci_bootstrap'] = array(
 
 	// Site name
-	'site_name' => 'CDAC Admin Panel',
+	'site_name' => 'Admin Panel',
 
 	// Default page title prefix
 	'page_title_prefix' => '',

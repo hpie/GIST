@@ -14,6 +14,7 @@ class BookRequestLogs extends Admin_Controller {
 	{
 		
 		$crud = $this->generate_crud('atc_student_book_issue_logs');
+	
 		
 		$crud->display_as('student_id','Student ID');
 		$crud->display_as('course_code','Course Code');
@@ -33,7 +34,8 @@ class BookRequestLogs extends Admin_Controller {
 			//Mandatory Feilds
 			
 			//Show only for Update
-			$crud->edit_fields('student_id','course_code','module_code','book_code','issue_status', 'book_issue_dt');
+			$crud->edit_fields('student_id','course_code','module_code',
+					'book_code','issue_status', 'book_issue_dt');
 			
 			$crud->field_type('student_id', 'readonly');
 			$crud->field_type('course_code', 'readonly');
@@ -64,6 +66,9 @@ class BookRequestLogs extends Admin_Controller {
 	public function atc()
 	{
 		$crud = $this->generate_crud('atc_book_request_logs');
+		$crud->where('requested_entity_code =\''.$this->mUser->entity_code.'\'');
+		
+		
 		$crud->display_as('book_code','Book Code');
 		$crud->display_as('book_transaction_type','Transaction Type');
 		$crud->display_as('requested_entity_code','Requester Code');
@@ -82,14 +87,18 @@ class BookRequestLogs extends Admin_Controller {
 	public function arc()
 	{
 		$crud = $this->generate_crud('arc_book_request_logs');
-		$crud->display_as('order_code','Order Code');
+		
+		$crud->where('requested_entity_code =\''.$this->mUser->entity_code."'");
+		
+		
 		$crud->display_as('book_code','Book Code');
 		$crud->display_as('book_transaction_type','Transaction Type');
 		$crud->display_as('requested_entity_type','Requester');
 		$crud->display_as('requested_entity_code','Requester Code');
 		$crud->display_as('processed_dt','Processed Date');
 		
-		$crud->columns('order_code','book_code', 'book_transaction_type','requested_entity_type', 'requested_entity_code',
+		$crud->columns('book_code', 'book_transaction_type',
+				'requested_entity_type', 'requested_entity_code',
 				'processed_dt');
 		$crud->unset_delete();
 		$crud->unset_add();
