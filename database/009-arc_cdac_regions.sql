@@ -1,4 +1,4 @@
-ROP TABLE IF EXISTS `arc_cdac_regions`;
+DROP TABLE IF EXISTS `arc_cdac_regions`;
  
 --
 -- Table structure for table `arc_cdac_regions`

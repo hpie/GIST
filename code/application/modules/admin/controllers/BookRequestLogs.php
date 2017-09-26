@@ -12,9 +12,11 @@ class BookRequestLogs extends Admin_Controller {
 	
 	public function students()
 	{
+		$loggedinUser = $this->mUser;
 		
 		$crud = $this->generate_crud('atc_student_book_issue_logs');
-	
+		$crud->where('entity_code =\''.$loggedinUser->entity_code."'");
+		
 		
 		$crud->display_as('student_id','Student ID');
 		$crud->display_as('course_code','Course Code');
@@ -42,18 +44,12 @@ class BookRequestLogs extends Admin_Controller {
 			$crud->field_type('module_code', 'readonly');
 			$crud->field_type('book_code', 'readonly');
 			
-			//$crud->field_type('order_code_fk', 'invisible');
-			//$crud->field_type('book_code_fk', 'invisible');
-			
 			$crud->field_type('issue_status','dropdown', array('Requested' => 'Requested', 'Issued' => 'Issued'));
 			
 			$crud->field_type('modified_by', 'hidden', "system");
-			
-			//print_r($row);
-				
+					
 		}
 		
-		//$crud->callback_after_update(array($this, 'update_log_after_update'));
 		
 		$crud->unset_add();
 		
@@ -66,7 +62,7 @@ class BookRequestLogs extends Admin_Controller {
 	public function atc()
 	{
 		$crud = $this->generate_crud('atc_book_request_logs');
-		$crud->where('requested_entity_code =\''.$this->mUser->entity_code.'\'');
+		$crud->where('requested_entity_code =\''.$this->mUser->entity_code."'");
 		
 		
 		$crud->display_as('book_code','Book Code');

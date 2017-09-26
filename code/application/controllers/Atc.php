@@ -481,6 +481,7 @@ class Atc extends MY_Controller {
 				$data = array(
 					'student_id' => $this->input->post('student_id'),
 					'course_code' => $this->input->post('course_code'),
+					'entity_code' => $this->mUser->entity_code,	
 					'module_code' => $module->module_code,
 					'book_code' => $modulebooks->book_code,
 					'issue_status' => 'P',
@@ -488,6 +489,7 @@ class Atc extends MY_Controller {
 				);
 				
 				$this->load->model('atc_student_book_issue_log_model', 'bookissue');
+				
 				$this->bookissue->insert($data);
 				
 			}
