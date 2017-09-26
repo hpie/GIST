@@ -17,7 +17,6 @@ class BookRequestLogs extends Admin_Controller {
 		$crud = $this->generate_crud('atc_student_book_issue_logs');
 		$crud->where('entity_code =\''.$loggedinUser->entity_code."'");
 		
-		
 		$crud->display_as('student_id','Student ID');
 		$crud->display_as('course_code','Course Code');
 		$crud->display_as('module_code','Module Code');
@@ -59,48 +58,54 @@ class BookRequestLogs extends Admin_Controller {
 		$this->render_crud();
 	}
 	
-	public function atc()
+	public function requestedByMe()
 	{
-		$crud = $this->generate_crud('atc_book_request_logs');
-		$crud->where('requested_entity_code =\''.$this->mUser->entity_code."'");
-		
+		$crud = $this->generate_crud('cdac_book_request_logs');
+		$crud->where('entity_code =\''.$this->mUser->entity_code."'");
 		
 		$crud->display_as('book_code','Book Code');
-		$crud->display_as('book_transaction_type','Transaction Type');
-		$crud->display_as('requested_entity_code','Requester Code');
-		$crud->display_as('processed_dt','Processed Date');
+		$crud->display_as('requesting_to','Requested To');
+		$crud->display_as('book_requested_count','Requested Count');
+		$crud->display_as('requesting_dt','Requested On');
+		$crud->display_as('book_dispatched_count','Dispatched Count');
+		$crud->display_as('dispatched_dt','Dispatched Date');
+		$crud->display_as('book_received_count','Received Count');
+		$crud->display_as('received_dt','Received On');
 		
-		$crud->columns('book_code', 'book_transaction_type','requested_entity_type', 'requested_entity_code',
-				'processed_dt');
+		
+		$crud->columns('book_code','book_requested_count','requesting_to','requesting_dt',
+				'book_dispatched_count','dispatched_dt','book_received_count','received_dt');
+		
 		$crud->unset_delete();
 		$crud->unset_add();
 		$crud->unset_edit();
 		
-		$this->mPageTitle = 'Book Transaction Logs';
+		$this->mPageTitle = 'Book Request Logs';
 		$this->render_crud();
 	}
 	
-	public function arc()
+	public function requestedToMe()
 	{
-		$crud = $this->generate_crud('arc_book_request_logs');
-		
-		$crud->where('requested_entity_code =\''.$this->mUser->entity_code."'");
-		
+		$crud = $this->generate_crud('cdac_book_request_logs');
+		$crud->where('requesting_to =\''.$this->mUser->entity_code."'");
 		
 		$crud->display_as('book_code','Book Code');
-		$crud->display_as('book_transaction_type','Transaction Type');
-		$crud->display_as('requested_entity_type','Requester');
-		$crud->display_as('requested_entity_code','Requester Code');
-		$crud->display_as('processed_dt','Processed Date');
+		$crud->display_as('entity_code','Requested By');
+		$crud->display_as('book_requested_count','Requested Count');
+		$crud->display_as('requesting_dt','Requested On');
+		$crud->display_as('book_dispatched_count','Dispatched Count');
+		$crud->display_as('dispatched_dt','Dispatched Date');
+		$crud->display_as('book_received_count','Received Count by Requester');
+		$crud->display_as('received_dt','Received by Requester On');
 		
-		$crud->columns('book_code', 'book_transaction_type',
-				'requested_entity_type', 'requested_entity_code',
-				'processed_dt');
+		
+		$crud->columns('book_code','book_requested_count','entity_code','requesting_dt',
+				'book_dispatched_count','dispatched_dt','book_received_count','received_dt');
 		$crud->unset_delete();
 		$crud->unset_add();
 		$crud->unset_edit();
 		
-		$this->mPageTitle = 'Book Transaction Logs';
+		$this->mPageTitle = 'Book Dispatch Logs';
 		$this->render_crud();
 	}
 	

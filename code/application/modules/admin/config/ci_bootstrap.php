@@ -103,10 +103,9 @@ $config['ci_bootstrap'] = array(
 			'url'		=> 'bookrequestlogs',
 			'icon'		=> 'ion ion-edit',
 			'children'  => array(
-				'CDAC'			=> 'bookrequestlogs/cdac',
-				'ARC'			=> 'bookrequestlogs/arc',
-				'ATC'			=> 'bookrequestlogs/atc',
-				'Students'		=> 'bookrequestlogs/students',
+				'My Requests'			=> 'bookrequestlogs/requestedByMe',
+				'Requested to me'		=> 'bookrequestlogs/requestedToMe',
+				'Student Book Logs'		=> 'bookrequestlogs/students',
 			)
 		),
 		'category' => array(
@@ -238,9 +237,8 @@ $config['ci_bootstrap'] = array(
 		'util/backup_db'			=> array('webmaster'),
 		'util/restore_db'			=> array('webmaster'),
 		'util/remove_db'			=> array('webmaster'),
-		'bookrequestlogs/cdac'		=> array('webmaster','admin'),
-		'bookrequestlogs/arc'		=> array('webmaster','admin','manager'),
-		'bookrequestlogs/atc'		=> array('webmaster','admin','manager','staff'),
+		'bookrequestlogs/requestedToMe'		=> array('webmaster','admin','manager'),
+		'bookrequestlogs/requestedByMe'		=> array('webmaster','admin','manager','staff'),
 		'order/cdac'				=> array('webmaster','admin'),
 		'order/arc'					=> array('webmaster','manager'),
 		'order/atc'					=> array('webmaster','staff'),
