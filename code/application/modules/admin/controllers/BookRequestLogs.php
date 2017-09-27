@@ -46,11 +46,9 @@ class BookRequestLogs extends Admin_Controller {
 			$crud->field_type('issue_status','dropdown', array('Requested' => 'Requested', 'Issued' => 'Issued'));
 			
 			$crud->field_type('modified_by', 'hidden', "system");
-					
 		}
 		
-		
-		$crud->unset_add();
+		//$crud->unset_add();
 		
 		$crud->unset_delete();
 		

@@ -173,9 +173,9 @@ $config['ci_bootstrap'] = array(
 			'url'		=> 'order',
 			'icon'		=> 'ion ion-edit',
 			'children'  => array(
-				'CDAC'			=> 'order/cdac',
-				'ARC'			=> 'order/arc',
-				'ATC'			=> 'order/atc',
+				'CDAC Book Orders'			=> 'order/cdacBookOrders',
+				'Ad-hoc Book Requests By Me'			=> 'order/bookRequestsByMe',
+				'Ad-hoc Book Requests To Me'			=> 'order/bookRequestsToMe',
 			)
 				
 		),
@@ -239,9 +239,10 @@ $config['ci_bootstrap'] = array(
 		'util/remove_db'			=> array('webmaster'),
 		'bookrequestlogs/requestedToMe'		=> array('webmaster','admin','manager'),
 		'bookrequestlogs/requestedByMe'		=> array('webmaster','admin','manager','staff'),
-		'order/cdac'				=> array('webmaster','admin'),
-		'order/arc'					=> array('webmaster','manager'),
-		'order/atc'					=> array('webmaster','staff'),
+		'bookrequestlogs/students'			=> array('webmaster','staff'),
+		'order/cdacBookOrders'				=> array('webmaster','admin'),
+		'order/bookRequestsToMe'			=> array('webmaster','manager'),
+		'order/bookRequestsByMe'			=> array('webmaster','manager','staff'),
 			
 	),
 
@@ -264,20 +265,7 @@ $config['ci_bootstrap'] = array(
 			'target'	=> '_blank',
 			'color'		=> 'text-aqua'
 		),
-//		array(
-//			'auth'		=> array('webmaster', 'admin'),
-//			'name'		=> 'API Site',
-//			'url'		=> 'api',
-//			'target'	=> '_blank',
-//			'color'		=> 'text-orange'
-//		),
-//		array(
-//			'auth'		=> array('webmaster', 'admin', 'manager', 'staff'),
-//			'name'		=> 'Github Repo',
-//			'url'		=> CI_BOOTSTRAP_REPO,
-//			'target'	=> '_blank',
-//			'color'		=> 'text-green'
-//		),
+
 	),
 
 	// Debug tools
