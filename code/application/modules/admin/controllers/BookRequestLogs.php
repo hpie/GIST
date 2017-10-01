@@ -43,11 +43,15 @@ class BookRequestLogs extends Admin_Controller {
 			$crud->field_type('module_code', 'readonly');
 			$crud->field_type('book_code', 'readonly');
 			
+			//$crud->field_type('order_code_fk', 'invisible');
+			//$crud->field_type('book_code_fk', 'invisible');
+			
 			$crud->field_type('issue_status','dropdown', array('Requested' => 'Requested', 'Issued' => 'Issued'));
 			
 			$crud->field_type('modified_by', 'hidden', "system");
 		}
 		
+		//$crud->callback_after_update(array($this, 'update_log_after_update'));
 		//$crud->unset_add();
 		
 		$crud->unset_delete();

@@ -34,19 +34,23 @@ class Order extends Admin_Controller {
 		$crud->display_as('delivery_reference','Delivery Reference');
 		$crud->display_as('received_dt','Received Date');
 		
+		$crud->columns('order_code','book_code', 'requested_count','expected_delivery_dt',
+		'request_status', 'received_count',  'actual_delivery_dt', 'reason_for_loss', 'comments');
 		
-		$crud->columns('order_code', 'book_code', 'requested_count','expected_delivery_dt',
-					'request_status', 'received_count',  'actual_delivery_dt', 'reason_for_loss', 'comments');
-		
+		//Relation with Book
 		$crud->set_relation('book_code','cdac_books','{book_code}-{book_name}',
 				array('book_status' => 'A'), 'book_code, book_name ASC');
 		
+		//Relation with Status : for request_status
 		$crud->set_relation('request_status','cdac_status','{status_code}-{status_title}',
 				array('status_group' => 'ORD-STS', 'status' => 'A'), 'status_code, status_title ASC');
 		
+		//Relation with Status : for reason_for_loss
 		$crud->set_relation('reason_for_loss','cdac_status','{status_code}-{status_title}',
 				array('status_group' => 'ORD-RES', 'status' => 'A'), 'status_code, status_title ASC');				
 						
+		//$crud->unset_fields('request_status');
+		//$crud->unset_fields('reason_for_loss');
 		$state = $crud->getState();
 		$state_info = $crud->getStateInfo();
 		$pk = $state_info->primary_key;
@@ -60,12 +64,24 @@ class Order extends Admin_Controller {
 		elseif ($state == 'edit' || $state == 'update_validation' || $state == 'update')
 		{
 
+			//Show only for Update
 			$crud->edit_fields('order_code','book_code', 'requested_count','expected_delivery_dt',
-									'request_status', 'received_count',  'actual_delivery_dt',
-									'reason_for_loss', 'comments','table_name');
+			'request_status', 'received_count',  'actual_delivery_dt', 'reason_for_loss', 'comments', 'table_name');
 			
-		//	$crud->field_type('order_code', 'hidden');
-		//	$crud->field_type('book_code', 'hidden');
+			//Relation with Status : for request_status
+			//$crud->set_relation('request_status','cdac_status','{status_code}-{status_title}',array('status_group' => 'ORD-STS', 'status_mode' => 'E', 'status' => 'A'), 'status_code, status_title ASC');
+			
+			//Relation with Status : for reason_for_loss
+			//$crud->set_relation('reason_for_loss','cdac_status','{status_code}-{status_title}',array('status_group' => 'ORD-RES', 'status_mode' => 'E', 'status' => 'A'), 'status_code, status_title ASC');
+			
+			// get status value
+			//validate if status completed
+				
+			// if status received make received count etc mandatory
+			
+			// Make these readonly and also accessible for callback update_log_after_update
+			$crud->field_type('order_code', 'hidden');
+			$crud->field_type('book_code', 'hidden');
 			
 			$crud->field_type('modified_by', 'hidden', "system");
 			

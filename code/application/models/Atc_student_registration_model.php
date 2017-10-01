@@ -45,4 +45,13 @@ class Atc_student_registration_model extends MY_Model {
 	*/
 	//protected $where = array('status' => 'active');
 	//protected $order_by = array('publish_time', 'DESC');
+	
+	
+	
+	/*
+	protected function getStudentId($studentid, $atccode)
+	{
+		return $this->get_field(student_id, first_name)->where('atc_code',$atccode)->like('student_id', $studentid, 'after');
+	}
+	*/
 }
