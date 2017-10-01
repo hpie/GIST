@@ -116,13 +116,12 @@ class Order extends Admin_Controller {
 		$crud->display_as('comments','Comments');
 		$crud->display_as('request_status','Request Status');
 		$crud->display_as('expected_dt','Expected Delivery Date');
-		$crud->display_as('expected_dt','Expected Delivery Date');
 		$crud->display_as('received_dt','Received Date');
 		
 		
-		$crud->columns('book_code', 'requesting_count','requesting_to','expected_dt',
-				'request_status', 'request_type','dispatched_dt','dispatched_count','delivery_mode',
-				'delivery_reference','received_count', 'received_dt', 'reason_for_loss',
+		$crud->columns('book_code','requesting_to','requesting_dt',
+				'request_status', 'request_type','delivery_mode',
+				'delivery_reference','received_dt', 'reason_for_loss',
 				'comments');
 		
 		$crud->set_relation('book_code','cdac_books','{book_code}-{book_name}',array('book_status' => 'A'),
@@ -131,7 +130,6 @@ class Order extends Admin_Controller {
 		$crud->set_relation('requesting_to','cdac_entities','{entity_code}-{entity_name}',
 				array('entity_status' => 'A'), 'entity_code, entity_name ASC');
 		
-		$crud->field_type('request_status','dropdown',array('REQ'=>'REQUESTED','REC'=>'RECEIVED','CAN'=>'CANCELLED'));
 		
 		$crud->set_relation('reason_for_loss','cdac_status','{status_code}-{status_title}',
 				array('status_group' => 'ORD-RES', 'status' => 'A'), 'status_code, status_title ASC');
@@ -140,32 +138,56 @@ class Order extends Admin_Controller {
 		$state_info = $crud->getStateInfo();
 		$pk = $state_info->primary_key;
 		
-		
+		//requester creates request, sets status to requested
 		if ($state == 'add' || $state == 'insert_validation' || $state == 'insert')
 		{
 			//Show only in ADD
+			
 			$crud->add_fields('requesting_to','book_code','entity_code', 'requesting_count',
-					'expected_dt','request_status','request_type','comments','created_by');
+					'requesting_dt','expected_dt','request_status','request_type','comments','created_by');
+			
+			$crud->callback_add_field('requesting_dt', function(){
+				return date('Y-m-d');
+			});
 			
 			$crud->field_type('entity_code', 'hidden', $loggedinUser->entity_code);
 			$crud->field_type('request_type', 'hidden',"adhoc");
 			$crud->field_type('created_by', 'hidden', $loggedinUser->username);
+			$crud->field_type('request_status', 'hidden', "REQ");
 			
 		}
+		
+		
 		elseif ($state == 'edit' || $state == 'update_validation' || $state == 'update')
 		{	
-			$crud->edit_fields('book_code','requesting_to', 'requesting_count','expected_dt',
-					'dispatched_dt','dispatched_count','delivery_mode', 'delivery_reference',
-					'received_count',  'received_dt','request_status',
-					'reason_for_loss', 'comments','modified_by');
-				
-			$crud->field_type('modified_by', 'hidden', $loggedinUser->username);
 			
 			$this->load->model('Cdac_book_request_model', 'bookRequest');
 			$this->row = $this->bookRequest->get_by('id', $pk);
 			
-			if($this->row->request_status == 'DISP')
+			// requester cant edit request fields and responder's fields once the responder dispatches the request
+			
+			if($this->row->request_status == 'REQ')
 			{
+				$crud->field_type('request_status','dropdown',array('REQ'=>'REQUESTED','CAN'=>'CANCELLED'));
+				
+				$crud->edit_fields('book_code','requesting_to', 'requesting_count','expected_dt',
+					 'comments','modified_by');
+				
+				$crud->field_type('modified_by', 'hidden', $loggedinUser->username);
+			
+				
+			}
+			elseif($this->row->request_status == 'DISP')
+			{
+				$crud->field_type('request_status','dropdown',array('REC'=>'RECEIVED','CAN'=>'CANCELLED'));
+				
+				$crud->edit_fields('book_code','requesting_to', 'requesting_count','expected_dt',
+						'dispatched_dt','dispatched_count','delivery_mode', 'delivery_reference',
+						'received_count',  'received_dt','request_status',
+						'reason_for_loss', 'comments','modified_by');
+				
+				$crud->field_type('modified_by', 'hidden', $loggedinUser->username);
+				
 				$crud->field_type('entity_code', 'readonly');
 				$crud->field_type('book_code', 'readonly');
 				$crud->field_type('requesting_count', 'readonly');
@@ -196,23 +218,23 @@ class Order extends Admin_Controller {
 		
 		$crud->display_as('book_code','Book Code');
 		$crud->display_as('requesting_count','Requested Count');
-		$crud->display_as('requesting_to','Requested To Entity');
+		$crud->display_as('entity_code','Requested By');
 		$crud->display_as('requested_dt','Requested Date');
 		$crud->display_as('comments','Comments');
 		$crud->display_as('request_status','Request Status');
-		$crud->display_as('expected_delivery_dt','Expected Delivery Date');
-		$crud->display_as('actual_delivery_dt','Delivered On');
 		$crud->display_as('expected_dt','Expected Delivery Date');
 		$crud->display_as('received_dt','Received Date');
+		$crud->display_as('received_count','Received Count');
+		$crud->display_as('reason_for_loss','Reason for loss');
 		
 		
-		$crud->columns('book_code', 'requesting_count','requesting_to','expected_dt',
-				'request_status', 'received_count', 'actual_delivery_dt', 'reason_for_loss', 'comments');
+		$crud->columns('book_code', 'requesting_count','entity_code',
+				'request_status','requested_dt','dispatched_dt','received_dt','comments');
 		
 		$crud->set_relation('book_code','cdac_books','{book_code}-{book_name}',
 				array('book_status' => 'A'), 'book_code, book_name ASC');
 		
-		$crud->field_type('request_status','dropdown',array('REQ'=>'REQUESTED','DISP'=>'DISPATCHED','REJ'=>'REJECTED'));
+		$crud->field_type('request_status','dropdown',array('DISP'=>'DISPATCHED','REJ'=>'REJECTED'));
 		
 		$state = $crud->getState();
 		$state_info = $crud->getStateInfo();
@@ -232,13 +254,35 @@ class Order extends Admin_Controller {
 			$this->load->model('Cdac_book_request_model', 'bookOrder');
 			$this->row = $this->bookOrder->get_by('id', $pk);
 			
-			if($this->row->request_status == 'ORD')
+			if($this->row->request_status == 'REQ' || $this->row->request_status == 'DISP')
 			{
 				$crud->field_type('entity_code', 'readonly');
 				$crud->field_type('book_code', 'readonly');
 				$crud->field_type('requesting_count', 'readonly');
 				$crud->field_type('requesting_to', 'readonly');
 				$crud->field_type('expected_dt', 'readonly');
+				
+			}
+			elseif($this->row->request_status == 'REC'){
+				$crud->edit_fields('book_code', 'requesting_count','expected_dt','dispatched_dt',
+						'dispatched_count','delivery_mode','delivery_reference','request_status','received_dt',
+						'received_count',
+						'comments','modified_by');
+				
+				$crud->field_type('modified_by', 'hidden', $loggedinUser->username);
+				
+				
+				$crud->field_type('entity_code', 'readonly');
+				$crud->field_type('book_code', 'readonly');
+				$crud->field_type('requesting_count', 'readonly');
+				$crud->field_type('requesting_to', 'readonly');
+				$crud->field_type('expected_dt', 'readonly');
+				$crud->field_type('dispatched_dt', 'readonly');
+				$crud->field_type('dispatched_count', 'readonly');
+				$crud->field_type('delivery_mode', 'readonly');
+				$crud->field_type('delivery_reference', 'readonly');
+				$crud->field_type('request_status', 'readonly');
+				$crud->field_type('reason_for_loss', 'readonly');
 				
 			}
 			
