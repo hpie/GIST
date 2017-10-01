@@ -58,21 +58,21 @@ class BookRequestLogs extends Admin_Controller {
 	
 	public function requestedByMe()
 	{
-		$crud = $this->generate_crud('cdac_book_request_logs');
-		$crud->where('entity_code =\''.$this->mUser->entity_code."'");
+		$crud = $this->generate_crud('cdac_book_requests');
+		$crud->where('entity_code =\''.$this->mUser->entity_code."'".' AND request_status = \'REC\'');
 		
 		$crud->display_as('book_code','Book Code');
 		$crud->display_as('requesting_to','Requested To');
-		$crud->display_as('book_requested_count','Requested Count');
+		$crud->display_as('requesting_count','Requested Count');
 		$crud->display_as('requesting_dt','Requested On');
-		$crud->display_as('book_dispatched_count','Dispatched Count');
+		$crud->display_as('dispatched_count','Dispatched Count');
 		$crud->display_as('dispatched_dt','Dispatched Date');
-		$crud->display_as('book_received_count','Received Count');
+		$crud->display_as('received_count','Received Count');
 		$crud->display_as('received_dt','Received On');
 		
 		
-		$crud->columns('book_code','book_requested_count','requesting_to','requesting_dt',
-				'book_dispatched_count','dispatched_dt','book_received_count','received_dt');
+		$crud->columns('book_code','requesting_count','requesting_to','requesting_dt',
+				'dispatched_count','dispatched_dt','delivery_mode','delivery_reference','received_count','received_dt');
 		
 		$crud->unset_delete();
 		$crud->unset_add();
@@ -84,21 +84,21 @@ class BookRequestLogs extends Admin_Controller {
 	
 	public function requestedToMe()
 	{
-		$crud = $this->generate_crud('cdac_book_request_logs');
-		$crud->where('requesting_to =\''.$this->mUser->entity_code."'");
+		$crud = $this->generate_crud('cdac_book_requests');
+		$crud->where('requesting_to =\''.$this->mUser->entity_code."'".' AND request_status = \'REC\'');
 		
 		$crud->display_as('book_code','Book Code');
 		$crud->display_as('entity_code','Requested By');
-		$crud->display_as('book_requested_count','Requested Count');
+		$crud->display_as('requesting_count','Requested Count');
 		$crud->display_as('requesting_dt','Requested On');
-		$crud->display_as('book_dispatched_count','Dispatched Count');
+		$crud->display_as('dispatched_count','Dispatched Count');
 		$crud->display_as('dispatched_dt','Dispatched Date');
-		$crud->display_as('book_received_count','Received Count by Requester');
-		$crud->display_as('received_dt','Received by Requester On');
+		$crud->display_as('received_count','Received Count');
+		$crud->display_as('received_dt','Received On');
 		
 		
-		$crud->columns('book_code','book_requested_count','entity_code','requesting_dt',
-				'book_dispatched_count','dispatched_dt','book_received_count','received_dt');
+		$crud->columns('book_code','requesting_count','entity_code','requesting_dt',
+				'dispatched_count','dispatched_dt','delivery_mode','delivery_reference','received_count','received_dt');
 		$crud->unset_delete();
 		$crud->unset_add();
 		$crud->unset_edit();
