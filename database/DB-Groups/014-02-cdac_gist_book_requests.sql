@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 
 DROP TABLE IF EXISTS `cdac_book_requests`;
-DROP TABLE IF EXISTS `atc_book_requests`;
-DROP TABLE IF EXISTS `arc_book_requests`;
 
 -- --------------------------------------------------------
 

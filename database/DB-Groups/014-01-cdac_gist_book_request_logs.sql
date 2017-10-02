@@ -23,8 +23,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 DROP TABLE IF EXISTS `atc_book_request_logs`;
-DROP TABLE IF EXISTS `arc_book_request_logs`;
-DROP TABLE IF EXISTS `cdac_book_request_logs`;
 --
 -- Table structure for table `atc_book_request_logs`
 --
