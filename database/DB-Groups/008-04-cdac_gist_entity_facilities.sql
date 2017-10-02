@@ -16,13 +16,13 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
-drop table if exists entity_facilities;
+drop table if exists `cdac_entity_facilities`;
 
 --
--- Table structure for table `entity_facilities`
+-- Table structure for table `cdac_entity_facilities`
 --
 
-CREATE TABLE IF NOT EXISTS `entity_facilities` (
+CREATE TABLE IF NOT EXISTS `cdac_entity_facilities` (
   `id` bigint(20) NOT NULL,
   `entity_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `facility_area` varchar(20) COLLATE utf8_unicode_ci NULL,
@@ -42,9 +42,9 @@ CREATE TABLE IF NOT EXISTS `entity_facilities` (
 --
 
 --
--- Indexes for table `entity_facilities`
+-- Indexes for table `cdac_entity_facilities`
 --
-ALTER TABLE `entity_facilities`
+ALTER TABLE `cdac_entity_facilities`
   ADD PRIMARY KEY (`id`),
   ADD KEY `entity_code` (`entity_code`);
 
@@ -53,16 +53,16 @@ ALTER TABLE `entity_facilities`
 --
 
 --
--- AUTO_INCREMENT for table `entity_facilities`
+-- AUTO_INCREMENT for table `cdac_entity_facilities`
 --
-ALTER TABLE `entity_facilities`
+ALTER TABLE `cdac_entity_facilities`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `entity_facilities`
+-- Constraints for table `cdac_entity_facilities`
 --
-ALTER TABLE `entity_facilities`
+ALTER TABLE `cdac_entity_facilities`
   ADD CONSTRAINT `entity_facilities_ibfk_1` FOREIGN KEY (`entity_code`) REFERENCES `cdac_entities` (`entity_code`);

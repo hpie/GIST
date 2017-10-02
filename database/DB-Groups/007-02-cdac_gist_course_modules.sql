@@ -16,35 +16,36 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
-drop table if exists `cdac_module_books`;
+drop table if exists `cdac_course_modules`;
 
 --
--- Table structure for table `cdac_module_books`
+-- Table structure for table `cdac_course_modules`
 --
 
-CREATE TABLE IF NOT EXISTS `cdac_module_books` (
+CREATE TABLE IF NOT EXISTS `cdac_course_modules` (
   `row_id` bigint(20) NOT NULL,
-  `module_code` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `book_code` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+   `course_code` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `module_code` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+ ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `cdac_module_books`
+-- Dumping data for table `cdac_course_modules`
 --
 
-INSERT INTO `cdac_module_books` (`row_id`, `module_code`, `book_code`) VALUES
-(1, 'C', 'CB-1'),
-(2, 'JAVA', 'CB-15'),
-(3, 'NC', 'CB-10');
+INSERT INTO `cdac_course_modules` (`row_id`, `module_code`, `course_code`) VALUES
+(1, 'C', 'ADMCA'),
+(2, 'JAVA', 'ADMCA'),
+(3, 'NC', 'ADMCA');
+
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `cdac_module_books`
+-- Indexes for table `cdac_course_modules`
 --
-ALTER TABLE `cdac_module_books`
+ALTER TABLE `cdac_course_modules`
   ADD PRIMARY KEY (`row_id`);
 
 --
@@ -52,7 +53,7 @@ ALTER TABLE `cdac_module_books`
 --
 
 --
--- AUTO_INCREMENT for table `cdac_module_books`
+-- AUTO_INCREMENT for table `cdac_course_modules`
 --
-ALTER TABLE `cdac_module_books`
+ALTER TABLE `cdac_course_modules`
   MODIFY `row_id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;

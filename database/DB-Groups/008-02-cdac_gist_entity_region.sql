@@ -16,13 +16,13 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `arc_cdac_regions`;
+DROP TABLE IF EXISTS `cdac_entity_regions`;
 
 --
--- Table structure for table `arc_cdac_regions`
+-- Table structure for table `cdac_entity_regions`
 --
 
-CREATE TABLE IF NOT EXISTS `arc_cdac_regions` (
+CREATE TABLE IF NOT EXISTS `cdac_entity_regions` (
   `row_id` bigint(20) NOT NULL,
   `entity_code` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `region_code` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
@@ -33,9 +33,9 @@ CREATE TABLE IF NOT EXISTS `arc_cdac_regions` (
 --
 
 --
--- Indexes for table `arc_cdac_regions`
+-- Indexes for table `cdac_entity_regions`
 --
-ALTER TABLE `arc_cdac_regions`
+ALTER TABLE `cdac_entity_regions`
   ADD PRIMARY KEY (`row_id`);
 
 --
@@ -43,7 +43,7 @@ ALTER TABLE `arc_cdac_regions`
 --
 
 --
--- AUTO_INCREMENT for table `arc_cdac_regions`
+-- AUTO_INCREMENT for table `cdac_entity_regions`
 --
-ALTER TABLE `arc_cdac_regions`
+ALTER TABLE `cdac_entity_regions`
   MODIFY `row_id` bigint(20) NOT NULL AUTO_INCREMENT;

@@ -1,7 +1,6 @@
 --
 -- Drop table if exists `api_keys`
 --
-
 DROP TABLE IF EXISTS `api_keys`;
 
 --
