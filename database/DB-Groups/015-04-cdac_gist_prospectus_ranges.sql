@@ -22,41 +22,34 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `cdac_prospectus_request_logs`;
+DROP TABLE IF EXISTS `cdac_prospectus_ranges`;
 --
--- Table structure for table `cdac_prospectus_request_logs`
+-- Table structure for table `cdac_prospectus_ranges`
 --
 
-CREATE TABLE IF NOT EXISTS `cdac_prospectus_request_logs` (
+CREATE TABLE IF NOT EXISTS `cdac_prospectus_ranges` (
   `id` bigint(20) NOT NULL,
   `entity_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `prospectus_received_count` int(11) NOT NULL DEFAULT '0' COMMENT 'Received from CDAC/ARC',
-  `prospectus_dispatched_count` int(11) NOT NULL DEFAULT '0' COMMENT 'Dispatched to the requested ATC',
-  `prospectus_transaction_type` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT 'IN or OUT for reporting',
-  `to_entity_code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `prospectus_range_start` int(11) NOT NULL DEFAULT '0' ,
+  `prospectus_range_start` int(11) NOT NULL DEFAULT '0' ,
+  `prospectus_request_id` bigint(20) NULL ,
+  `status` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `processed_dt` date DEFAULT NULL,
-  `created_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_dt` date DEFAULT NULL,
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `modified_dt` date DEFAULT NULL
+  `modified_dt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `cdac_prospectus_request_logs`
---
-
-INSERT INTO `cdac_prospectus_request_logs` (`id`, `entity_code`, `prospectus_received_count`, `prospectus_dispatched_count`, `prospectus_transaction_type`, `to_entity_code`, `processed_dt`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
-(1, ' HPS11',  10, 8, 'IN', 'ATC', '2017-08-14', NULL, NULL, NULL, NULL),
-(2, 'Him-01',  10, 8, 'IN', 'ATC', '2017-08-14', NULL, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `cdac_prospectus_request_logs`
+-- Indexes for table `cdac_prospectus_ranges`
 --
-ALTER TABLE `cdac_book_request_logs`
+ALTER TABLE `cdac_prospectus_ranges`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -66,7 +59,7 @@ ALTER TABLE `cdac_book_request_logs`
 --
 -- AUTO_INCREMENT for table `cdac_prospectus_request_logs`
 --
-ALTER TABLE `cdac_prospectus_request_logs`
+ALTER TABLE `cdac_prospectus_ranges`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
