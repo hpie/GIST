@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `cdac_prospectus_ranges` (
   `id` bigint(20) NOT NULL,
   `entity_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `prospectus_range_start` int(11) NOT NULL DEFAULT '0' ,
-  `prospectus_range_start` int(11) NOT NULL DEFAULT '0' ,
+  `prospectus_range_end` int(11) NOT NULL DEFAULT '0' ,
   `prospectus_request_id` bigint(20) NULL ,
   `status` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `processed_dt` date DEFAULT NULL,

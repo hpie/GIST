@@ -56,7 +56,7 @@ INSERT INTO `cdac_prospectus_request_logs` (`id`, `entity_code`, `prospectus_rec
 --
 -- Indexes for table `cdac_prospectus_request_logs`
 --
-ALTER TABLE `cdac_book_request_logs`
+ALTER TABLE `cdac_prospectus_request_logs`
   ADD PRIMARY KEY (`id`);
 
 --

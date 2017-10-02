@@ -76,7 +76,7 @@ ALTER TABLE `cdac_prospectus_requests`
 --
 ALTER TABLE `cdac_prospectus_requests`
   ADD CONSTRAINT `cdac_prospectus_requests_ibfk_1` FOREIGN KEY (`entity_code`) REFERENCES `cdac_entities` (`entity_code`),
-  ADD CONSTRAINT `atc_prospectus_requests_ibfk_2` FOREIGN KEY (`requesting_to`) REFERENCES `cdac_entities` (`entity_code`)  ;
+  ADD CONSTRAINT `cdac_prospectus_requests_ibfk_2` FOREIGN KEY (`requesting_to`) REFERENCES `cdac_entities` (`entity_code`)  ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
