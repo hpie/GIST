@@ -23,7 +23,7 @@ drop table if exists `atc_student_enrolments`;
 --
 
 CREATE TABLE IF NOT EXISTS `atc_student_enrolments` (
-  `row_id` bigint(20) NOT NULL COMMENT 'This is the admission id of the registered student',
+  `id` bigint(20) NOT NULL COMMENT 'This is the admission id of the registered student',
   `student_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `course_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `start_dt` date NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `atc_student_enrolments` (
 -- Indexes for table `atc_student_enrolments`
 --
 ALTER TABLE `atc_student_enrolments`
-  ADD PRIMARY KEY (`row_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -55,4 +55,4 @@ ALTER TABLE `atc_student_enrolments`
 -- AUTO_INCREMENT for table `atc_student_enrolments`
 --
 ALTER TABLE `atc_student_enrolments`
-  MODIFY `row_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'This is the admission id of the registered student';
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'This is the admission id of the registered student';
