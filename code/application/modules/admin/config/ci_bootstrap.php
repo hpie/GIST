@@ -129,7 +129,8 @@ $config['ci_bootstrap'] = array(
 				'url'		=> 'courier',
 				'icon'		=> 'ion ion-edit',
 				'children'  => array(
-						'List'			=> 'courier',
+						'Received Couriers'			=> 'courier/received',
+						'Sent Couriers'				=> 'courier/sent',
 				)
 				
 		),
