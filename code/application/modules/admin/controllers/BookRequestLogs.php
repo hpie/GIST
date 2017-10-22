@@ -46,7 +46,8 @@ class BookRequestLogs extends Admin_Controller {
 			//$crud->field_type('order_code_fk', 'invisible');
 			//$crud->field_type('book_code_fk', 'invisible');
 			
-			$crud->field_type('issue_status','dropdown', array('Requested' => 'Requested', 'Issued' => 'Issued'));
+			$crud->field_type('issue_status','dropdown',
+					array('Requested' => 'Requested', 'Issued' => 'Issued'));
 			
 			$crud->field_type('modified_by', 'hidden', "system");
 		}
@@ -99,10 +100,10 @@ class BookRequestLogs extends Admin_Controller {
 		$crud->display_as('dispatched_dt','Dispatched Date');
 		$crud->display_as('received_count','Received Count');
 		$crud->display_as('received_dt','Received On');
-		
-		
+			
 		$crud->columns('book_code','requesting_count','entity_code','requesting_dt',
-				'dispatched_count','dispatched_dt','delivery_mode','delivery_reference','received_count','received_dt');
+				'dispatched_count','dispatched_dt','delivery_mode','delivery_reference',
+				'received_count','received_dt');
 		$crud->unset_delete();
 		$crud->unset_add();
 		$crud->unset_edit();
