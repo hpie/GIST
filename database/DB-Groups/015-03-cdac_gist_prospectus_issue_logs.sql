@@ -69,7 +69,7 @@ ALTER TABLE `atc_prospectus_book_issue_logs`
 -- Constraints for table `atc_prospectus_book_issue_logs`
 --
 ALTER TABLE `atc_prospectus_book_issue_logs`
-  ADD CONSTRAINT `atc_student_prospectus_issue_logs_ibfk_1` FOREIGN KEY (`enrolment_id`) REFERENCES `atc_student_enrollments` (`row_id`),
+  ADD CONSTRAINT `atc_student_prospectus_issue_logs_ibfk_1` FOREIGN KEY (`enrolment_id`) REFERENCES `atc_student_enrolments` (`row_id`),
   ADD CONSTRAINT `atc_student_prospectus_issue_logs_ibfk_5` FOREIGN KEY (`entity_code`) REFERENCES `cdac_entities` (`entity_code`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -130,7 +130,6 @@ class Courier extends Admin_Controller {
 			
 			$this->load->model('Cdac_courier_model', 'courier');
 			$this->row = $this->courier->get_by('row_id', $pk);
-			print_r($this->row);
 			
 			// requester cant edit request fields and responder's fields once the responder dispatches the request
 			

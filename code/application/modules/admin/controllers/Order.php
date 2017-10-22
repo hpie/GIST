@@ -68,18 +68,6 @@ class Order extends Admin_Controller {
 			$crud->edit_fields('order_code','book_code', 'requested_count','expected_delivery_dt',
 			'request_status', 'received_count',  'actual_delivery_dt', 'reason_for_loss', 'comments', 'table_name');
 			
-			//Relation with Status : for request_status
-			//$crud->set_relation('request_status','cdac_status','{status_code}-{status_title}',array('status_group' => 'ORD-STS', 'status_mode' => 'E', 'status' => 'A'), 'status_code, status_title ASC');
-			
-			//Relation with Status : for reason_for_loss
-			//$crud->set_relation('reason_for_loss','cdac_status','{status_code}-{status_title}',array('status_group' => 'ORD-RES', 'status_mode' => 'E', 'status' => 'A'), 'status_code, status_title ASC');
-			
-			// get status value
-			//validate if status completed
-				
-			// if status received make received count etc mandatory
-			
-			// Make these readonly and also accessible for callback update_log_after_update
 			$crud->field_type('order_code', 'hidden');
 			$crud->field_type('book_code', 'hidden');
 			
@@ -266,8 +254,8 @@ class Order extends Admin_Controller {
 			
 			$crud->field_type('modified_by', 'hidden', $loggedinUser->username);
 			
-			$this->load->model('Cdac_book_request_model', 'bookOrder');
-			$this->row = $this->bookOrder->get_by('id', $pk);
+			$this->load->model('Cdac_book_request_model', 'bookRequest');
+			$this->row = $this->bookRequest->get_by('id', $pk);
 			
 			if($this->row->request_status == 'REQ' || $this->row->request_status == 'DISP')
 			{
