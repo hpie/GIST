@@ -22,21 +22,22 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `atc_prospectus_book_issue_logs`;
+DROP TABLE IF EXISTS `atc_prospectus_issue_logs`;
 --
--- Table structure for table `atc_prospectus_book_issue_logs`
+-- Table structure for table `atc_prospectus_issue_logs`
 --
 
-CREATE TABLE IF NOT EXISTS `atc_prospectus_book_issue_logs` (
-  `row_id` bigint(20) NOT NULL,
-  `enrolment_id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `atc_prospectus_issue_logs` (
+  `id` bigint(20) NOT NULL,
+  `prospectus_code` varchar(20) NOT NULL,
+  `enrolment_id` bigint(20) NULL,
   `entity_code` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `issue_status` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `prospectus_issue_dt` date NOT NULL,
-  `created_by` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `created_dt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_by` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `modified_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `status` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `prospectus_issue_dt` date NULL,
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `modified_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `modified_dt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 
@@ -45,10 +46,11 @@ CREATE TABLE IF NOT EXISTS `atc_prospectus_book_issue_logs` (
 --
 
 --
--- Indexes for table `atc_prospectus_book_issue_logs`
+-- Indexes for table `atc_prospectus_issue_logs`
 --
-ALTER TABLE `atc_prospectus_book_issue_logs`
-  ADD PRIMARY KEY (`row_id`),
+ALTER TABLE `atc_prospectus_issue_logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY (`prospectus_code`),
   ADD KEY `enrolment_id` (`enrolment_id`),
   ADD KEY `entity_code` (`entity_code`);
 
@@ -57,20 +59,26 @@ ALTER TABLE `atc_prospectus_book_issue_logs`
 --
 
 --
--- AUTO_INCREMENT for table `atc_prospectus_book_issue_logs`
+-- AUTO_INCREMENT for table `atc_prospectus_issue_logs`
 --
-ALTER TABLE `atc_prospectus_book_issue_logs`
-  MODIFY `row_id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+ALTER TABLE `atc_prospectus_issue_logs`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `atc_prospectus_book_issue_logs`
+-- Constraints for table `atc_prospectus_issue_logs`
 --
+<<<<<<< HEAD
 ALTER TABLE `atc_prospectus_book_issue_logs`
   ADD CONSTRAINT `atc_student_prospectus_issue_logs_ibfk_1` FOREIGN KEY (`enrolment_id`) REFERENCES `atc_student_enrolments` (`row_id`),
   ADD CONSTRAINT `atc_student_prospectus_issue_logs_ibfk_5` FOREIGN KEY (`entity_code`) REFERENCES `cdac_entities` (`entity_code`);
+=======
+ALTER TABLE `atc_prospectus_issue_logs`
+  ADD CONSTRAINT `atc_prospectus_issue_logs_ibfk_1` FOREIGN KEY (`enrolment_id`) REFERENCES `atc_student_enrolments` (`id`),
+  ADD CONSTRAINT `atc_prospectus_issue_logs_ibfk_5` FOREIGN KEY (`entity_code`) REFERENCES `cdac_entities` (`entity_code`);
+>>>>>>> d45c4977550a5ef7c99925d27267c771f2b21348
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

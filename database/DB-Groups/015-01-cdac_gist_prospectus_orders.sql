@@ -20,15 +20,15 @@ SET time_zone = "+00:00";
 -- Database: `cdac_gist`
 --
 
-DROP TABLE IF EXISTS `cdac_prospectus_requests`;
+DROP TABLE IF EXISTS `cdac_prospectus_orders`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cdac_prospectus_requests`
+-- Table structure for table `cdac_prospectus_orders`
 --
 
-CREATE TABLE IF NOT EXISTS `cdac_prospectus_requests` (
+CREATE TABLE IF NOT EXISTS `cdac_prospectus_orders` (
   `id` bigint(20) NOT NULL,
   `entity_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `requesting_to` varchar(20) COLLATE utf8_unicode_ci NOT NULL,  
@@ -40,8 +40,6 @@ CREATE TABLE IF NOT EXISTS `cdac_prospectus_requests` (
   `dispatched_dt` date DEFAULT NULL,
   `delivery_mode` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `delivery_reference` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `start_range` int(11) default NULL,
-  `start_range` int(11) default NULL,
   `received_dt` date DEFAULT NULL,
   `received_count` int(11) DEFAULT NULL,
   `reason_for_loss` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -53,9 +51,9 @@ CREATE TABLE IF NOT EXISTS `cdac_prospectus_requests` (
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Indexes for table `cdac_prospectus_requests`
+-- Indexes for table `cdac_prospectus_orders`
 --
-ALTER TABLE `cdac_prospectus_requests`
+ALTER TABLE `cdac_prospectus_orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `entity_code` (`entity_code`);
   
@@ -65,20 +63,20 @@ ALTER TABLE `cdac_prospectus_requests`
 --
 
 --
--- AUTO_INCREMENT for table `cdac_prospectus_requests`
+-- AUTO_INCREMENT for table `cdac_prospectus_orders`
 --
-ALTER TABLE `cdac_prospectus_requests`
+ALTER TABLE `cdac_prospectus_orders`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `cdac_prospectus_requests`
+-- Constraints for table `cdac_prospectus_orders`
 --
-ALTER TABLE `cdac_prospectus_requests`
-  ADD CONSTRAINT `cdac_prospectus_request_ibfk_1` FOREIGN KEY (`entity_code`) REFERENCES `cdac_entities` (`entity_code`),
-  ADD CONSTRAINT `cdac_prospectus_request_ibfk_2` FOREIGN KEY (`requesting_to`) REFERENCES `cdac_entities` (`entity_code`)  ;
+ALTER TABLE `cdac_prospectus_orders`
+  ADD CONSTRAINT `cdac_prospectus_orders_ibfk_1` FOREIGN KEY (`entity_code`) REFERENCES `cdac_entities` (`entity_code`),
+  ADD CONSTRAINT `cdac_prospectus_orders_ibfk_2` FOREIGN KEY (`requesting_to`) REFERENCES `cdac_entities` (`entity_code`)  ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
