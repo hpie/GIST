@@ -180,7 +180,15 @@ $config['ci_bootstrap'] = array(
 			)
 				
 		),
-		
+			'prospectusrequests' => array(
+					'name'		=> 'Prospectus Requests',
+					'url'		=> 'prospectusrequests',
+					'icon'		=> 'ion ion-edit',
+					'children'  => array(
+							'My Requests'			=> 'prospectusrequests/requestedByMe',
+							'Requested to me'		=> 'prospectusrequests/requestedToMe',
+					)
+		),
 		'region' => array(
 			'name'		=> 'Region Codes',
 			'url'		=> 'region',
