@@ -252,6 +252,8 @@ $config['ci_bootstrap'] = array(
 		'order/cdacBookOrders'				=> array('webmaster','admin'),
 		'order/bookRequestsToMe'			=> array('webmaster','manager'),
 		'order/bookRequestsByMe'			=> array('webmaster','manager','staff'),
+		'prospectusrequests/requestedToMe'	=> array('webmaster','manager'),
+		'prospectusrequests/requestedByMe'	=> array('webmaster','manager','staff'),
 			
 	),
 

@@ -27,7 +27,6 @@ class ProspectusRequests extends Admin_Controller {
 				'dispatched_count','dispatched_dt','delivery_mode','delivery_reference','received_count','received_dt');
 		
 		$crud->unset_delete();
-		$crud->unset_add();
 		$crud->unset_edit();
 		
 		$this->mPageTitle = 'Prospectus Request Logs';
@@ -47,7 +46,6 @@ class ProspectusRequests extends Admin_Controller {
 		$crud->display_as('received_count','Received Count');
 		$crud->display_as('received_dt','Received On');
 		
-		
 		$crud->columns('requesting_count','entity_code','requesting_dt',
 				'dispatched_count','dispatched_dt','delivery_mode','delivery_reference','received_count','received_dt');
 		$crud->unset_delete();
@@ -60,7 +58,7 @@ class ProspectusRequests extends Admin_Controller {
 	
 	public function cdac()
 	{
-		$crud = $this->generate_crud('cdac_book_request_logs');
+		$crud = $this->generate_crud('cdac_prospectus_orders');
 		
 		$crud->display_as('order_code','Order Code');
 		$crud->display_as('book_code','Book Code');
