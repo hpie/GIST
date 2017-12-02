@@ -1,6 +1,73 @@
 <?php 
 
 class Atc_student_course_model extends MY_Model {
+
+	public function getEnrolledCourse($start,$limit,$sidx,$sord,$where) {
+
+		$access_type = $this->db->get_where('users', array('id' => $this->session->userdata('user_id'), 'email' => $this->session->userdata('email'))) -> row_array();
+
+		if($access_type['acsess_to'] == "ATC") {
+			$this->db->select('asc.*, cc.course_name, cc.course_description, ccc.course_category, ccc.course_category_description');
+			$this->db->limit($limit);
+			$this->db->join('cdac_courses cc', 'cc.course_code = asc.course_code', 'left');
+			$this->db->join('cdac_courses_category ccc', 'ccc.course_category = cc.course_category', 'left');
+			//$this->db->join('cdac_course_modules ccm', 'ccm.course_code = cc.course_code', 'left');			
+			$this->db->join('atc_student_registrations asr', 'asr.student_id = asc.student_id', 'left');
+			$this->db->where('asr.atc_code', $access_type['entity_code']);
+			if($where != NULL)$this->db->where($where,NULL,FALSE);
+		    $this->db->order_by($sidx." ".$sord);
+			$data = $this->db->get('atc_student_courses asc',$limit,$start);
+		} else if($access_type['acsess_to'] == "ARC") {
+			$this->db->select('asc.*, cc.course_name, cc.course_description, ccc.course_category, ccc.course_category_description');
+			$this->db->limit($limit);
+			$this->db->join('cdac_courses cc', 'cc.course_code = asc.course_code', 'left');
+			$this->db->join('cdac_courses_category ccc', 'ccc.course_category = cc.course_category', 'left');
+			//$this->db->join('cdac_course_modules ccm', 'ccm.course_code = cc.course_code', 'left');
+			$this->db->join('atc_student_registrations asr', 'asr.student_id = asc.student_id', 'left');
+			$this->db->join('cdac_entities ce', 'ce.entity_code = asr.atc_code', 'left');
+			$this->db->where('ce.entity_parent_code', $access_type['entity_code']);
+			if($where != NULL)$this->db->where($where,NULL,FALSE);
+		    $this->db->order_by($sidx." ".$sord);
+			$data = $this->db->get('atc_student_courses asc',$limit,$start);
+		} else if($access_type['acsess_to'] == "CDAC") {
+			//$this->db->select('asc.*');
+			$this->db->select('asc.*, cc.course_name, cc.course_description, ccc.course_category, ccc.course_category_description');
+			$this->db->limit($limit);
+			$this->db->join('cdac_courses cc', 'cc.course_code = asc.course_code', 'left');
+			$this->db->join('cdac_courses_category ccc', 'ccc.course_category = cc.course_category', 'left');
+			//$this->db->join('cdac_course_modules ccm', 'ccm.course_code = cc.course_code', 'left');
+			if($where != NULL)$this->db->where($where,NULL,FALSE);
+		    $this->db->order_by($sidx." ".$sord);
+			$data = $this->db->get('atc_student_courses asc',$limit,$start);
+		}
+		//echo "==========>>>>>>>>>>>>>>>>>>> <pre>". $this->db->last_query(); print_r($data->result()); exit;
+		return $data->result();
+	}
+
+	public function getAllEnrolledCourse($where = "") {
+
+		$access_type = $this->db->get_where('users', array('id' => $this->session->userdata('user_id'), 'email' => $this->session->userdata('email'))) -> row_array();
+
+		if($access_type['acsess_to'] == "ATC") {
+			$this->db->select('asc.*');
+			$this->db->join('atc_student_registrations asr', 'asr.student_id = asc.student_id', 'left');
+			$this->db->where('asr.atc_code', $access_type['entity_code']);
+			if($where != "")$this->db->where($where,NULL,FALSE);
+			$data = $this->db->get('atc_student_courses asc');
+		} else if($access_type['acsess_to'] == "ARC") {
+			$this->db->select('asc.*');
+			$this->db->join('atc_student_registrations asr', 'asr.student_id = asc.student_id', 'left');
+			$this->db->join('cdac_entities ce', 'ce.entity_code = asr.atc_code', 'left');
+			$this->db->where('ce.entity_parent_code', $access_type['entity_code']);
+			if($where != "")$this->db->where($where,NULL,FALSE);
+			$data = $this->db->get('atc_student_courses asc');
+		} else if($access_type['acsess_to'] == "CDAC") {
+			$this->db->select('asc.*');
+			if($where != "")$this->db->where($where,NULL,FALSE);
+			$data = $this->db->get('atc_student_courses asc');
+		}
+		return $data->result();
+	}
 		
 	//function __construct()
 	//{

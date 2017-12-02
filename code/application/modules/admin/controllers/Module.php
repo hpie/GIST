@@ -26,7 +26,7 @@ class Module extends Admin_Controller {
 		//}
 		
 		//Relation with Status
-		$crud->set_relation('module_status','cdac_status','{status_code}-{status_title}',array('status' => 'A'), 'status_code, status_title ASC');
+		$crud->set_relation('module_status','cdac_status','{status_code}-{status_title}',array('status' => 'A',  'status_group' => 'GEN' ), 'status_code, status_title ASC');
 		
 		//Show only in ADD
 		$crud->add_fields('module_code', 'module_name', 'module_description', 'module_status');

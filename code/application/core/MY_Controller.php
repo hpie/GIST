@@ -273,6 +273,39 @@ class MY_Controller extends MX_Controller {
 		else
 			array_unshift($this->mBreadcrumb, $entry);
 	}
+        
+        //upload Document 
+        protected function add_document($file_name, $dir_name,$allowed_file_type,$prefix) {
+            $doc_name = '';
+            $dir_path = UPLOAD_FILE_PATH . '/' . $dir_name; //creating path till folder
+            if(!empty($allowed_file_type)){
+                $file_type_exe = implode("|",$allowed_file_type);
+            }else{
+                $file_type_exe = 'jpeg';
+            }
+            if (!is_dir($dir_path)) { //check if folder exists or not if not create new with that name
+                mkdir($dir_path);
+            }
+            $new_name = $prefix."_".$_FILES["$file_name"]['name'];
+            $config['upload_path'] = $dir_path;
+            $config['allowed_types'] = $file_type_exe;
+            $config['max_size'] = 0;
+            $config['file_name'] = $new_name;
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            if (!$this->upload->do_upload($file_name)) {
+                $data = array(
+                    'error' => $this->upload->display_errors()
+                );
+            } else {
+                $data = array(
+                    'upload_data' => $this->upload->data()
+                );
+            }
+            
+            return $data;
+    }
+
 }
 
 // include base controllers

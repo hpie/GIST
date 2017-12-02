@@ -66,6 +66,7 @@
 				
 			<?php echo $form->bs3_text('Institute Name', 'institute_name'); ?>
 			<?php echo $form->bs3_text('Board / University', 'board_name'); ?>
+                        <?php echo $form->bs3_file('Qualification Document', 'qualification_doc'); ?>
 			
 			<p><?php echo $form->field_recaptcha(); ?></p>
 			<!-- <button type="button" class="btn btn-previous">Previous</button>  -->

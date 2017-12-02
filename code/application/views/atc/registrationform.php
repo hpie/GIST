@@ -216,8 +216,8 @@
 				<div>
 					<select name="student_status" id="student_status">
 						<option value="">-- Choose a Value --</option>
-						<option value="E">Enrolled</option>
-						<option value="P">Prospectus Submitted</option>
+						<option value="E">Registered</option>
+						<option value="P">Pending</option>
 					</select>
 				</div>
 		</div>

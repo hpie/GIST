@@ -74,7 +74,7 @@
 		</div>	
 		
 		<div class="form-group">
-			<label for="end_dt">Course Start Date</label>
+			<label for="end_dt">Course End Date</label>
 			    <input type='text' class="form-control" name="end_dt" id="end_dt"/>
 						
 				<script type="text/javascript">

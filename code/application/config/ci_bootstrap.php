@@ -147,7 +147,10 @@ $config['ci_bootstrap'] = array(
 				'List Courses'			=> 'atc/courses',
 				'List Enquiries'		=> 'atc/enquiries',
 				'List Enrollments'		=> 'atc/enrollments',
-				'List Registrations'	=> 'atc/registrations'
+				'List Registrations'		=> 'atc/registrations',
+                            	'List Documents'		=> 'atc/documents',
+				'Book Issue Log'		=> 'atc/book_issue_log',
+				'Couriers'			=> 'atc/couriers'
 		
 			)
 		),
@@ -157,10 +160,14 @@ $config['ci_bootstrap'] = array(
 			'icon'		=> 'fa fa-home',
 			'children'  => array(
 				'List Enquiries'		=> 'arc/enquiries',
-				'List Registrations'	=> 'arc/registrations',
+				'List Registrations'		=> 'arc/registrations',
 				'List Enrollments'		=> 'arc/enrollments',
-				'List ATCs'				=> 'arc/centers',
-				'List Courses'			=> 'atc/courses'
+				'List ATCs'			=> 'arc/centers',
+				'List Courses'			=> 'arc/courses',
+                                'List Documents'		=> 'arc/documents',
+				'Book Issue Log'		=> 'arc/book_issue_log',
+				'Couriers'			=> 'arc/couriers',
+				'List Courses'			=> 'atc/courses',
 			)
 		),
 		'cdac' => array(
@@ -172,7 +179,10 @@ $config['ci_bootstrap'] = array(
 				'List Registrations'	=> 'cdac/registrations',
 				'List Enrollments'		=> 'cdac/enrollments',
 				'List ATCs'				=> 'cdac/centers',
-				'List Courses'			=> 'cdac/courses'
+				'List Courses'			=> 'cdac/courses',
+                		'List Documents'		=> 'cdac/documents',
+				'Book Issue Log'		=> 'cdac/book_issue_log',
+				'Couriers'			=> 'cdac/couriers'
 			)
 		),
 		'student' => array(
@@ -242,6 +252,7 @@ $config['ci_bootstrap'] = array(
 		// Example: Frontend Website pages for registered users
 		'dashboard'					=> array('members'),
 		'account'					=> array('members','arcusers','atcusers','atcteachers','atcstudents'),
+		'ajax/studentid'			=> array('members','arcusers','atcusers','atcteachers','atcstudents'),
 		'cdac/enquiries'			=> array('members'),
 		'cdac/registrations'			=> array('members'),
 		'cdac/enrollments'			=> array('members'),

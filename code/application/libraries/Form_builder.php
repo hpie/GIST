@@ -171,7 +171,13 @@ class Form {
 	{
 		return form_dropdown($name, $options, $selected, $extra);
 	}
-
+        // Input field (type = file)
+	public function field_file($name, $value = NULL, $extra = array())
+	{
+		$data = array('type' => 'file', 'id' => $name, 'name' => $name);
+		$value = ($value===NULL) ? $this->get_field_value($name) : $value;
+		return form_input($data, $value, $extra);
+	}
 	/**
 	 * reCAPTCHA
 	 */
@@ -232,7 +238,11 @@ class Form {
 		$extra['class'] = 'form-control';
 		return '<div class="form-group">'.form_label($label, $name).$this->field_dropdown($name, $options, $selected, $extra).'</div>';;
 	}
-
+        public function bs3_file($label, $name, $value = NULL, $extra = array())
+	{
+		$extra['class'] = 'form-control';
+		return '<div class="form-group">'.form_label($label, $name).$this->field_file($name, $value, $extra).'</div>';
+	}
 	public function bs3_submit($label = 'Submit', $class = 'btn btn-primary', $extra = array())
 	{
 		$extra['class'] = $class;

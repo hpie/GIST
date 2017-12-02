@@ -125,4 +125,75 @@ class Atc extends Admin_Controller {
 		$this->render_crud();
 	}
 	
+	public function course()
+	{
+		$crud = $this->generate_crud('atc_courses');
+		
+		$crud->display_as('entity_code','ATC Code');
+		$crud->display_as('course_code','Course Code');
+		//$crud->display_as('course_name','Course Name');
+		$crud->display_as('course_description','Description');
+		$crud->display_as('course_status','Status');
+		
+		//$crud->columns('center_code', 'center_name', 'center_address_line1', 'center_address_line2', 'center_address_city', 'center_address_postcode', 'center_contact_number', 'center_type', 'center_code', 'active');
+		//$crud->columns('entity_code','course_code', 'course_name', 'cdac_modules', 'course_description', 'course_status');
+		$crud->columns('entity_code','course_code', 'course_description', 'course_status');
+		
+		//$crud->set_relation('arc_address_state', 'cdac_states', 'state_name');
+		//$crud->set_relation('arc_address_city', 'cdac_cities', 'city_name');
+		//Relation with Entity
+		$crud->set_relation('entity_code','cdac_entities','{entity_code}-{entity_name}',array('entity_type' => 'ATC', 'entity_status' => 'A',), 'entity_code, entity_name ASC');
+		
+		//Relation with Course
+		$crud->set_relation('course_code','cdac_courses','{course_code}-{course_name}',array('course_status' => 'A'), 'course_code, course_name ASC');
+		
+		//only webmaster and admin can change member groups
+		//if ($crud->getState()=='list' || $this->ion_auth->in_group(array('webmaster', 'admin')))
+		//{
+			//$crud->set_relation_n_n('cdac_modules', 'cdac_course_modules', 'cdac_modules', 'course_code', 'module_code', 'module_name');
+		//}
+		
+		//Relation with Status
+		$crud->set_relation('course_status','cdac_status','{status_code}-{status_title}',array('status' => 'A'), 'status_code, status_title ASC');
+		
+		//Show only in ADD
+		$crud->add_fields('entity_code', 'course_code', 'course_description', 'course_status');
+		
+		//Show only for Update
+		$crud->edit_fields('entity_code', 'course_code', 'course_description', 'course_status');
+		
+			
+		$state = $crud->getState();
+    	$state_info = $crud->getStateInfo();
+		
+		if ($state == 'add' || $state == 'insert_validation' || $state == 'insert')
+		{
+			//Mandatory Feilds
+			$crud->required_fields('entity_code', 'course_code', 'course_status');
+			//$crud->getModel()->set_add_value('created_by', "system");	
+			$crud->field_type('created_by', 'hidden', $this->mUser->username);
+			//TODO
+			// Make prospectus_number and mandatory if  enquiry_status == "P"
+		}
+		elseif ($state == 'edit' || $state == 'update_validation' || $state == 'update')
+		{
+			//Mandatory Feilds
+			$crud->required_fields('course_status');
+			$crud->field_type('entity_code', 'readonly');
+			$crud->field_type('course_code', 'readonly');
+			$crud->field_type('modified_by', 'hidden', $this->mUser->username);
+		}
+		else
+		{
+			//$this->_example_output($output);
+		}
+		
+		// disable direct create / delete Frontend User
+		//$crud->unset_add();
+		$crud->unset_delete();
+
+		$this->mPageTitle = 'ATC Courses';
+		$this->render_crud();
+	}
+	
 }

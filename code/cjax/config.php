@@ -19,7 +19,7 @@ $config->ajax_file = '/ajax.php';
  * Setting to where the js directory is.
  * Eg: http://yoursite.com/cjax/
  */
-$config->js_path = 'http://localhost/cjax/core/js/';
+$config->js_path = 'http://localhost/code/cjax/core/js/';
 
 
 /**

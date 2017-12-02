@@ -146,6 +146,7 @@ class Order extends Admin_Controller {
 		$crud->set_relation('requesting_to','cdac_entities','{entity_code}-{entity_name}',
 				array('entity_status' => 'A'), 'entity_code, entity_name ASC');
 		
+		
 		$crud->set_relation('reason_for_loss','cdac_status','{status_code}-{status_title}',
 				array('status_group' => 'ORD-RES', 'status' => 'A'), 'status_code, status_title ASC');
 		

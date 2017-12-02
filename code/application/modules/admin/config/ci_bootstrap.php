@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $config['ci_bootstrap'] = array(
 
 	// Site name
-	'site_name' => 'Admin Panel',
+	'site_name' => 'CDAC Admin Panel',
 
 	// Default page title prefix
 	'page_title_prefix' => '',
@@ -88,6 +88,7 @@ $config['ci_bootstrap'] = array(
 			'icon'		=> 'ion ion-edit',
 			'children'  => array(
 				'List'			=> 'atc',
+				'Courses of Atc' 	=> 'atc/course',
 			)
 		),
 		'book' => array(

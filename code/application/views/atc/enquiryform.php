@@ -94,7 +94,7 @@
 				<script type="text/javascript">
 				$("input[type='radio']").click(function() {
 					var selVal = $("input[name='enquiry_status']:checked").val();
-					alert(selVal);
+					//alert(selVal);
 					  if(selVal=="P")
 					  {
 						  $("#prospectus_number_div").show(500);
@@ -121,7 +121,7 @@
 	<?php echo $form->bs3_text('Phone', 'enquiry_phone'); ?>
 	
 	<?php echo $form->bs3_textarea('Notes', 'enquiry_notes'); ?>
-	
+            
 	</fieldset>
 	
 	<p><?php echo $form->field_recaptcha(); ?></p>
