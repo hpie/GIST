@@ -181,7 +181,15 @@ $config['ci_bootstrap'] = array(
 			)
 				
 		),
-		
+			'prospectusrequests' => array(
+					'name'		=> 'Prospectus Requests',
+					'url'		=> 'prospectusrequests',
+					'icon'		=> 'ion ion-edit',
+					'children'  => array(
+							'My Requests'			=> 'prospectusrequests/requestedByMe',
+							'Requested to me'		=> 'prospectusrequests/requestedToMe',
+					)
+		),
 		'region' => array(
 			'name'		=> 'Region Codes',
 			'url'		=> 'region',
@@ -245,6 +253,8 @@ $config['ci_bootstrap'] = array(
 		'order/cdacBookOrders'				=> array('webmaster','admin'),
 		'order/bookRequestsToMe'			=> array('webmaster','manager'),
 		'order/bookRequestsByMe'			=> array('webmaster','manager','staff'),
+		'prospectusrequests/requestedToMe'	=> array('webmaster','manager'),
+		'prospectusrequests/requestedByMe'	=> array('webmaster','manager','staff'),
 			
 	),
 
