@@ -33,7 +33,9 @@ CREATE TABLE IF NOT EXISTS `cdac_prospectus_orders` (
   `entity_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `requesting_to` varchar(20) COLLATE utf8_unicode_ci NOT NULL,  
   `requesting_count` int(11) NOT NULL,
-  `requesting_dt` date NOT NULL,
+  `range_from` int(11) NOT NULL,
+  `range_to` int(11) NOT NULL,
+  `requesting_dt` date NOT NULL, 
   `expected_dt` date DEFAULT NULL,
   `request_status` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `dispatched_count` int(11) NOT NULL,
@@ -75,9 +77,8 @@ ALTER TABLE `cdac_prospectus_orders`
 -- Constraints for table `cdac_prospectus_orders`
 --
 ALTER TABLE `cdac_prospectus_orders`
-  ADD CONSTRAINT `cdac_prospectus_orders_ibfk_1` FOREIGN KEY (`entity_code`) REFERENCES `cdac_entities` (`entity_code`),
-  ADD CONSTRAINT `cdac_prospectus_orders_ibfk_2` FOREIGN KEY (`requesting_to`) REFERENCES `cdac_entities` (`entity_code`)  ;
-
+  ADD CONSTRAINT `cdac_prospectus_orders_ibfk_1` FOREIGN KEY (`entity_code`) REFERENCES `cdac_entities` (`entity_code`);
+  
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

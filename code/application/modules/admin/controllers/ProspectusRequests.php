@@ -22,7 +22,6 @@ class ProspectusRequests extends Admin_Controller {
 		$crud->display_as('received_count','Received Count');
 		$crud->display_as('received_dt','Received On');
 		
-		
 		$crud->columns('requesting_count','requesting_to','requesting_dt',
 				'dispatched_count','dispatched_dt','delivery_mode','delivery_reference','received_count','received_dt');
 		
@@ -60,7 +59,6 @@ class ProspectusRequests extends Admin_Controller {
 	{
 		$crud = $this->generate_crud('cdac_prospectus_orders');
 		
-		$crud->display_as('order_code','Order Code');
 		$crud->display_as('book_code','Book Code');
 		$crud->display_as('book_transaction_type','Transaction Type');
 		$crud->display_as('requested_entity_type','Requester');
