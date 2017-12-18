@@ -188,6 +188,7 @@ $config['ci_bootstrap'] = array(
 					'children'  => array(
 							'My Requests'			=> 'prospectusrequests/requestedByMe',
 							'Requested to me'		=> 'prospectusrequests/requestedToMe',
+							'New Orders'			=> 'prospectusrequests/cdacOrders',
 					)
 		),
 		'region' => array(
@@ -251,10 +252,11 @@ $config['ci_bootstrap'] = array(
 		'bookrequestlogs/requestedByMe'		=> array('webmaster','admin','manager','staff'),
 		'bookrequestlogs/students'			=> array('webmaster','staff'),
 		'order/cdacBookOrders'				=> array('webmaster','admin'),
-		'order/bookRequestsToMe'			=> array('webmaster','manager'),
+		'order/bookRequestsToMe'			=> array('webmaster','admin','manager'),
 		'order/bookRequestsByMe'			=> array('webmaster','manager','staff'),
-		'prospectusrequests/requestedToMe'	=> array('webmaster','manager'),
-		'prospectusrequests/requestedByMe'	=> array('webmaster','manager','staff'),
+		'prospectusrequests/cdacOrders'		=> array('webmaster','admin'),
+		'prospectusrequests/requestedToMe'	=> array('webmaster','admin','manager'),
+		'prospectusrequests/requestedByMe'	=> array('webmaster','admin','manager','staff'),
 			
 	),
 
